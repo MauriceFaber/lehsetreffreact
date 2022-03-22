@@ -7,7 +7,8 @@ import Messages from "./components/Messages/Messages";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ErrorPage from "./pages/ErrorPage";
 
-export const domain = "https://api.lehsetreff.de";
+export const domain = "https://octopi.mauricefaber.de";
+// export const domain = "https://api.lehsetreff.de";
 // export const domain = "http://raspberrypi:8080/lehsetreff";
 
 export default function App() {
