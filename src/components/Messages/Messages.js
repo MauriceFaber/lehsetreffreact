@@ -14,10 +14,10 @@ export default function Messages() {
   }, []);
 
   async function loadMessages(threadId) {
-    // let request = new Request(domain + "/messages?threadId=" + threadId);
-    // let data = await fetch(request);
-    // data = await data.json();
-    // setMessages(data);
+    let request = new Request(domain + "/messages?threadId=" + threadId);
+    let data = await fetch(request);
+    data = await data.json();
+    setMessages(data);
   }
 
   if (messages.length == 0) {

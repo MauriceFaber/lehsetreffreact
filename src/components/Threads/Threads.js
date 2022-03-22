@@ -15,11 +15,11 @@ export default function Threads() {
   }, []);
 
   async function loadThreads(groupId) {
-    // let request = new Request(domain + "/threads?threadGroupID=" + groupId);
-    // let data = await fetch(request);
-    // console.log(data);
-    // data = await data.json();
-    // setThreads(data);
+    let request = new Request(domain + "/threads?threadGroupID=" + groupId);
+    let data = await fetch(request);
+    console.log(data);
+    data = await data.json();
+    setThreads(data);
   }
 
   if (threads.length == 0) {

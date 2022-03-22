@@ -14,8 +14,8 @@ export const domain = "https://octopi.mauricefaber.de";
 export default function App() {
   const [currentThreadGroups, setThreadGroups] = useState([]);
   useEffect(async () => {
-    // const request = new Request(domain + "/threadGroups");
-    let data = await fetch(domain + "/threadGroups");
+    const request = new Request(domain + "/threadGroups");
+    let data = await fetch(request);
     data = await data.json();
     setThreadGroups(data);
   }, []);
