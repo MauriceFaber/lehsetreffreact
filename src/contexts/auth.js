@@ -13,31 +13,29 @@ export default function AuthProvider(props) {
     try {
       setLoading(true);
 
-      setTimeout(async () => {
-        let request = new Request(domain + "/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-          },
-          body: `userName=${username}&passphrase=${password}`,
+      let request = new Request(domain + "/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        },
+        body: `userName=${username}&passphrase=${password}`,
+      });
+
+      let result = undefined;
+
+      await fetch(request)
+        .then(async (returnedResponse) => {
+          result = await returnedResponse.json();
+          localStorage.setItem("apiKey", result.apiKey);
+          console.log("logged in");
+        })
+        .catch((error) => {
+          console.log("error logging in");
         });
+      console.log(result);
 
-        let result = undefined;
-
-        await fetch(request)
-          .then(async (returnedResponse) => {
-            result = await returnedResponse.json();
-            localStorage.setItem("apiKey", result.apiKey);
-            console.log("logged in");
-          })
-          .catch((error) => {
-            console.log("error logging in");
-          });
-        console.log(result);
-
-        setUser(result);
-        setAuthenticated(true);
-      }, 10000);
+      setUser(result);
+      setAuthenticated(true);
 
       return true;
     } catch (err) {
