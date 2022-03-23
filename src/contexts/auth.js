@@ -37,7 +37,7 @@ export default function AuthProvider(props) {
 
         setUser(result);
         setAuthenticated(true);
-      }, 2000);
+      }, 10000);
 
       return true;
     } catch (err) {
