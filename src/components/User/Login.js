@@ -9,8 +9,9 @@ export default function Login() {
   const { authenticated, signIn } = useAuth();
 
   async function handleSubmit() {
-    console.log(username, password);
     await signIn(username, password);
+    setUserName("");
+    setPassword("");
   }
 
   if (authenticated) {
