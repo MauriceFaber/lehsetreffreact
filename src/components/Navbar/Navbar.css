@@ -45,6 +45,7 @@
   text-decoration: none;
   padding: 0.5rem 1rem;
 }
+
 .nav-links:hover {
   background-color: #6d76f7;
   border-radius: 4px;
@@ -144,4 +145,13 @@
   Button {
     display: none;
   }
+}
+
+.navbar-avatar {
+  height: 40px;
+  width: 40px;
+  margin-left: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  transform: translate(0%, 40%);
 }
