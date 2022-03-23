@@ -10,8 +10,6 @@ export default function Login() {
 
   async function handleSubmit() {
     await signIn(username, password);
-    setUserName("");
-    setPassword("");
   }
 
   if (authenticated) {
@@ -29,14 +27,12 @@ export default function Login() {
           <input
             onChange={(e) => setUserName(e.target.value)}
             type="text"
-            value={username}
           ></input>
         </label>
         <label>
           Passwort
           <input
             onChange={(e) => setPassword(e.target.value)}
-            value={password}
             type="password"
           ></input>
         </label>
