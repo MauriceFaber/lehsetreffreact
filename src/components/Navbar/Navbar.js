@@ -3,7 +3,7 @@ import { MenuItems } from "./MenuItems";
 import "./Navbar.css";
 import { Button } from "../Button";
 
-export default function Navbar(links) {
+export default function Navbar({ links }) {
   const [clicked, setClicked] = useState(false);
 
   function handleClick() {
@@ -27,7 +27,7 @@ export default function Navbar(links) {
         <i className={clicked ? "fas fa-times" : "fas fa-bars"}></i>
       </div>
       <ul className={clicked ? "nav-menu active" : "nav-menu"}>
-        {links.links.map((item, index) => {
+        {links.map((item, index) => {
           return (
             <li key={index}>
               <a className="nav-links" href={`/threads/${item.id}`}>

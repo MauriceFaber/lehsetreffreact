@@ -13,6 +13,7 @@ export const domain = "https://octopi.mauricefaber.de";
 
 export default function App() {
   const [currentThreadGroups, setThreadGroups] = useState([]);
+
   useEffect(async () => {
     const request = new Request(domain + "/threadGroups");
     let data = await fetch(request);
@@ -26,10 +27,10 @@ export default function App() {
       <Routes>
         <Route
           path="/"
-          element={<ThreadGroups params={currentThreadGroups} />}
+          element={<ThreadGroups groups={currentThreadGroups} />}
         />
-        <Route path="/threads/:groupId" element={<Threads />} />
-        <Route path="/messages/:threadId" element={<Messages />} />
+        <Route path="/threadGroups/:groupName" element={<Threads />} />
+        <Route path="/threads/:threadName" element={<Messages />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Router>

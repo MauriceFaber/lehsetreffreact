@@ -7,18 +7,18 @@ import { Link } from "react-router-dom";
 import { domain } from "../../App";
 
 export default function Threads() {
-  const { groupId } = useParams();
+  const { groupName } = useParams();
   const [threads, setThreads] = useState([]);
 
   useEffect(async () => {
-    await loadThreads(groupId);
+    await loadThreads(groupName);
   }, []);
 
-  async function loadThreads(groupId) {
-    let request = new Request(domain + "/threads?threadGroupID=" + groupId);
+  async function loadThreads(groupName) {
+    let request = new Request(domain + "/threads?threadGroupName=" + groupName);
     let data = await fetch(request);
-    console.log(data);
     data = await data.json();
+    document.title = groupName;
     setThreads(data);
   }
 
@@ -32,7 +32,11 @@ export default function Threads() {
       {threads.map((thread, index) => {
         const key = `thread_${thread.id}`;
         return (
-          <Link key={key} className="noLink" to={`/messages/${thread.id}`}>
+          <Link
+            key={key}
+            className="noLink"
+            to={`/threads/${thread.caption.toLowerCase()}`}
+          >
             <Thread key={key} thread={thread} />
           </Link>
         );

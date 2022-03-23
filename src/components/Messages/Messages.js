@@ -6,17 +6,18 @@ import { useParams } from "react-router";
 import { domain } from "../../App";
 
 export default function Messages() {
-  const { threadId } = useParams();
+  const { threadName } = useParams();
   const [messages, setMessages] = useState([]);
 
   useEffect(async () => {
-    await loadMessages(threadId);
+    await loadMessages(threadName);
   }, []);
 
-  async function loadMessages(threadId) {
-    let request = new Request(domain + "/messages?threadId=" + threadId);
+  async function loadMessages(threadName) {
+    let request = new Request(domain + "/messages?threadName=" + threadName);
     let data = await fetch(request);
     data = await data.json();
+    document.title = threadName;
     setMessages(data);
   }
 
