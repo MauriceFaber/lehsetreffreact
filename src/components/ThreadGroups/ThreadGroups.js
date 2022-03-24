@@ -11,7 +11,7 @@ export default function ThreadGroups({ groups, deleteThreadGroup }) {
     if (!authenticated) {
       setModerator(false);
     } else {
-      setModerator(["Moderator", "Admin"].includes(user.role));
+      setModerator(["Mod", "Admin"].includes(user.role));
     }
   }, [authenticated]);
 
