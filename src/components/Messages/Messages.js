@@ -45,6 +45,12 @@ export default function Messages() {
     }
   }
 
+  async function handleKeyDown(e) {
+    if (e.key === "Enter") {
+      await sendText();
+    }
+  }
+
   return (
     <div className="message-page-content">
       <h2>{messages.length > 0 ? messages[0].thread.caption : ""}</h2>
@@ -64,6 +70,7 @@ export default function Messages() {
           <input
             onChange={(e) => setText(e.target.value)}
             className="messageInput"
+            onKeyDown={handleKeyDown}
             type="text"
             value={text}
           ></input>
