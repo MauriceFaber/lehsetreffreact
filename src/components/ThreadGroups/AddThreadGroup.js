@@ -26,10 +26,12 @@ export default function AddThreadGroup({ addThreadGroup }) {
         <h4>Name</h4>
         <input onChange={(e) => setCaption(e.target.value)} type="text"></input>
         <h4>Beschreibung</h4>
-        <input
-          onChange={(e) => setDescription(e.target.value)}
+        <textarea
+          className="description-text"
           type="text"
-        ></input>
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        ></textarea>
         <span className="danger">{message}</span>
 
         <div className="formButtons">

@@ -12,6 +12,17 @@ export default function Threads() {
   const [threads, setThreads] = useState([]);
   const { username } = useAuth();
 
+  const { user, authenticated } = useAuth();
+  const [isModerator, setModerator] = useState(false);
+
+  useEffect(() => {
+    if (!authenticated) {
+      setModerator(false);
+    } else {
+      setModerator(["Moderator", "Admin"].includes(user.role));
+    }
+  }, [authenticated]);
+
   useEffect(async () => {
     await loadThreads(groupName);
   }, []);
@@ -50,6 +61,12 @@ export default function Threads() {
           </Link>
         );
       })}
+
+      {authenticated && isModerator ? (
+        <a href="/addThreadGroup" className="addButton">
+          <i className="fa fa-plus"></i>
+        </a>
+      ) : null}
     </>
   );
 }

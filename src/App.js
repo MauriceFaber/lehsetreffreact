@@ -12,6 +12,7 @@ import Login from "./components/User/Login";
 
 import AddThreadGroup from "./components/ThreadGroups/AddThreadGroup";
 import EditThreadGroup from "./components/ThreadGroups/EditThreadGroup";
+import RightsManagement from "./components/Admin/RightsManagement";
 
 // export const domain = "http://localhost:8080/lehsetreff";
 export const domain = "https://octopi.mauricefaber.de";
@@ -44,6 +45,9 @@ export default function App() {
   }
 
   async function deleteThreadGroup(group) {
+    if (!window.confirm(`${group.caption} wirklich löschen?`)) {
+      return;
+    }
     let request = new Request(domain + "/threadGroups", {
       method: "DELETE",
       headers: {
@@ -119,6 +123,7 @@ export default function App() {
             path="/editThreadGroup/:groupId"
             element={<EditThreadGroup editThreadGroup={editThreadGroup} />}
           />
+          <Route path="/rightsManagement" element={<RightsManagement />} />
           <Route path="/threads/:threadName" element={<Messages />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />

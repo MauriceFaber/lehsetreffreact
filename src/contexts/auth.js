@@ -49,7 +49,6 @@ export default function AuthProvider(props) {
       const apiKey = localStorage.getItem("apiKey");
       if (apiKey && apiKey !== "") {
         let request = new Request(domain + `/users?apiKey=${apiKey}`);
-
         let result = undefined;
         await fetch(request).then(async (returnedResponse) => {
           result = await returnedResponse.json();
@@ -72,6 +71,7 @@ export default function AuthProvider(props) {
 
   const signOut = () => {
     try {
+      console.log("signing out");
       setLoading(true);
       localStorage.removeItem("apiKey");
       setUser(null);

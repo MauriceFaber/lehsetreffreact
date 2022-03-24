@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { MenuItems } from "./MenuItems";
 import "./Navbar.css";
 import { Button } from "../Button";
@@ -7,6 +7,15 @@ import { useAuth } from "../../contexts/auth";
 export default function Navbar({ links }) {
   const [clicked, setClicked] = useState(false);
   const { user, authenticated, signOut } = useAuth();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    if (!authenticated) {
+      setIsAdmin(false);
+    } else {
+      setIsAdmin("Admin" === user.role);
+    }
+  }, [authenticated]);
 
   function handleClick() {
     setClicked(!clicked);
@@ -71,6 +80,14 @@ export default function Navbar({ links }) {
             </li>
           );
         })}
+
+        {isAdmin ? (
+          <li>
+            <a href="/rightsManagement" className="nav-links">
+              Rechteverwaltung
+            </a>
+          </li>
+        ) : null}
       </ul>
 
       {authenticated ? (
