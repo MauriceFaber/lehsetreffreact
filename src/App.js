@@ -98,32 +98,34 @@ export default function App() {
   return (
     <Router>
       <Navbar links={currentThreadGroups} />
-      {/* <input type="button" onClick={loginClicked} value="login"></input> */}
-      {/* <input type="button" onClick={logoutClicked} value="logout"></input> */}
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <ThreadGroups
-              groups={currentThreadGroups}
-              deleteThreadGroup={deleteThreadGroup}
-            />
-          }
-        />
-        <Route path="/threadGroups/:groupName" element={<Threads />} />
-        <Route
-          path="/addThreadGroup"
-          element={<AddThreadGroup addThreadGroup={addThreadGroup} />}
-        />
-        <Route
-          path="/editThreadGroup/:groupId"
-          element={<EditThreadGroup editThreadGroup={editThreadGroup} />}
-        />
-        <Route path="/threads/:threadName" element={<Messages />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
+      <div className="mainDiv">
+        {/* <input type="button" onClick={loginClicked} value="login"></input> */}
+        {/* <input type="button" onClick={logoutClicked} value="logout"></input> */}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ThreadGroups
+                groups={currentThreadGroups}
+                deleteThreadGroup={deleteThreadGroup}
+              />
+            }
+          />
+          <Route path="/threadGroups/:groupName" element={<Threads />} />
+          <Route
+            path="/addThreadGroup"
+            element={<AddThreadGroup addThreadGroup={addThreadGroup} />}
+          />
+          <Route
+            path="/editThreadGroup/:groupId"
+            element={<EditThreadGroup editThreadGroup={editThreadGroup} />}
+          />
+          <Route path="/threads/:threadName" element={<Messages />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </div>
     </Router>
   );
 }
