@@ -18,6 +18,7 @@
   .message-page-content {
     width: 80%;
     margin: 0px auto;
+    margin-bottom: 110px !important;
   }
 
   .send-message-box {
