@@ -1,0 +1,32 @@
+.roleContainer {
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+  float: left;
+  background-color: rgb(241, 241, 241);
+  box-shadow: 10px 10px 10px 2px rgb(189, 189, 189);
+}
+
+.roleContainer .avatar {
+  display: inline-block;
+  object-fit: cover;
+  height: 80px;
+  width: 80px;
+  vertical-align: middle;
+  border-radius: 10px;
+  margin: 10px 10px 10px 0px;
+}
+
+.roleContainer select {
+  font-size: 20px;
+  border-radius: 4px;
+  padding: 2px;
+}
+
+.centered-loader {
+  position: absolute;
+  left: calc(50% - 40px);
+  top: 50%;
+  width: 100% !important;
+}

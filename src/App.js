@@ -14,6 +14,9 @@ import AddThreadGroup from "./components/ThreadGroups/AddThreadGroup";
 import EditThreadGroup from "./components/ThreadGroups/EditThreadGroup";
 import RightsManagement from "./components/Admin/RightsManagement";
 
+import AddThread from "./components/Threads/AddThread";
+import EditThread from "./components/Threads/EditThread";
+
 // export const domain = "http://localhost:8080/lehsetreff";
 export const domain = "https://octopi.mauricefaber.de";
 // export const domain = "https://api.lehsetreff.de";
@@ -98,6 +101,36 @@ export default function App() {
     return result.ok;
   }
 
+  async function addThread(groupName, caption, description) {
+    let request = new Request(domain + "/threads", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
+      body: `apiKey=${user.apiKey}&groupName=${groupName}&caption=${caption}&description=${description}`,
+    });
+
+    let result = await fetch(request);
+    return result.ok;
+  }
+
+  async function editThread(id, caption, description) {
+    let bodyArg = `apiKey=${user.apiKey}&id=${id}`;
+    if (caption) {
+      bodyArg += `&caption=${caption}`;
+    }
+    if (description) {
+      bodyArg += `&description=${description}`;
+    }
+    let request = new Request(domain + "/threads", {
+      method: "PUT",
+      body: bodyArg,
+    });
+
+    let result = await fetch(request);
+    return result.ok;
+  }
+
   return (
     <Router>
       <Navbar links={currentThreadGroups} />
@@ -125,6 +158,14 @@ export default function App() {
           />
           <Route path="/rightsManagement" element={<RightsManagement />} />
           <Route path="/threads/:threadName" element={<Messages />} />
+          <Route
+            path="/addThread/:groupName"
+            element={<AddThread addThread={addThread} />}
+          />
+          <Route
+            path="/editThread/:threadId"
+            element={<EditThread editThread={editThread} />}
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<ErrorPage />} />

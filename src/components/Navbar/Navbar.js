@@ -22,8 +22,8 @@ export default function Navbar({ links }) {
   }
 
   function onSignOut() {
-    console.log("sign out clicked");
     signOut();
+    window.location.href = "/";
   }
 
   return (
@@ -54,6 +54,14 @@ export default function Navbar({ links }) {
             </li>
           );
         })} */}
+
+        {isAdmin ? (
+          <li>
+            <a href="/rightsManagement" className="nav-links">
+              Rechteverwaltung
+            </a>
+          </li>
+        ) : null}
         {MenuItems.map((item, index) => {
           if (item.title == "Sign up" && authenticated) {
             return null;
@@ -80,14 +88,6 @@ export default function Navbar({ links }) {
             </li>
           );
         })}
-
-        {isAdmin ? (
-          <li>
-            <a href="/rightsManagement" className="nav-links">
-              Rechteverwaltung
-            </a>
-          </li>
-        ) : null}
       </ul>
 
       {authenticated ? (

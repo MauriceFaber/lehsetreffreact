@@ -22,11 +22,17 @@ export default function Login() {
     window.location.href = "/";
   }
 
+  async function handleKeyDown(e) {
+    if (e.key === "Enter") {
+      await handleSubmit();
+    }
+  }
+
   return (
     <div className="login-wrapper">
       <h2 className="formHeadline">Anmelden</h2>
 
-      <form onSubmit={handleSubmit}>
+      <form onKeyDown={handleKeyDown} onSubmit={handleSubmit}>
         <h4>Benutzername</h4>
         <input
           onChange={(e) => setUserName(e.target.value)}

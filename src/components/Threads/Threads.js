@@ -63,7 +63,7 @@ export default function Threads() {
       })}
 
       {authenticated && isModerator ? (
-        <a href="/addThreadGroup" className="addButton">
+        <a href={`/addThread/${groupName}`} className="addButton">
           <i className="fa fa-plus"></i>
         </a>
       ) : null}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { domain } from "../../App";
 import { useAuth } from "../../contexts/auth";
+import "./RightsManagement.css";
 
 export default function User({ currentUser }) {
   const { user } = useAuth();
@@ -44,7 +45,7 @@ export default function User({ currentUser }) {
   return (
     <div className="roleContainer">
       <h4>{currentUser.userName}</h4>
-      <h4>{roleId}</h4>
+      <img className="avatar" src={currentUser.avatar} />
       <select className="roleSelect" onChange={(e) => setRole(e.target.value)}>
         <option value="1" selected={isUser}>
           User

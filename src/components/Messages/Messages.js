@@ -13,6 +13,21 @@ export default function Messages() {
   const [text, setText] = useState("");
   const { user, authenticated } = useAuth();
 
+  let userIdAvatarDic = {};
+
+  async function getAvatar(id) {
+    if (userIdAvatarDic[id]) {
+      return userIdAvatarDic[id];
+    } else {
+      let request = new Request(domain + `/users?id=${id}`);
+      let data = await fetch(request);
+      data = await data.json();
+
+      userIdAvatarDic[id] = data.avatar;
+      return data.avatar;
+    }
+  }
+
   useEffect(async () => {
     await loadThread();
     await loadMessages();
@@ -31,22 +46,27 @@ export default function Messages() {
     let data = await fetch(request);
     data = await data.json();
     document.title = threadName;
+    for (let i = 0; i < data.length; i++) {
+      data[i].sender.avatar = await getAvatar(data[i].sender.id);
+    }
     setMessages(data);
   }
 
   async function sendText() {
+    let content = text;
+    setText("");
     let request = new Request(domain + "/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
-      body: `apiKey=${user.apiKey}&content=${text}&contentType=0&threadId=${thread.id}`,
+      body: `apiKey=${user.apiKey}&content=${content}&contentType=0&threadId=${thread.id}`,
     });
     let result = await fetch(request);
     if (result.ok) {
-      setText("");
       await loadMessages();
     } else {
+      setText(content);
       alert("Fehler beim Senden.");
     }
   }
