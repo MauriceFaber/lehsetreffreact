@@ -1,10 +1,132 @@
+.message-page-content {
+  margin: 10px;
+}
+
+.message-page-content h2 {
+  margin-bottom: 20px;
+}
+
 .messageContainer {
   border-radius: 4px;
-  padding: 10px;
-  margin: 15px;
+  padding: 0px;
+  /* margin: 10px; */
+  margin-bottom: 30px !important;
+}
 
+@media screen and (min-width: 961px) {
+  .message-page-content {
+    width: 80%;
+    margin: 0px auto;
+  }
+
+  .send-message-box {
+    position: fixed;
+    left: calc(10%) !important;
+    bottom: 20px !important;
+    border-radius: 10px;
+    width: 80% !important;
+    height: 70px;
+    padding: 8px;
+    background-color: rgb(204, 204, 204);
+  }
+}
+
+.messageContainer .image {
+  height: 100px;
+  transition: 0.5s all ease;
+}
+
+.messageContainer .image:hover {
+  height: 150px;
+  transition: 0.8s all ease;
+}
+
+.messageContainer .timeStamp {
+  /* position: absolute;
+  right: 5px;
+  top: 5px; */
+  font-size: 12px;
+
+  font-style: italic;
+}
+
+.messageContainer .h-item {
+  display: inline;
+  list-style: none;
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.messageContainer .userRole {
+  background-color: rgb(110, 110, 110);
+  border-radius: 3px;
+  padding: 2px 4px;
+  color: white;
+}
+
+.messageContainer .senderName {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.messageContainer .senderInformation {
+  margin-bottom: 10px;
+}
+
+.send-message-box {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  padding: 8px;
+  background-color: rgb(204, 204, 204);
+}
+
+.send-message-box .button-wrapper {
+  border: none;
+  /* background-color: red; */
+  margin: 0px 0px;
+}
+
+.send-message-box .first-button {
+  position: absolute;
+  left: 10px;
+  bottom: -10px;
+}
+
+.send-message-box .last-button {
+  position: absolute;
+  right: 20px;
+  bottom: -10px;
+}
+
+.send-message-box .messageInput {
+  position: absolute;
+  left: 70px;
+  bottom: -10px;
+
+  width: calc(100% - 140px);
+  font-size: 20px;
+}
+
+.send-message-box i {
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+  transform: translate(10%, 15%);
+  border-radius: 8px;
+  margin: 0 auto;
+}
+
+.send-message-box i:hover {
+  color: white;
+  transition: 0.5s all ease;
+}
+
+.send-message-box .button-wrapper {
+  height: 100%;
   cursor: pointer;
-
-  background-color: rgb(175, 175, 175);
-  box-shadow: 4px 4px 4px rgb(151, 151, 151);
 }

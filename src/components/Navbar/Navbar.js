@@ -36,7 +36,7 @@ export default function Navbar({ links }) {
             </a>
           </li>
         ) : null}
-        {links.map((item, index) => {
+        {/* {links.map((item, index) => {
           return (
             <li key={index}>
               <a className="nav-links" href={`/threadGroups/${item.caption}`}>
@@ -44,7 +44,7 @@ export default function Navbar({ links }) {
               </a>
             </li>
           );
-        })}
+        })} */}
         {MenuItems.map((item, index) => {
           if (item.title == "Sign up" && authenticated) {
             return null;

@@ -1,10 +1,10 @@
 .threadGroupContainer {
   border-radius: 8px;
   padding: 20px;
-  margin: 15px;
+  margin: 15px 10px;
   position: relative;
   background-color: rgb(230, 230, 230);
-  box-shadow: 4px 4px 4px rgb(109, 109, 109);
+  box-shadow: 4px 4px 4px rgb(214, 214, 214);
 }
 
 .noLink {
@@ -91,4 +91,31 @@
 .formButtons {
   display: flex;
   justify-content: space-between;
+  margin-right: -10px;
+  margin-left: -10px;
+}
+
+.formButtons input {
+  margin: 10px;
+}
+
+.login-wrapper form {
+  width: 100%;
+}
+
+.description-text {
+  width: 100%;
+  min-height: 100px;
+  max-width: 100%;
+  min-width: 100%;
+}
+
+textarea {
+  background-color: #eee;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 15px;
+  margin: 8px 0;
+  margin-bottom: 20px;
+  width: 100%;
 }
