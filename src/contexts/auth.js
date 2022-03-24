@@ -51,22 +51,18 @@ export default function AuthProvider(props) {
         let request = new Request(domain + `/users?apiKey=${apiKey}`);
 
         let result = undefined;
-        await fetch(request)
-          .then(async (returnedResponse) => {
-            result = await returnedResponse.json();
-            result.apiKey = apiKey;
-            setUser(result);
-            setAuthenticated(true);
-            return true;
-          })
-          .catch((error) => {
-            signOut();
-            return false;
-          });
+        await fetch(request).then(async (returnedResponse) => {
+          result = await returnedResponse.json();
+          result.apiKey = apiKey;
+          setUser(result);
+          setAuthenticated(true);
+          return true;
+        });
       } else {
         signOut();
         return false;
       }
+      return false;
     } catch (err) {
       return false;
     } finally {
