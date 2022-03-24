@@ -23,7 +23,7 @@ export default function Navbar({ links }) {
         <a className="appCaption" href="/">
           Lehsetreff
         </a>
-        <img className="appIcon" src="/lehsetreff.png"></img>
+        <img className="appIcon" src="./lehsetreff.png"></img>
       </h1>
       <div className="menu-icon" onClick={handleClick}>
         <i className={clicked ? "fas fa-times" : "fas fa-bars"}></i>
