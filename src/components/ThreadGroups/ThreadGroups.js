@@ -27,7 +27,7 @@ export default function ThreadGroups({ groups, deleteThreadGroup }) {
           />
         );
       })}
-      {authenticated ? (
+      {authenticated && isModerator ? (
         <a href="/addThreadGroup" className="addButton">
           <i className="fa fa-plus"></i>
         </a>

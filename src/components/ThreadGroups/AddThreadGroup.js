@@ -14,6 +14,9 @@ export default function AddThreadGroup({ addThreadGroup }) {
       window.location.href = "/";
     }
   }
+  function goBack() {
+    window.location.href = "/";
+  }
 
   return (
     <div className="login-wrapper">
@@ -28,12 +31,22 @@ export default function AddThreadGroup({ addThreadGroup }) {
           type="text"
         ></input>
         <span className="danger">{message}</span>
-        <input
-          className="submitButton"
-          type="button"
-          onClick={handleSubmit}
-          value="Hinzufügen"
-        ></input>
+
+        <div className="formButtons">
+          <input
+            className="submitButton"
+            type="button"
+            onClick={handleSubmit}
+            value="Hinzufügen"
+          ></input>
+
+          <input
+            className="submitButton btn-danger"
+            type="button"
+            onClick={goBack}
+            value="Abbrechen"
+          ></input>
+        </div>
       </form>
     </div>
   );
