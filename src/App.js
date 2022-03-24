@@ -16,7 +16,6 @@ import EditThreadGroup from "./components/ThreadGroups/EditThreadGroup";
 // export const domain = "http://localhost:8080/lehsetreff";
 export const domain = "https://octopi.mauricefaber.de";
 // export const domain = "https://api.lehsetreff.de";
-// export const domain = "http://raspberrypi:8080/lehsetreff";
 
 export default function App() {
   const [currentThreadGroups, setThreadGroups] = useState([]);
