@@ -7,14 +7,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
+  height: 70px;
+}
+
+.navbar-logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 10px;
+  margin-left: 20px;
 }
 
 .navbar-logo {
   color: #fff;
   justify-self: start;
-  margin-left: 20px;
-  margin-top: -15px;
   cursor: pointer;
 }
 
@@ -23,10 +29,14 @@
   text-decoration: none;
 }
 
+.appCaption {
+  font-size: 40px;
+}
+
 .appIcon {
-  height: 20px;
-  margin-left: 0.5rem;
-  font-size: 1.6rem;
+  height: 40px;
+  padding-top: 10px;
+  margin-left: 1.5rem;
 }
 
 .nav-menu {
@@ -64,7 +74,7 @@
   display: none;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 960px) {
   .NavbarItems {
     position: relative;
   }
@@ -75,7 +85,7 @@
     flex-direction: column;
     width: 100%;
     position: absolute;
-    top: 50px;
+    top: 70px;
     left: -100%;
     opacity: 1;
     transition: all 0.5s ease;
@@ -101,26 +111,20 @@
     border-radius: 0;
   }
 
-  .navbar-logo {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translate(25%, 80%);
-  }
-
   .menu-icon {
     display: block;
     position: absolute;
     top: -15px;
     right: 0;
     transform: translate(-100%, 60%);
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     cursor: pointer;
   }
 
   .fa-times {
     color: #fff;
-    font-size: 2rem;
+    font-size: 2.6rem;
+    transform: translate(-30%, 0%);
   }
 
   .nav-links-mobile {
@@ -144,6 +148,18 @@
 
   Button {
     display: none;
+  }
+
+  .appCaption {
+    /* transform: translate(0%, -70%); */
+    /* margin-top: -20px; */
+    /* font-size: 30px; */
+  }
+
+  .appIcon {
+    /* transform: translate(0%, -70%); */
+    /* margin-top: -20px; */
+    /* height: 40px; */
   }
 }
 

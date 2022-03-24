@@ -9,6 +9,9 @@ export default function AuthProvider(props) {
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
 
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
   const signIn = async (username, password) => {
     try {
       setLoading(true);
@@ -23,17 +26,11 @@ export default function AuthProvider(props) {
 
       let result = undefined;
 
-      await fetch(request)
-        .then(async (returnedResponse) => {
-          result = await returnedResponse.json();
-          localStorage.setItem("apiKey", result.apiKey);
-          console.log("logged in");
-        })
-        .catch((error) => {
-          console.log("error logging in");
-        });
-      console.log(result);
-
+      await fetch(request).then(async (returnedResponse) => {
+        result = await returnedResponse.json();
+        localStorage.setItem("apiKey", result.apiKey);
+        console.log("logged in");
+      });
       setUser(result);
       setAuthenticated(true);
 

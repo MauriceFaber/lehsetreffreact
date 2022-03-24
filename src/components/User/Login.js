@@ -6,10 +6,15 @@ import { useState } from "react";
 export default function Login() {
   const [username, setUserName] = useState(null);
   const [password, setPassword] = useState(null);
+  const [message, setMessage] = useState("");
   const { authenticated, signIn } = useAuth();
 
   async function handleSubmit() {
-    await signIn(username, password);
+    const loggedIn = await signIn(username, password);
+    console.log(loggedIn);
+    if (!loggedIn) {
+      setMessage("Fehler bei der Anmeldung.");
+    }
   }
 
   if (authenticated) {
@@ -19,24 +24,26 @@ export default function Login() {
 
   return (
     <div className="login-wrapper">
-      <h1>Anmelden oder Registrieren</h1>
+      <h2 className="formHeadline">Anmelden</h2>
 
       <form onSubmit={handleSubmit}>
-        <label>
-          Benutzername
-          <input
-            onChange={(e) => setUserName(e.target.value)}
-            type="text"
-          ></input>
-        </label>
-        <label>
-          Passwort
-          <input
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-          ></input>
-        </label>
-        <input type="button" onClick={handleSubmit} value="Anmelden"></input>
+        <h4>Benutzername</h4>
+        <input
+          onChange={(e) => setUserName(e.target.value)}
+          type="text"
+        ></input>
+        <h4>Passwort</h4>
+        <input
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+        ></input>
+        <span className="danger">{message}</span>
+        <input
+          className="submitButton"
+          type="button"
+          onClick={handleSubmit}
+          value="Anmelden"
+        ></input>
       </form>
     </div>
   );

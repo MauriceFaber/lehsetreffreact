@@ -1,8 +1,10 @@
 import React from "react";
 import { useAuth } from "../../contexts/auth";
+import "./Profile.css";
 
 export default function Profile() {
   const { user } = useAuth();
+
   if (!user) {
     return null;
   }
@@ -11,7 +13,7 @@ export default function Profile() {
       <h1>Profil</h1>
       <br />
       <h2>{user.userName}</h2>
-      <img src={user.avatar}></img>
+      <img className="profileBigAvatar" src={user.avatar}></img>
       <p>ApiKey: {user.apiKey}</p>
     </div>
   );

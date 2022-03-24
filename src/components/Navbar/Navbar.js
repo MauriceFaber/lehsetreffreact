@@ -20,15 +20,10 @@ export default function Navbar({ links }) {
   return (
     <nav className="NavbarItems">
       <h1 className="navbar-logo">
-        <a href="/">
+        <a className="appCaption" href="/">
           Lehsetreff
-          <i>
-            <img
-              className="appIcon"
-              src="https://lehsetreff.de/favicon.ico"
-            ></img>
-          </i>
         </a>
+        <img className="appIcon" src="/lehsetreff.png"></img>
       </h1>
       <div className="menu-icon" onClick={handleClick}>
         <i className={clicked ? "fas fa-times" : "fas fa-bars"}></i>

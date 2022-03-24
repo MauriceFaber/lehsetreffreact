@@ -1,10 +1,8 @@
 .threadGroupContainer {
-  border-radius: 4px;
-  padding: 10px;
+  border-radius: 8px;
+  padding: 20px;
   margin: 15px;
-
-  cursor: pointer;
-
+  position: relative;
   background-color: rgb(230, 230, 230);
   box-shadow: 4px 4px 4px rgb(109, 109, 109);
 }
@@ -12,4 +10,85 @@
 .noLink {
   text-decoration: none !important;
   color: black;
+}
+
+.noLink:hover {
+  cursor: pointer;
+}
+
+.actionList {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+
+  list-style: none;
+  display: grid;
+
+  display: flex;
+  justify-content: center;
+}
+
+.deleteButton i {
+  font-size: 20px;
+  padding-left: 10px;
+}
+
+.fa-trash {
+  color: red;
+}
+
+.fa-pen {
+  color: blue;
+}
+
+.deleteButton i:hover {
+  cursor: pointer;
+  color: black;
+}
+
+.threadGroupDescription {
+  font-size: 12px;
+}
+
+.addButton {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+
+  height: 50px;
+  width: 50px;
+  background-color: blueviolet;
+  border-radius: 50%;
+  border: 2px solid blueviolet;
+
+  cursor: pointer;
+}
+
+.addButton:hover {
+  background-color: white;
+  color: blueviolet;
+}
+
+.addButton i {
+  font-size: 30px;
+  color: white;
+  transform: translate(38%, 28%);
+}
+
+.addButton i:hover {
+  color: blueviolet;
+}
+
+.btn-danger {
+  background-color: red !important;
+  border-color: red !important;
+}
+
+.btn-danger:hover {
+  background-color: white !important;
+}
+
+.formButtons {
+  display: flex;
+  justify-content: space-between;
 }
