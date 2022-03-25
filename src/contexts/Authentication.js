@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { useState } from "react";
 import createCtx from "./Index";
 import { domain } from "../App";
 

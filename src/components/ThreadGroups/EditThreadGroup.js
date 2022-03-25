@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useAuth } from "../../contexts/Auth";
+import { useAuth } from "../../contexts/Authentication";
 import { useParams } from "react-router";
 import { domain } from "../../App";
 

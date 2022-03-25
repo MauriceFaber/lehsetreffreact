@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { domain } from "../../App";
-import { useAuth } from "../../contexts/Auth";
+import { useAuth } from "../../contexts/Authentication";
 import "./RightsManagement.css";
 
 export default function User({ currentUser }) {

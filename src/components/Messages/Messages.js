@@ -4,7 +4,7 @@ import { useState } from "react";
 import "./Messages.css";
 import { useParams } from "react-router";
 import { domain } from "../../App";
-import { useAuth } from "../../contexts/Auth";
+import { useAuth } from "../../contexts/Authentication";
 
 export default function Messages() {
   const { threadName } = useParams();
