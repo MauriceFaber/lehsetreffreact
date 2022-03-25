@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from "react";
 import { MenuItems } from "./MenuItems";
 import "./Navbar.css";
 import { Button } from "../Button";
-import { useAuth } from "../../contexts/auth";
+import { useAuth } from "../../contexts/Auth";
 
 export default function Navbar({ links }) {
   const [clicked, setClicked] = useState(false);

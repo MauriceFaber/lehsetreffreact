@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useAuth } from "../../contexts/auth";
+import { useAuth } from "../../contexts/Auth";
 import User from "./User";
 
 import "./RightsManagement.css";
