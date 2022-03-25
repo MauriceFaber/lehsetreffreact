@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { domain } from "../../App";
-import { useAuth } from "../../contexts/auth";
+import { useAuth } from "../../contexts/Auth";
 
 export default function Threads() {
   const { groupName } = useParams();
@@ -33,10 +33,6 @@ export default function Threads() {
     data = await data.json();
     document.title = groupName;
     setThreads(data);
-  }
-
-  if (threads.length == 0) {
-    return <div>Keine Threads vorhanden.</div>;
   }
 
   let isOwner = false;
