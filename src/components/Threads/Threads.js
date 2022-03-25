@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { domain } from "../../App";
-import { useAuth } from "../../contexts/Auth";
+import { useAuth } from "../../contexts/auth";
 
 export default function Threads() {
   const { groupName } = useParams();

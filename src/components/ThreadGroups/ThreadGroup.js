@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import React from "react";
 import "./ThreadGroups.css";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../contexts/Auth";
+import { useAuth } from "../../contexts/auth";
 
 export default function ThreadGroup({ threadGroup, deleteThreadGroup }) {
   const { user, authenticated } = useAuth();

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAuth } from "../../contexts/Auth";
+import { useAuth } from "../../contexts/auth";
 
 export default function AddThreadGroup({ addThreadGroup }) {
   const { user, authenticated } = useAuth();

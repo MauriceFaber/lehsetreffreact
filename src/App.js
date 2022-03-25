@@ -6,7 +6,7 @@ import Threads from "./components/Threads/Threads";
 import Messages from "./components/Messages/Messages";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ErrorPage from "./pages/ErrorPage";
-import { useAuth } from "./contexts/Auth";
+import { useAuth } from "./contexts/auth";
 import Profile from "./components/User/Profile";
 import Login from "./components/User/Login";
 
