@@ -17,8 +17,8 @@ import RightsManagement from "./components/Admin/RightsManagement";
 import AddThread from "./components/Threads/AddThread";
 import EditThread from "./components/Threads/EditThread";
 
-export const domain = "http://localhost:8080/lehsetreff";
-//export const domain = "https://octopi.mauricefaber.de";
+//export const domain = "http://localhost:8080/lehsetreff";
+export const domain = "https://octopi.mauricefaber.de";
 // export const domain = "https://api.lehsetreff.de";
 
 export default function App() {
