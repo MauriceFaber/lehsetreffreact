@@ -10,7 +10,7 @@ import "../Loader/Loader.css";
 export default function Messages() {
   const { threadName, groupName } = useParams();
   const [thread, setThread] = useState(undefined);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState();
   const [text, setText] = useState("");
   const { user, authenticated } = useAuth();
 
@@ -82,7 +82,7 @@ export default function Messages() {
     }
   }
 
-  if (!thread || messages.length === 0) {
+  if (!thread) {
     return (
       <>
         <h2>{threadName}</h2>
@@ -102,10 +102,24 @@ export default function Messages() {
     <div className="message-page-content">
       <h2>{thread.caption}</h2>
       <br></br>
-      {messages.map((message, index) => {
-        const key = `message_${message.id}`;
-        return <Message key={key} message={message} />;
-      })}
+      {messages ? (
+        <>
+          {messages.length === 0 ? "Keine Nachrichten vorhanden." : null}
+          {messages.map((message, index) => {
+            const key = `message_${message.id}`;
+            return <Message key={key} message={message} />;
+          })}
+        </>
+      ) : (
+        <div className="centered-loader">
+          <div className="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      )}
       {authenticated ? (
         <div className="send-message-box">
           <div className="button-wrapper first-button">

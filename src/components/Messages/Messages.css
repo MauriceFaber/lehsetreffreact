@@ -1,6 +1,6 @@
 .message-page-content {
   margin: 10px;
-  margin-bottom: 90px;
+  margin-bottom: 100px;
 }
 
 .message-page-content h2 {
@@ -18,7 +18,7 @@
   .message-page-content {
     width: 80%;
     margin: 0px auto;
-    margin-bottom: 110px !important;
+    margin-bottom: 120px !important;
   }
 
   .send-message-box {
@@ -27,9 +27,13 @@
     bottom: 20px !important;
     width: 80% !important;
     border-radius: 10px;
-    height: 70px;
+    height: 70px !important;
     padding: 8px;
     background-color: rgb(204, 204, 204);
+  }
+
+  .send-message-box .messageInput {
+    bottom: -10px !important;
   }
 }
 
