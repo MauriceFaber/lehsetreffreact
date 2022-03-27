@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import createCtx from "./index";
+import createCtx from "./Index";
 import { domain } from "../App";
 
 export const [useAuth, CtxProvider] = createCtx();

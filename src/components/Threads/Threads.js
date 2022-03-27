@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { domain } from "../../App";
 import { useAuth } from "../../contexts/Authentication";
 
-export default function Threads() {
+export default function Threads({ deleteThread }) {
   const { groupName } = useParams();
   const [threads, setThreads] = useState([]);
   const { username } = useAuth();
@@ -26,6 +26,11 @@ export default function Threads() {
   useEffect(async () => {
     await loadThreads(groupName);
   }, []);
+
+  async function onDeleteThread(thread) {
+    await deleteThread(thread);
+    await loadThreads(groupName);
+  }
 
   async function loadThreads(groupName) {
     let request = new Request(domain + "/threads?threadGroupName=" + groupName);
@@ -48,18 +53,12 @@ export default function Threads() {
       {threads.map((thread, index) => {
         const key = `thread_${thread.id}`;
         return (
-          <Link
-            key={key}
-            className="noLink"
-            to={`/threads/${thread.caption.toLowerCase()}`}
-          >
-            <Thread key={key} thread={thread} />
-          </Link>
+          <Thread key={key} thread={thread} deleteThread={onDeleteThread} />
         );
       })}
 
       {authenticated && isModerator ? (
-        <a href={`/addThread/${groupName}`} className="addButton">
+        <a href={`/${groupName}/addThread`} className="addButton">
           <i className="fa fa-plus"></i>
         </a>
       ) : null}

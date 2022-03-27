@@ -5,9 +5,10 @@ import "./Messages.css";
 import { useParams } from "react-router";
 import { domain } from "../../App";
 import { useAuth } from "../../contexts/Authentication";
+import "../Loader/Loader.css";
 
 export default function Messages() {
-  const { threadName } = useParams();
+  const { threadName, groupName } = useParams();
   const [thread, setThread] = useState(undefined);
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
@@ -34,18 +35,22 @@ export default function Messages() {
   }, []);
 
   async function loadThread() {
-    let request = new Request(domain + "/threads?threadName=" + threadName);
+    let request = new Request(
+      domain + "/threads?threadName=" + threadName + "&groupName=" + groupName
+    );
     let data = await fetch(request);
     data = await data.json();
-    document.title = threadName;
+    document.title = `${data.threadGroup.caption} - ${data.caption}`;
     setThread(data);
   }
 
   async function loadMessages() {
-    let request = new Request(domain + "/messages?threadName=" + threadName);
+    let request = new Request(
+      domain + "/messages?threadName=" + threadName + "&groupName=" + groupName
+    );
     let data = await fetch(request);
     data = await data.json();
-    document.title = threadName;
+    // document.title = threadName;
     for (let i = 0; i < data.length; i++) {
       data[i].sender.avatar = await getAvatar(data[i].sender.id);
     }
@@ -77,15 +82,26 @@ export default function Messages() {
     }
   }
 
-  if (!thread) {
-    return <div>...</div>;
+  if (!thread || messages.length === 0) {
+    return (
+      <>
+        <h2>{threadName}</h2>
+        <div className="centered-loader">
+          <div className="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </>
+    );
   }
 
   return (
     <div className="message-page-content">
       <h2>{thread.caption}</h2>
       <br></br>
-      {messages.length == 0 ? <div>Keine Nachrichten vorhanden.</div> : null}
       {messages.map((message, index) => {
         const key = `message_${message.id}`;
         return <Message key={key} message={message} />;

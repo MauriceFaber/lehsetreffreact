@@ -4,24 +4,26 @@ import { domain } from "../../App";
 
 export default function AddThreadGroup({ editThread }) {
   const { threadId } = useParams();
+  const [thread, setThread] = useState(null);
   const [message, setMessage] = useState("");
   const [caption, setCaption] = useState("");
   const [description, setDescription] = useState("");
 
   async function handleSubmit() {
     let result = await editThread(threadId, caption, description);
+    console.log(result);
     setMessage(result ? "" : "Konnte nicht bearbeitet werden.");
     if (result) {
-      window.location.href = "/";
+      window.location.href = "/" + thread.threadGroup.caption;
     }
   }
 
   function goBack() {
-    window.location.href = "/";
+    window.location.href = "/" + thread.threadGroup.caption;
   }
 
   async function loadThread(id) {
-    let result = await fetch(new Request(domain + "/thread?id=" + id));
+    let result = await fetch(new Request(domain + "/threads?threadId=" + id));
     if (result.ok) {
       return await result.json();
     }
@@ -29,11 +31,10 @@ export default function AddThreadGroup({ editThread }) {
   }
 
   useEffect(async () => {
-    var thread = await loadThread(threadId);
-    if (thread) {
-      setCaption(thread.caption);
-      setDescription(thread.description);
-    }
+    var tmp = await loadThread(threadId);
+    setThread(tmp);
+    setCaption(thread.caption);
+    setDescription(thread.description);
   }, []);
 
   return (

@@ -23,11 +23,7 @@ export default function ThreadGroup({ threadGroup, deleteThreadGroup }) {
   const key = `threadGroupLink_${threadGroup.id}`;
   return (
     <div className="threadGroupContainer">
-      <Link
-        key={key}
-        className="noLink"
-        to={`/threadGroups/${threadGroup.caption.toLowerCase()}`}
-      >
+      <Link key={key} className="noLink" to={`/${threadGroup.caption}`}>
         <h2>{threadGroup.caption}</h2>
       </Link>
       <h5>Besitzer: {threadGroup.owner.userName}</h5>

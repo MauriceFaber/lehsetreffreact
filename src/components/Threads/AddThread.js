@@ -13,11 +13,11 @@ export default function AddThreadGroup({ addThread }) {
     let result = await addThread(groupName, caption, description);
     setMessage(result ? "" : "Konnte nicht hinzugefügt werden.");
     if (result) {
-      window.location.href = "/threadGroups/" + groupName;
+      window.location.href = "/" + groupName;
     }
   }
   function goBack() {
-    window.location.href = "/threadGroups/" + groupName;
+    window.location.href = "/" + groupName;
   }
 
   return (

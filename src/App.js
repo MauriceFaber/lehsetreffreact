@@ -17,8 +17,8 @@ import RightsManagement from "./components/Admin/RightsManagement";
 import AddThread from "./components/Threads/AddThread";
 import EditThread from "./components/Threads/EditThread";
 
-// export const domain = "http://localhost:8080/lehsetreff";
-export const domain = "https://octopi.mauricefaber.de";
+export const domain = "http://localhost:8080/lehsetreff";
+//export const domain = "https://octopi.mauricefaber.de";
 // export const domain = "https://api.lehsetreff.de";
 
 export default function App() {
@@ -57,6 +57,27 @@ export default function App() {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
       body: `apiKey=${user.apiKey}&id=${group.id}`,
+    });
+
+    await fetch(request)
+      .then(async (returnedResponse) => {
+        await reloadThreadGroups();
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+
+  async function deleteThread(thread) {
+    if (!window.confirm(`${thread.caption} wirklich löschen?`)) {
+      return;
+    }
+    let request = new Request(domain + "/threads", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
+      body: `apiKey=${user.apiKey}&threadId=${thread.id}`,
     });
 
     await fetch(request)
@@ -115,7 +136,7 @@ export default function App() {
   }
 
   async function editThread(id, caption, description) {
-    let bodyArg = `apiKey=${user.apiKey}&id=${id}`;
+    let bodyArg = `apiKey=${user.apiKey}&threadId=${id}`;
     if (caption) {
       bodyArg += `&caption=${caption}`;
     }
@@ -147,7 +168,9 @@ export default function App() {
               />
             }
           />
-          <Route path="/threadGroups/:groupName" element={<Threads />} />
+
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
           <Route
             path="/addThreadGroup"
             element={<AddThreadGroup addThreadGroup={addThreadGroup} />}
@@ -157,17 +180,20 @@ export default function App() {
             element={<EditThreadGroup editThreadGroup={editThreadGroup} />}
           />
           <Route path="/rightsManagement" element={<RightsManagement />} />
-          <Route path="/threads/:threadName" element={<Messages />} />
+
           <Route
-            path="/addThread/:groupName"
+            path="/:groupName"
+            element={<Threads deleteThread={deleteThread} />}
+          />
+          <Route path="/:groupName/:threadName" element={<Messages />} />
+          <Route
+            path="/:groupName/addThread"
             element={<AddThread addThread={addThread} />}
           />
           <Route
-            path="/editThread/:threadId"
+            path="/:groupName/editThread/:threadId"
             element={<EditThread editThread={editThread} />}
           />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </div>
