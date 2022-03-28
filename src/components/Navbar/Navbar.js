@@ -63,14 +63,14 @@ export default function Navbar({ links }) {
           </li>
         ) : null}
         {MenuItems.map((item, index) => {
-          if (item.title == "Sign up" && authenticated) {
+          if (item.title == "Anmelden" && authenticated) {
             return null;
           }
-          if (item.title == "Sign out" && !authenticated) {
+          if (item.title == "Abmelden" && !authenticated) {
             return null;
           }
 
-          if (item.title == "Sign out") {
+          if (item.title == "Abmelden") {
             return (
               <li key={index}>
                 <a className={item.cName} onClick={onSignOut} href="#">
@@ -92,11 +92,11 @@ export default function Navbar({ links }) {
 
       {authenticated ? (
         <a href="#" onClick={onSignOut}>
-          <Button>Sign Out</Button>
+          <Button>Abmelden</Button>
         </a>
       ) : (
         <a href="/login">
-          <Button>Sign Up</Button>
+          <Button>Anmelden</Button>
         </a>
       )}
     </nav>
