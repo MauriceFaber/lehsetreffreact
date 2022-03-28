@@ -18,6 +18,7 @@ export default function Message({ message }) {
       {message.contentId == "Image" ? (
         <img className="image" src={message.content} />
       ) : null}
+      {message.contentId == "Empty" ? <p>{message.content}</p> : null}
     </div>
   );
 }

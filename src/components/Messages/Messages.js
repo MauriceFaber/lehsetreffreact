@@ -69,8 +69,6 @@ export default function Messages() {
 
   async function sendImage(event) {
     var file = event.target.files[0];
-    console.log(dataUrl);
-
     var dataUrl = await toBase64(file);
     console.log(dataUrl);
     await send(dataUrl, 1);
