@@ -47,25 +47,15 @@
 }
 
 .messageContainer .image {
-  height: 100px;
+  height: 150px;
   transition: 0.5s all ease;
 }
-
-.messageContainer .image:hover {
-  height: 150px;
-  transition: 0.8s all ease;
-}
-
 .messageContainer .timeStamp {
-  /* position: absolute;
-  right: 5px;
-  top: 5px; */
   font-size: 12px;
-
   font-style: italic;
 }
 
-.messageContainer .h-item {
+.h-item {
   display: inline;
   list-style: none;
   margin-left: auto;

@@ -7,13 +7,21 @@ export default function Login() {
   const [username, setUserName] = useState(null);
   const [password, setPassword] = useState(null);
   const [message, setMessage] = useState("");
-  const { authenticated, signIn } = useAuth();
+  const { authenticated, signIn, register } = useAuth();
 
   async function handleSubmit() {
     const loggedIn = await signIn(username, password);
     console.log(loggedIn);
     if (!loggedIn) {
       setMessage("Fehler bei der Anmeldung.");
+    }
+  }
+
+  async function handleRegister() {
+    const loggedIn = await register(username, password);
+    console.log(loggedIn);
+    if (!loggedIn) {
+      setMessage("Fehler bei der Registrierung.");
     }
   }
 
@@ -44,12 +52,21 @@ export default function Login() {
           type="password"
         ></input>
         <span className="danger">{message}</span>
-        <input
-          className="submitButton"
-          type="button"
-          onClick={handleSubmit}
-          value="Anmelden"
-        ></input>
+        <div className="formButtons">
+          <input
+            className="submitButton"
+            type="button"
+            onClick={handleSubmit}
+            value="Anmelden"
+          ></input>
+
+          <input
+            className="submitButton btn-danger"
+            type="button"
+            onClick={handleRegister}
+            value="Registrieren"
+          ></input>
+        </div>
       </form>
     </div>
   );

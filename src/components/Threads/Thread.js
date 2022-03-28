@@ -28,6 +28,7 @@ export default function ThreadGroup({ thread, deleteThread }) {
       >
         <h2>{thread.caption}</h2>
       </Link>
+      <h5>Besitzer: {thread.owner.userName}</h5>
       <p>{thread.description}</p>
       {isOwner ? (
         <ul className="actionList">

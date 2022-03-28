@@ -25,7 +25,6 @@ export default function Messages() {
       let request = new Request(domain + `/users?id=${id}`);
       let data = await fetch(request);
       data = await data.json();
-
       userIdAvatarDic[id] = data.avatar;
       return data.avatar;
     }
@@ -34,17 +33,8 @@ export default function Messages() {
   useEffect(async () => {
     await loadThread();
     await loadMessages();
-    // setInterval(refreshMessages, 5000);
     window.scrollTo(0, document.body.scrollHeight);
   }, []);
-
-  //   async function refreshMessages() {
-  //     let oldCount = !messages ? -1 : messages.length;
-  //     await loadMessages();
-  //     if (oldCount !== messages.length) {
-  //       window.scrollTo(0, document.body.scrollHeight);
-  //     }
-  //   }
 
   async function loadThread() {
     let request = new Request(
@@ -62,30 +52,56 @@ export default function Messages() {
     );
     let data = await fetch(request);
     data = await data.json();
-    // document.title = threadName;
     for (let i = 0; i < data.length; i++) {
       data[i].sender.avatar = await getAvatar(data[i].sender.id);
     }
     setMessages(data);
+    console.log(data);
+  }
+
+  const toBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+
+  async function sendImage(event) {
+    var file = event.target.files[0];
+    console.log(dataUrl);
+
+    var dataUrl = await toBase64(file);
+    console.log(dataUrl);
+    await send(dataUrl, 1);
   }
 
   async function sendText() {
-    let content = text;
+    let tmp = text;
     setText("");
+    let result = await send(text, 0);
+    if (!result) {
+      setText(tmp);
+    }
+  }
+
+  async function send(content, type) {
     let request = new Request(domain + "/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
-      body: `apiKey=${user.apiKey}&content=${content}&contentType=0&threadId=${thread.id}`,
+      body: `apiKey=${user.apiKey}&content=${content}&contentType=${type}&threadId=${thread.id}`,
     });
     let result = await fetch(request);
+    console.log(result);
+
     if (result.ok) {
       await loadMessages();
     } else {
-      setText(content);
       alert("Fehler beim Senden.");
     }
+    return result.ok;
   }
 
   function handleOpen() {
@@ -159,7 +175,7 @@ export default function Messages() {
           <input
             ref={(input) => setFileInput(input)}
             className="hiddenDisplayNone"
-            onChange={(e) => console.log("file opened", e)}
+            onChange={(e) => sendImage(e)}
             type="file"
           />
           <div className="button-wrapper last-button">

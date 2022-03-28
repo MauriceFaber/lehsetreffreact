@@ -11,21 +11,6 @@ export default function RightsManagement() {
   const { user, authenticated } = useAuth();
   const [users, setUsers] = useState([]);
 
-  let userIdAvatarDic = {};
-
-  async function getAvatar(id) {
-    if (userIdAvatarDic[id]) {
-      return userIdAvatarDic[id];
-    } else {
-      let request = new Request(domain + `/users?id=${id}`);
-      let data = await fetch(request);
-      data = await data.json();
-
-      userIdAvatarDic[id] = data.avatar;
-      return data.avatar;
-    }
-  }
-
   async function reloadThreadGroups() {
     let request = new Request(
       domain +

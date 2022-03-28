@@ -9,9 +9,6 @@ export default function AuthProvider(props) {
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
 
-  function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
   const signIn = async (username, password) => {
     try {
       setLoading(true);
@@ -24,17 +21,44 @@ export default function AuthProvider(props) {
         body: `userName=${username}&passphrase=${password}`,
       });
 
-      let result = undefined;
-
-      await fetch(request).then(async (returnedResponse) => {
-        result = await returnedResponse.json();
+      let response = await fetch(request);
+      if (response.ok) {
+        let result = await response.json();
         localStorage.setItem("apiKey", result.apiKey);
         console.log("logged in");
-      });
-      setUser(result);
-      setAuthenticated(true);
+        setUser(result);
+        setAuthenticated(true);
+      }
+      return response.ok;
+    } catch (err) {
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
 
-      return true;
+  const register = async (username, password, avatar) => {
+    try {
+      setLoading(true);
+
+      let request = new Request(domain + "/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        },
+        body: `userName=${username}&passphrase=${password}`,
+      });
+
+      let result = await fetch(request);
+      if (result.ok) {
+        result = await result.json();
+        localStorage.setItem("apiKey", result.apiKey);
+        console.log("registred in");
+        setUser(result);
+        setAuthenticated(true);
+      }
+
+      return result.ok;
     } catch (err) {
       return false;
     } finally {
@@ -89,6 +113,7 @@ export default function AuthProvider(props) {
     signIn,
     signOut,
     signInAutomatically,
+    register,
   };
   return <CtxProvider value={contextValue}>{props.children}</CtxProvider>;
 }
