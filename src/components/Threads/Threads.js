@@ -3,9 +3,9 @@ import Thread from "./Thread";
 import "./Threads.css";
 import { useState } from "react";
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
 import { domain } from "../../App";
 import { useAuth } from "../../contexts/Authentication";
+import Breadcrumb from "../Breadcrumb/Breadcrumb";
 
 export default function Threads({ deleteThread }) {
   const { groupName } = useParams();
@@ -48,7 +48,13 @@ export default function Threads({ deleteThread }) {
 
   return (
     <>
-      <h2>{threads.length > 0 ? threads[0].threadGroup.caption : ""}</h2>
+      <div className="headSection">
+        <Breadcrumb groupName={groupName} />
+        <h3>{threads.length > 0 ? threads[0].threadGroup.caption : ""}</h3>
+        <p>
+          <i>{threads.length > 0 ? threads[0].threadGroup.description : ""}</i>
+        </p>
+      </div>
       {isOwner ? <h3>Hi Besitzer!</h3> : null}
       {threads.map((thread, index) => {
         const key = `thread_${thread.id}`;

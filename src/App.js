@@ -155,9 +155,7 @@ export default function App() {
   return (
     <Router>
       <Navbar links={currentThreadGroups} />
-      <div className="mainDiv">
-        {/* <input type="button" onClick={loginClicked} value="login"></input> */}
-        {/* <input type="button" onClick={logoutClicked} value="logout"></input> */}
+      <div className="mainDiv page-content">
         <Routes>
           <Route
             path="/"

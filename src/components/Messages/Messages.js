@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Message from "./Message";
 import { useState } from "react";
 import "./Messages.css";
@@ -6,6 +6,7 @@ import { useParams } from "react-router";
 import { domain } from "../../App";
 import { useAuth } from "../../contexts/Authentication";
 import "../Loader/Loader.css";
+import Breadcrumb from "../Breadcrumb/Breadcrumb";
 
 export default function Messages() {
   const { threadName, groupName } = useParams();
@@ -13,6 +14,7 @@ export default function Messages() {
   const [messages, setMessages] = useState();
   const [text, setText] = useState("");
   const { user, authenticated } = useAuth();
+  const [fileInput, setFileInput] = useState(undefined);
 
   let userIdAvatarDic = {};
 
@@ -32,7 +34,12 @@ export default function Messages() {
   useEffect(async () => {
     await loadThread();
     await loadMessages();
+    setInterval(loadMessages, 2000);
   }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }, [messages]);
 
   async function loadThread() {
     let request = new Request(
@@ -76,6 +83,10 @@ export default function Messages() {
     }
   }
 
+  function handleOpen() {
+    fileInput.click();
+  }
+
   async function handleKeyDown(e) {
     if (e.key === "Enter") {
       await sendText();
@@ -100,7 +111,11 @@ export default function Messages() {
 
   return (
     <div className="message-page-content">
-      <h2>{thread.caption}</h2>
+      <Breadcrumb groupName={groupName} threadName={threadName} />
+      <h3>{thread.caption}</h3>
+      <p>
+        <i>{thread.description}</i>
+      </p>
       <br></br>
       {messages ? (
         <>
@@ -123,10 +138,11 @@ export default function Messages() {
       {authenticated ? (
         <div className="send-message-box">
           <div className="button-wrapper first-button">
-            <a className="imageButton">
+            <a className="imageButton" onClick={handleOpen}>
               <i className="fas fa-image"></i>
             </a>
           </div>
+
           <input
             onChange={(e) => setText(e.target.value)}
             className="messageInput"
@@ -134,6 +150,13 @@ export default function Messages() {
             type="text"
             value={text}
           ></input>
+
+          <input
+            ref={(input) => setFileInput(input)}
+            className="hiddenDisplayNone"
+            onChange={(e) => console.log("file opened", e)}
+            type="file"
+          />
           <div className="button-wrapper last-button">
             <a onClick={sendText} className="sendButton">
               <i className="fas fa-paper-plane"></i>

@@ -1,6 +1,19 @@
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.page-content {
+  margin: 0px 10px;
+}
+
+@media screen and (min-width: 961px) {
+  .page-content {
+    width: 80%;
+    margin: 0px auto;
+  }
+}
+
+.hiddenDisplayNone {
+  display: none;
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../contexts/Authentication";
+import Breadcrumb from "../Breadcrumb/Breadcrumb";
 import ThreadGroup from "./ThreadGroup";
 import "./ThreadGroups.css";
 
@@ -16,7 +17,8 @@ export default function ThreadGroups({ groups, deleteThreadGroup }) {
   }, [authenticated]);
 
   return (
-    <>
+    <div className="mainDiv">
+      <Breadcrumb />
       {groups.map((group) => {
         const key = `threadGroup_${group.id}`;
         return (
@@ -32,6 +34,6 @@ export default function ThreadGroups({ groups, deleteThreadGroup }) {
           <i className="fa fa-plus"></i>
         </a>
       ) : null}
-    </>
+    </div>
   );
 }

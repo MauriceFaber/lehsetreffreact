@@ -1,10 +1,5 @@
 .message-page-content {
-  margin: 10px;
   margin-bottom: 100px;
-}
-
-.message-page-content h2 {
-  margin-bottom: 20px;
 }
 
 .messageContainer {
@@ -16,8 +11,6 @@
 
 @media screen and (min-width: 961px) {
   .message-page-content {
-    width: 80%;
-    margin: 0px auto;
     margin-bottom: 120px !important;
   }
 

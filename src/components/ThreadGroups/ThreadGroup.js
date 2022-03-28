@@ -27,7 +27,6 @@ export default function ThreadGroup({ threadGroup, deleteThreadGroup }) {
         <h2>{threadGroup.caption}</h2>
       </Link>
       <h5>Besitzer: {threadGroup.owner.userName}</h5>
-      <br />
       <p className="threadGroupDescription">
         <i>{threadGroup.description}</i>
       </p>
