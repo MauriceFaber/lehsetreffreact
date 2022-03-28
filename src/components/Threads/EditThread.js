@@ -33,8 +33,8 @@ export default function AddThreadGroup({ editThread }) {
   useEffect(async () => {
     var tmp = await loadThread(threadId);
     setThread(tmp);
-    setCaption(thread.caption);
-    setDescription(thread.description);
+    setCaption(tmp.caption);
+    setDescription(tmp.description);
   }, []);
 
   return (
