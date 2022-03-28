@@ -11,7 +11,7 @@ import Breadcrumb from "../Breadcrumb/Breadcrumb";
 export default function Messages() {
   const { threadName, groupName } = useParams();
   const [thread, setThread] = useState(undefined);
-  const [messages, setMessages] = useState();
+  const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
   const { user, authenticated } = useAuth();
   const [fileInput, setFileInput] = useState(undefined);
@@ -34,12 +34,16 @@ export default function Messages() {
   useEffect(async () => {
     await loadThread();
     await loadMessages();
-    setInterval(loadMessages, 2000);
+    setInterval(refreshMessages, 5000);
   }, []);
 
-  useEffect(() => {
-    window.scrollTo(0, document.body.scrollHeight);
-  }, [messages]);
+  async function refreshMessages() {
+    let oldCount = messages.length;
+    await loadMessages();
+    if (oldCount !== messages.length) {
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+  }
 
   async function loadThread() {
     let request = new Request(
