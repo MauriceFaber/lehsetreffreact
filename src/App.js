@@ -170,21 +170,23 @@ export default function App() {
     return result.ok;
   }
 
-  async function quoteMessage(messageId, content, type, additional) {
-    if (type != 0){
-      return false;
-    }
+  async function quoteMessage(content, quotedMessageId, threadId) {
     let request = new Request(domain + "/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
-      body: `apiKey=${user.apiKey}&messageID=${messageId}&content=${content}&contentType=${type}&additional=${additional}`,
+      body: `apiKey=${user.apiKey}&content=${content}&contentType=2&threadId=${threadId}&additional=${quotedMessageId}`,
     });
     let result = await fetch(request);
+    console.log(result);
 
+    if (!result.ok) {
+      alert("Fehler beim Senden.");
+    }
     return result.ok;
   }
+
 
   return (
     <Router>

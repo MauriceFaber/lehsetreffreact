@@ -10,10 +10,11 @@ export default function QuoteMessage({quoteMessage}) {
     const { messageId } = useParams();
     const [warning, setWarning] = useState("");
     const [text, setText] = useState("");
-    const [quote, setQuote] = useState(null);
+    const [quotedMessage, setQuotedMessage] = useState(null);
+
 
     function goBack() {
-        window.location.href = `/${quote.thread.threadGroup.caption}/${quote.thread.caption}`;
+        window.location.href = `/${quotedMessage.thread.threadGroup.caption}/${quotedMessage.thread.caption}`;
       }
     
       async function loadMessage(messageId) {
@@ -28,35 +29,36 @@ export default function QuoteMessage({quoteMessage}) {
       }
     
       async function handleSubmit() {
-        let result = await quoteMessage(messageId, text, 0, quote);
-        console.log(quote);
-        console.log(text);
+        let result = await quoteMessage(text, quotedMessage.id, quotedMessage.thread.id);
         setWarning(result ? "" : "Kann nicht zitiert werden werden.");
         if (result) {
-          window.location.href = `/${quote.thread.threadGroup.caption}/${quote.thread.caption}`;
+          window.location.href = `/${quotedMessage.thread.threadGroup.caption}/${quotedMessage.thread.caption}`;
         }
       }
 
       useEffect(async () => {
-        var quote = await loadMessage(messageId);
-        setQuote(quote);
-        if (quote) {
-          setText(quote.content);
-        }
+        var loadedMessage = await loadMessage(messageId);
+        setQuotedMessage(loadedMessage);
       }, []);
 
       
 
   return (
     <div className="login-wrapper">
-      <h2 className="formHeadline">Zitat:</h2>
+      <h2 className="formHeadline">Zitat</h2>
 
       <form onSubmit={handleSubmit}>
+        <div>
+             <p>Du zitierst {quotedMessage?.sender.userName}:</p>
+             <p><i>"{quotedMessage?.content}"</i></p>
+            
+        </div>
+        
         <textarea
           className="description-text"
           type="text"
           value={text}
-          onChange={(e) => setQuote(e.target.value)}
+          onChange={(e) => setText(e.target.value)}
         ></textarea>
         <span className="danger">{warning}</span>
         <div className="formButtons">

@@ -94,13 +94,13 @@ export default function Message({
         </p>
       ) : null}
     <ul className="actionList">
-      {authenticated && message.contentId != "DELETED" ? 
+      {authenticated && !isQuoted && message.contentId != "DELETED"  ? 
         <li>
           <a
             className="deleteButton"
             href={`/${message.thread.threadGroup.caption}/${message.thread.caption}/quoteMessage/${message.id}`}
           >
-            <i className="fas fa-arrow-turn-down"></i>
+            <i className="fas fa-quote-left"></i>
           </a>
         </li>
       : null}

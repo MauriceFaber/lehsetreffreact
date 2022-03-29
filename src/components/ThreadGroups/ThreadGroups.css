@@ -31,14 +31,7 @@
 .deleteButton i {
   font-size: 15px;
   padding-left: 10px;
-}
-
-.fa-trash {
-  color: rgb(65, 65, 65);
-}
-
-.fa-pen {
-  color: rgb(65, 65, 65);
+  color: rgb(65,65,65);
 }
 
 .deleteButton i:hover {
