@@ -9,6 +9,7 @@ import ErrorPage from "./pages/ErrorPage";
 import { useAuth } from "./contexts/Authentication";
 import Profile from "./components/User/Profile";
 import Login from "./components/User/Login";
+import EditMessage from "./components/Messages/EditMessage";
 
 import AddThreadGroup from "./components/ThreadGroups/AddThreadGroup";
 import EditThreadGroup from "./components/ThreadGroups/EditThreadGroup";
@@ -152,6 +153,22 @@ export default function App() {
     return result.ok;
   }
 
+  async function editMessage(messageId, content, type) {
+    if (type != 0){
+      return false;
+    }
+    let request = new Request(domain + "/messages", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
+      body: `apiKey=${user.apiKey}&messageID=${messageId}&content=${content}&contentType=${type}`,
+    });
+    let result = await fetch(request);
+
+    return result.ok;
+  }
+
   return (
     <Router>
       <Navbar links={currentThreadGroups} />
@@ -189,6 +206,12 @@ export default function App() {
             path="/:groupName/addThread"
             element={<AddThread addThread={addThread} />}
           />
+
+          <Route
+            path="/:groupName/:threadName/editMessage/:messageId"
+            element={<EditMessage editMessage={editMessage} />}
+          />
+
           <Route
             path="/:groupName/editThread/:threadId"
             element={<EditThread editThread={editThread} />}

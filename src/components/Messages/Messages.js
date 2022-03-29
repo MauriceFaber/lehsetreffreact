@@ -64,6 +64,7 @@ export default function Messages() {
       data[i].sender.avatar = await getAvatar(data[i].sender.id);
     }
     setMessages(data);
+    console.log(data);
   }
 
   const toBase64 = (file) =>

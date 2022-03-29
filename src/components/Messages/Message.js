@@ -10,15 +10,14 @@ export default function Message({ message, currentPage, index, deleteMessage, ed
   const isSender = message.sender.id == user.id;
 
   async function onDeleteMessage() {
+    if (!window.confirm(`Nachricht wirklich löschen?`)) {
+      return;
+    }
     await deleteMessage(message.id);
   }
 
-  async function onEditMessage() {
-    await editMessage(message.id);
-  }
-
   const dateString = date.toLocaleString("de-DE");
-  console.log(isSender);
+  console.log(message);
   return (
     <div
       className={`messageContainer ${
@@ -38,12 +37,14 @@ export default function Message({ message, currentPage, index, deleteMessage, ed
         <img className="image" src={message.content} />
       ) : null}
       {message.contentId == "Empty" ? <p>{message.content}</p> : null}
-      {isSender || isModerator ? (
+      {message.contentId == "DELETED" ? <p><i>Gelöschte Nachricht</i></p> : null}
+      {(isSender || isModerator) && message.contentId != "DELETED" ? (
         <ul className="actionList">
           {isSender ? (
           <li>
             <a
-              className="deleteButton" onClick={onEditMessage}
+              className="deleteButton" 
+              href={`/${message.thread.threadGroup.caption}/${message.thread.caption}/editMessage/${message.id}`}
             >
               <i className="fas fa-pen"></i>
             </a>
