@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useAuth } from "../../contexts/Authentication";
 import "./Messages.css";
 import "./Messages";
@@ -13,7 +13,7 @@ export default function Message({
   const { user, authenticated, isModerator, isUser } = useAuth();
 
   const isSender =
-    !authenticated || !isUser ? false : message.sender.id == user.id;
+    !authenticated || !isUser ? false : message.sender.id === user.id;
 
   async function onDeleteMessage() {
     if (!window.confirm(`Nachricht wirklich löschen?`)) {
@@ -27,37 +27,37 @@ export default function Message({
   return (
     <div
       className={`messageContainer ${
-        index == 0 && currentPage == 1 ? "firstMessage" : ""
+        index === 0 && currentPage === 1 ? "firstMessage" : ""
       }`}
     >
       <div className="senderInformation">
         <div className="avatar-wrapper h-item">
-          <img className="avatar" src={message.sender.avatar} />
+          <img className="avatar" alt="bild" src={message.sender.avatar} />
         </div>
-        <a className="senderName h-item">{message.sender.userName}</a>
+        <div className="senderName h-item">{message.sender.userName}</div>
         <div className="userRole h-item">{message.sender.role}</div>
         <p className="timeStamp h-item">{dateString}</p>
       </div>
-      {message.contentId == "Text" ? (
+      {message.contentId === "Text" ? (
         <p>
           {message.content}
           {message.wasModified ? <i>&nbsp;(bearbeitet)</i> : null}
         </p>
       ) : null}
-      {message.contentId == "Image" ? (
-        <img className="image" src={message.content} />
+      {message.contentId === "Image" ? (
+        <img className="image" alt="bild" src={message.content} />
       ) : null}
-      {message.contentId == "Empty" ? <p>{message.content}</p> : null}
-      {message.contentId == "DELETED" ? (
+      {message.contentId === "Empty" ? <p>{message.content}</p> : null}
+      {message.contentId === "DELETED" ? (
         <p>
           <i>(gelöscht)</i>
         </p>
       ) : null}
       {authenticated &&
       (isSender || isModerator) &&
-      message.contentId != "DELETED" ? (
+      message.contentId !== "DELETED" ? (
         <ul className="actionList">
-          {isSender && message.contentId == "Text" ? (
+          {isSender && message.contentId === "Text" ? (
             <li>
               <a
                 className="deleteButton"
@@ -68,7 +68,7 @@ export default function Message({
             </li>
           ) : null}
           <li>
-            <a className="deleteButton" onClick={onDeleteMessage}>
+            <a href="#" className="deleteButton" onClick={onDeleteMessage}>
               <i className="fas fa-trash"></i>
             </a>
           </li>
