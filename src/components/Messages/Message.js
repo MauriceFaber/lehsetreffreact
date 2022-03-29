@@ -17,7 +17,7 @@ export default function Message({ message, currentPage, index, deleteMessage, ed
   }
 
   const dateString = date.toLocaleString("de-DE");
-  console.log(message.wasModified);
+
   return (
     <div
       className={`messageContainer ${
@@ -28,7 +28,7 @@ export default function Message({ message, currentPage, index, deleteMessage, ed
         <div className="avatar-wrapper h-item">
           <img className="avatar" src={message.sender.avatar} />
         </div>
-        <a className="senderName h-item">{message.senderName}</a>
+        <a className="senderName h-item">{message.sender.userName}</a>
         <div className="userRole h-item">{message.sender.role}</div>
         <p className="timeStamp h-item">{dateString}</p>
       </div>
