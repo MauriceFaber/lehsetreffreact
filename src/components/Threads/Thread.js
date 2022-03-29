@@ -40,11 +40,13 @@ export default function ThreadGroup({ thread, deleteThread }) {
               <i className="fas fa-pen"></i>
             </a>
           </li>
-          <li>
-            <a className="deleteButton" onClick={onDeleteThread}>
-              <i className="fas fa-trash"></i>
-            </a>
-          </li>
+          {isModerator ? (
+            <li>
+              <a className="deleteButton" onClick={onDeleteThread}>
+                <i className="fas fa-trash"></i>
+              </a>
+            </li>
+          ) : null}
         </ul>
       ) : null}
     </div>
