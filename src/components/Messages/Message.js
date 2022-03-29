@@ -1,9 +1,24 @@
-import React from "react";
+import React ,{ useState, useEffect } from "react";
+import { useAuth } from "../../contexts/Authentication";
+import "./Messages.css";
 import "./Messages";
 
-export default function Message({ message, currentPage, index }) {
+export default function Message({ message, currentPage, index, deleteMessage, editMessage }) {
   const date = new Date(message.timeStamp);
+  const { user, authenticated, isModerator } = useAuth();
+
+  const isSender = message.sender.id == user.id;
+
+  async function onDeleteMessage() {
+    await deleteMessage(message.id);
+  }
+
+  async function onEditMessage() {
+    await editMessage(message.id);
+  }
+
   const dateString = date.toLocaleString("de-DE");
+  console.log(isSender);
   return (
     <div
       className={`messageContainer ${
@@ -23,6 +38,24 @@ export default function Message({ message, currentPage, index }) {
         <img className="image" src={message.content} />
       ) : null}
       {message.contentId == "Empty" ? <p>{message.content}</p> : null}
+      {isSender || isModerator ? (
+        <ul className="actionList">
+          {isSender ? (
+          <li>
+            <a
+              className="deleteButton" onClick={onEditMessage}
+            >
+              <i className="fas fa-pen"></i>
+            </a>
+          </li>
+          ) : null}
+            <li>
+              <a className="deleteButton" onClick={onDeleteMessage}>
+                <i className="fas fa-trash"></i>
+              </a>
+            </li>   
+        </ul> 
+      ) : null}
     </div>
   );
 }

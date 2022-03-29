@@ -109,6 +109,25 @@ export default function Messages() {
     return result.ok;
   }
 
+  async function deleteMessage(messageId) {
+    let request = new Request(domain + "/messages", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
+      body: `apiKey=${user.apiKey}&messageId=${messageId}`,
+    });
+    let result = await fetch(request);
+    console.log(result);
+
+    if (result.ok) {
+      await loadMessages();
+    } else {
+      alert("Fehler beim Löschen.");
+    }
+    return result.ok;
+  }
+
   function handleOpen() {
     fileInput.click();
   }
@@ -169,6 +188,7 @@ export default function Messages() {
                     currentPage={currentPage}
                     index={index}
                     message={message}
+                    deleteMessage={deleteMessage}
                   />
                 );
               })}

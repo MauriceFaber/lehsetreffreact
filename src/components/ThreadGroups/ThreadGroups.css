@@ -29,16 +29,16 @@
 }
 
 .deleteButton i {
-  font-size: 20px;
+  font-size: 15px;
   padding-left: 10px;
 }
 
 .fa-trash {
-  color: red;
+  color: rgb(65, 65, 65);
 }
 
 .fa-pen {
-  color: blue;
+  color: rgb(65, 65, 65);
 }
 
 .deleteButton i:hover {
