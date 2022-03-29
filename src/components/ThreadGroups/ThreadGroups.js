@@ -5,16 +5,7 @@ import ThreadGroup from "./ThreadGroup";
 import "./ThreadGroups.css";
 
 export default function ThreadGroups({ groups, deleteThreadGroup }) {
-  const { user, authenticated } = useAuth();
-  const [isModerator, setModerator] = useState(false);
-
-  useEffect(() => {
-    if (!authenticated) {
-      setModerator(false);
-    } else {
-      setModerator(["Mod", "Admin"].includes(user.role));
-    }
-  }, [authenticated]);
+  const { user, authenticated, isModerator } = useAuth();
 
   return (
     <div className="mainDiv">

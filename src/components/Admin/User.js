@@ -6,10 +6,19 @@ import "./RightsManagement.css";
 export default function User({ currentUser }) {
   const { user } = useAuth();
 
-  const [isUser, setIsUser] = useState(true);
+  const [roleId, setRoleId] = useState(-1);
+
+  const [isGuest, setIsGuest] = useState(true);
+  const [isUser, setIsUser] = useState(false);
   const [isModerator, setIsModerator] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [roleId, setRoleId] = useState(-1);
+
+  useEffect(() => {
+    setIsGuest(["Guest", "User", "Mod", "Admin"].includes(currentUser.role));
+    setIsUser(["User", "Mod", "Admin"].includes(currentUser.role));
+    setIsModerator(["Mod", "Admin"].includes(currentUser.role));
+    setIsAdmin(["Admin"].includes(currentUser.role));
+  }, []);
 
   function getRoleId(roleName) {
     return ["Guest", "User", "Mod", "Admin"].indexOf(roleName);
@@ -47,8 +56,11 @@ export default function User({ currentUser }) {
       <h4>{currentUser.userName}</h4>
       <img className="avatar" src={currentUser.avatar} />
       <select className="roleSelect" onChange={(e) => setRole(e.target.value)}>
+        <option value="0" selected={isGuest}>
+          Gast
+        </option>
         <option value="1" selected={isUser}>
-          User
+          Benutzer
         </option>
         <option value="2" selected={isModerator}>
           Moderator

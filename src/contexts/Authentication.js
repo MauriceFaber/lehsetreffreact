@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import createCtx from "./Ctx";
 import { domain } from "../App";
 
@@ -8,6 +8,23 @@ export default function AuthProvider(props) {
   const [loading, setLoading] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
+
+  const [isUser, setIsUser] = useState(false);
+  const [isModerator, setIsModerator] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    if (!authenticated) {
+      setUser(false);
+      setIsModerator(false);
+      setIsAdmin(false);
+    } else {
+      console.log(user.role);
+      setIsUser(["User", "Mod", "Admin"].includes(user.role));
+      setIsModerator(["Mod", "Admin"].includes(user.role));
+      setIsAdmin(["Admin"].includes(user.role));
+    }
+  }, [authenticated]);
 
   const signIn = async (username, password) => {
     try {
@@ -110,6 +127,9 @@ export default function AuthProvider(props) {
     loading,
     authenticated,
     user,
+    isUser,
+    isModerator,
+    isAdmin,
     signIn,
     signOut,
     signInAutomatically,

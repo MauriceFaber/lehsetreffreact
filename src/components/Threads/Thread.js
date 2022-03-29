@@ -5,7 +5,7 @@ import "./Threads.css";
 import "../ThreadGroups/ThreadGroups.css";
 
 export default function ThreadGroup({ thread, deleteThread }) {
-  const { user, authenticated } = useAuth();
+  const { user, authenticated, isModerator } = useAuth();
   const [isOwner, setOwner] = useState(false);
 
   async function onDeleteThread() {
@@ -30,7 +30,7 @@ export default function ThreadGroup({ thread, deleteThread }) {
       </Link>
       <h5>Besitzer: {thread.owner.userName}</h5>
       <p>{thread.description}</p>
-      {isOwner ? (
+      {isOwner || isModerator ? (
         <ul className="actionList">
           <li>
             <a

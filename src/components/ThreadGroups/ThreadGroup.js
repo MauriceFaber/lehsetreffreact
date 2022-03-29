@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/Authentication";
 
 export default function ThreadGroup({ threadGroup, deleteThreadGroup }) {
-  const { user, authenticated } = useAuth();
+  const { user, authenticated, isModerator } = useAuth();
   const [isOwner, setOwner] = useState(false);
 
   async function onDeleteThreadGroup() {
@@ -30,7 +30,7 @@ export default function ThreadGroup({ threadGroup, deleteThreadGroup }) {
       <p className="threadGroupDescription">
         <i>{threadGroup.description}</i>
       </p>
-      {isOwner ? (
+      {isOwner || isModerator ? (
         <ul className="actionList">
           <li>
             <a

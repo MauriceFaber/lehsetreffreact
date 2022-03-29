@@ -12,16 +12,7 @@ export default function Threads({ deleteThread }) {
   const [threads, setThreads] = useState([]);
   const { username } = useAuth();
 
-  const { user, authenticated } = useAuth();
-  const [isModerator, setModerator] = useState(false);
-
-  useEffect(() => {
-    if (!authenticated) {
-      setModerator(false);
-    } else {
-      setModerator(["Moderator", "Admin"].includes(user.role));
-    }
-  }, [authenticated]);
+  const { user, authenticated, isUser } = useAuth();
 
   useEffect(async () => {
     await loadThreads(groupName);
@@ -63,7 +54,7 @@ export default function Threads({ deleteThread }) {
         );
       })}
 
-      {authenticated && isModerator ? (
+      {authenticated && isUser ? (
         <a href={`/${groupName}/addThread`} className="addButton">
           <i className="fa fa-plus"></i>
         </a>

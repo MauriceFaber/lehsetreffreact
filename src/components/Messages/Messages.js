@@ -13,7 +13,7 @@ export default function Messages() {
   const [thread, setThread] = useState(undefined);
   const [messages, setMessages] = useState();
   const [text, setText] = useState("");
-  const { user, authenticated } = useAuth();
+  const { user, authenticated, isUser } = useAuth();
   const [fileInput, setFileInput] = useState(undefined);
 
   let userIdAvatarDic = {};
@@ -56,7 +56,6 @@ export default function Messages() {
       data[i].sender.avatar = await getAvatar(data[i].sender.id);
     }
     setMessages(data);
-    console.log(data);
   }
 
   const toBase64 = (file) =>
@@ -154,7 +153,7 @@ export default function Messages() {
           </div>
         </div>
       )}
-      {authenticated ? (
+      {authenticated && isUser ? (
         <div className="send-message-box">
           <div className="button-wrapper first-button">
             <a className="imageButton" onClick={handleOpen}>

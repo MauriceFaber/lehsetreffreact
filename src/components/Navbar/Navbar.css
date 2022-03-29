@@ -139,7 +139,7 @@
     padding: 1.5rem;
     margin: 2rem auto;
     border-radius: 4px;
-    width: 80%;
+    width: 100%;
     background: #4ad9e4;
     text-decoration: none;
     color: white;
@@ -155,25 +155,4 @@
   Button {
     display: none;
   }
-
-  .appCaption {
-    /* transform: translate(0%, -70%); */
-    /* margin-top: -20px; */
-    /* font-size: 30px; */
-  }
-
-  .appIcon {
-    /* transform: translate(0%, -70%); */
-    /* margin-top: -20px; */
-    /* height: 40px; */
-  }
-}
-
-.navbar-avatar {
-  height: 40px;
-  width: 40px;
-  margin-left: 20px;
-  border-radius: 50%;
-  object-fit: cover;
-  transform: translate(0%, 40%);
 }
