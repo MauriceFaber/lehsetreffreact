@@ -17,7 +17,7 @@ export default function Message({ message, currentPage, index, deleteMessage, ed
   }
 
   const dateString = date.toLocaleString("de-DE");
-  console.log(message);
+  console.log(message.wasModified);
   return (
     <div
       className={`messageContainer ${
@@ -32,15 +32,16 @@ export default function Message({ message, currentPage, index, deleteMessage, ed
         <div className="userRole h-item">{message.sender.role}</div>
         <p className="timeStamp h-item">{dateString}</p>
       </div>
-      {message.contentId == "Text" ? <p>{message.content}</p> : null}
+      {message.contentId == "Text" ? <p>{message.content}
+      {message.wasModified ? <i>&nbsp;(bearbeitet)</i>: null }</p> : null}
       {message.contentId == "Image" ? (
         <img className="image" src={message.content} />
       ) : null}
       {message.contentId == "Empty" ? <p>{message.content}</p> : null}
-      {message.contentId == "DELETED" ? <p><i>Gelöschte Nachricht</i></p> : null}
+      {message.contentId == "DELETED" ? <p><i>(gelöscht)</i></p> : null}
       {(isSender || isModerator) && message.contentId != "DELETED" ? (
         <ul className="actionList">
-          {isSender ? (
+          {isSender && message.contentId == "Text" ? (
           <li>
             <a
               className="deleteButton" 

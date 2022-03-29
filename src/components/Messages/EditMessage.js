@@ -60,12 +60,12 @@ export default function EditMessage({editMessage}) {
       <h2 className="formHeadline">Nachricht bearbeiten</h2>
 
       <form onSubmit={handleSubmit}>
-        <h4>Content</h4>
-        <input
+        <textarea
+          className="description-text"
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
-        ></input>
+        ></textarea>
         <span className="danger">{warning}</span>
         <div className="formButtons">
           <input
