@@ -7,14 +7,22 @@ import { domain } from "../../App";
 import { useAuth } from "../../contexts/Authentication";
 import "../Loader/Loader.css";
 import Breadcrumb from "../Breadcrumb/Breadcrumb";
+import Pagination from "../Pagination/Pagination";
 
 export default function Messages() {
   const { threadName, groupName } = useParams();
   const [thread, setThread] = useState(undefined);
-  const [messages, setMessages] = useState();
   const [text, setText] = useState("");
   const { user, authenticated, isUser } = useAuth();
   const [fileInput, setFileInput] = useState(undefined);
+
+  const [messages, setMessages] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [messagesPerPage] = useState(30);
+
+  function paginate(number) {
+    setCurrentPage(number);
+  }
 
   let userIdAvatarDic = {};
 
@@ -127,6 +135,12 @@ export default function Messages() {
     );
   }
 
+  const indexOfLastMessage = currentPage * messagesPerPage;
+  const indexOfFirstMessage = indexOfLastMessage - messagesPerPage;
+  const currentMessages = messages
+    ? messages.slice(indexOfFirstMessage, indexOfLastMessage)
+    : undefined;
+
   return (
     <div className="message-page-content">
       <Breadcrumb groupName={groupName} threadName={threadName} />
@@ -137,11 +151,35 @@ export default function Messages() {
       <br></br>
       {messages ? (
         <>
-          {messages.length === 0 ? "Keine Nachrichten vorhanden." : null}
-          {messages.map((message, index) => {
-            const key = `message_${message.id}`;
-            return <Message key={key} index={index} message={message} />;
-          })}
+          {messages.length === 0 ? (
+            "Keine Nachrichten vorhanden."
+          ) : (
+            <>
+              <Pagination
+                currentNumber={currentPage}
+                itemsPerPage={messagesPerPage}
+                totalItems={messages.length}
+                paginate={paginate}
+              />
+              {currentMessages.map((message, index) => {
+                const key = `message_${message.id}`;
+                return (
+                  <Message
+                    key={key}
+                    currentPage={currentPage}
+                    index={index}
+                    message={message}
+                  />
+                );
+              })}
+              <Pagination
+                currentNumber={currentPage}
+                itemsPerPage={messagesPerPage}
+                totalItems={messages.length}
+                paginate={paginate}
+              />
+            </>
+          )}
         </>
       ) : (
         <div className="centered-loader">

@@ -1,11 +1,15 @@
 import React from "react";
 import "./Messages";
 
-export default function Message({ message, index }) {
+export default function Message({ message, currentPage, index }) {
   const date = new Date(message.timeStamp);
   const dateString = date.toLocaleString("de-DE");
   return (
-    <div className={`messageContainer ${index == 0 ? "firstMessage" : ""}`}>
+    <div
+      className={`messageContainer ${
+        index == 0 && currentPage == 1 ? "firstMessage" : ""
+      }`}
+    >
       <div className="senderInformation">
         <div className="avatar-wrapper h-item">
           <img className="avatar" src={message.sender.avatar} />
