@@ -11,6 +11,16 @@
   zoom: 0.9;
 }
 
+.quotedMessage {
+  zoom: 0.8 !important;
+  border: none;
+  padding: 2px 10px 1px 10px;
+  border-left: 4px solid gray !important;
+}
+
+.quotedMessage p {
+  color: #666;
+}
 
 .firstMessage {
   background-color: rgba(33, 79, 171, 0.466);

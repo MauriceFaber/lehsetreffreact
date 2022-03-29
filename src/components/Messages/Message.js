@@ -57,19 +57,26 @@ export default function Message({
     <div
       className={`messageContainer ${
         index === 0 && currentPage === 1 ? "firstMessage" : ""
-      }`}
+      } ${isQuoted ? "quotedMessage" : ""}`}
     >
-      <div className="senderInformation">
-        <div className="avatar-wrapper h-item">
-          <img className="avatar" alt="bild" src={message.sender.avatar} />
+      {!isQuoted ? (
+        <div className="senderInformation">
+          <div className="avatar-wrapper h-item">
+            <img className="avatar" alt="bild" src={message.sender.avatar} />
+          </div>
+          <div className="senderName h-item">{message.sender.userName}</div>
+          <div className="userRole h-item">{message.sender.role}</div>
+          <p className="timeStamp h-item">{dateString}</p>
         </div>
-        <div className="senderName h-item">{message.sender.userName}</div>
-        <div className="userRole h-item">{message.sender.role}</div>
-        <p className="timeStamp h-item">{dateString}</p>
-      </div>
+      ) : null}
+      {isQuoted ? (
+        <div className="senderInformation">
+          <div className="senderName h-item">{message.sender.userName}</div>
+          <p className="timeStamp h-item">{dateString}</p>
+        </div>
+      ) : null}
       {message.contentId === "Text" ? (
         <p dangerouslySetInnerHTML={{ __html: message.content }}>
-          {/* {message.content} */}
           {message.wasModified ? <i>&nbsp;(bearbeitet)</i> : null}
         </p>
       ) : null}
