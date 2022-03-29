@@ -140,7 +140,7 @@ export default function Messages() {
           {messages.length === 0 ? "Keine Nachrichten vorhanden." : null}
           {messages.map((message, index) => {
             const key = `message_${message.id}`;
-            return <Message key={key} message={message} />;
+            return <Message key={key} index={index} message={message} />;
           })}
         </>
       ) : (

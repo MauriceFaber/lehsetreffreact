@@ -9,6 +9,10 @@
   border: 1px solid darkgray;
 }
 
+.firstMessage {
+  background-color: rgba(33, 79, 171, 0.466);
+}
+
 @media screen and (min-width: 961px) {
   .message-page-content {
     margin-bottom: 120px !important;
