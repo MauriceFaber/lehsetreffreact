@@ -4,6 +4,7 @@ import "./Messages.css";
 import "./Messages";
 import { domain } from "../../App";
 import { getAvatar } from "./Messages";
+import { replaceURLs } from "./Messages";
 
 export default function Message({
   message,
@@ -42,6 +43,10 @@ export default function Message({
     if (message.additional) {
       let id = parseInt(message.additional);
       let result = await loadMessage(id);
+      if (["Text", "Quote"].includes(result.contentId)) {
+        console.log("replacing");
+        result.content = replaceURLs(result.content);
+      }
       setQuotedMessage(result);
     }
   }, []);
@@ -63,8 +68,8 @@ export default function Message({
         <p className="timeStamp h-item">{dateString}</p>
       </div>
       {message.contentId === "Text" ? (
-        <p>
-          {message.content}
+        <p dangerouslySetInnerHTML={{ __html: message.content }}>
+          {/* {message.content} */}
           {message.wasModified ? <i>&nbsp;(bearbeitet)</i> : null}
         </p>
       ) : null}
@@ -84,7 +89,7 @@ export default function Message({
               />
             ) : null}
           </div>
-          <p>{message.content}</p>
+          <p dangerouslySetInnerHTML={{ __html: message.content }}></p>
         </div>
       ) : null}
       {message.contentId === "Empty" ? <p>{message.content}</p> : null}
@@ -93,37 +98,41 @@ export default function Message({
           <i>(gelöscht)</i>
         </p>
       ) : null}
-    <ul className="actionList">
-      {authenticated && !isQuoted && message.contentId != "DELETED"  ? 
-        <li>
-          <a
-            className="deleteButton"
-            href={`/${message.thread.threadGroup.caption}/${message.thread.caption}/quoteMessage/${message.id}`}
-          >
-            <i className="fas fa-quote-left"></i>
-          </a>
-        </li>
-      : null}
-      {(!isQuoted &&
-      authenticated &&
-      (isSender || isModerator) &&
-      message.contentId !== "DELETED") ? <>
-        {isSender && message.contentId === "Text" ? <>
-         <li>
-               <a
-                 className="deleteButton"
-                 href={`/${message.thread.threadGroup.caption}/${message.thread.caption}/editMessage/${message.id}`}
-               >
-                 <i className="fas fa-pen"></i>
-               </a>
-             </li> 
-        </>:null}
-        <li>
-          <a href="#" className="deleteButton" onClick={onDeleteMessage}>
-              <i className="fas fa-trash"></i>
-          </a>
-        </li>
-      </>: null}
+      <ul className="actionList">
+        {authenticated && !isQuoted && message.contentId != "DELETED" ? (
+          <li>
+            <a
+              className="deleteButton"
+              href={`/${message.thread.threadGroup.caption}/${message.thread.caption}/quoteMessage/${message.id}`}
+            >
+              <i className="fas fa-quote-left"></i>
+            </a>
+          </li>
+        ) : null}
+        {!isQuoted &&
+        authenticated &&
+        (isSender || isModerator) &&
+        message.contentId !== "DELETED" ? (
+          <>
+            {isSender && message.contentId === "Text" ? (
+              <>
+                <li>
+                  <a
+                    className="deleteButton"
+                    href={`/${message.thread.threadGroup.caption}/${message.thread.caption}/editMessage/${message.id}`}
+                  >
+                    <i className="fas fa-pen"></i>
+                  </a>
+                </li>
+              </>
+            ) : null}
+            <li>
+              <a href="#" className="deleteButton" onClick={onDeleteMessage}>
+                <i className="fas fa-trash"></i>
+              </a>
+            </li>
+          </>
+        ) : null}
       </ul>
     </div>
   );

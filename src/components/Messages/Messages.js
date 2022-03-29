@@ -11,6 +11,25 @@ import Pagination from "../Pagination/Pagination";
 
 let userIdAvatarDic = {};
 
+export function replaceURLs(message) {
+  if (!message) return;
+
+  var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+  return message.replace(urlRegex, function (url) {
+    var hyperlink = url;
+    if (!hyperlink.match("^https?://")) {
+      hyperlink = "http://" + hyperlink;
+    }
+    return (
+      '<a href="' +
+      hyperlink +
+      '" target="_blank" rel="noopener noreferrer">' +
+      url +
+      "</a>"
+    );
+  });
+}
+
 export async function getAvatar(id) {
   if (userIdAvatarDic[id]) {
     return userIdAvatarDic[id];
@@ -62,6 +81,10 @@ export default function Messages() {
     data = await data.json();
     for (let i = 0; i < data.length; i++) {
       data[i].sender.avatar = await getAvatar(data[i].sender.id);
+
+      if (["Text", "Quote"].includes(data[i].contentId)) {
+        data[i].content = replaceURLs(data[i].content);
+      }
     }
     setMessages(data);
   }
