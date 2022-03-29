@@ -53,27 +53,37 @@ export default function Message({
           <i>(gelöscht)</i>
         </p>
       ) : null}
-      {authenticated &&
+    <ul className="actionList">
+      {authenticated && message.contentId != "DELETED" ? 
+        <li>
+          <a
+            className="deleteButton"
+            href={`/${message.thread.threadGroup.caption}/${message.thread.caption}/quoteMessage/${message.id}`}
+          >
+            <i className="fas fa-arrow-turn-down"></i>
+          </a>
+        </li>
+      : null}
+      {(authenticated &&
       (isSender || isModerator) &&
-      message.contentId !== "DELETED" ? (
-        <ul className="actionList">
-          {isSender && message.contentId === "Text" ? (
-            <li>
-              <a
-                className="deleteButton"
-                href={`/${message.thread.threadGroup.caption}/${message.thread.caption}/editMessage/${message.id}`}
-              >
-                <i className="fas fa-pen"></i>
-              </a>
-            </li>
-          ) : null}
-          <li>
-            <a href="#" className="deleteButton" onClick={onDeleteMessage}>
+      message.contentId !== "DELETED") ? <>
+        {isSender && message.contentId === "Text" ? <>
+         <li>
+               <a
+                 className="deleteButton"
+                 href={`/${message.thread.threadGroup.caption}/${message.thread.caption}/editMessage/${message.id}`}
+               >
+                 <i className="fas fa-pen"></i>
+               </a>
+             </li> 
+        </>:null}
+        <li>
+          <a href="#" className="deleteButton" onClick={onDeleteMessage}>
               <i className="fas fa-trash"></i>
-            </a>
-          </li>
-        </ul>
-      ) : null}
+          </a>
+        </li>
+      </>: null}
+      </ul>
     </div>
   );
 }

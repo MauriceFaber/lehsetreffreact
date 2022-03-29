@@ -11,6 +11,19 @@
   zoom: 0.9;
 }
 
+.fa-arrow-turn-down {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+
+  list-style: none;
+  display: grid;
+
+  display: flex;
+  justify-content: center;
+  color: rgb(110, 110, 110);
+}
+
 .firstMessage {
   background-color: rgba(33, 79, 171, 0.466);
 }

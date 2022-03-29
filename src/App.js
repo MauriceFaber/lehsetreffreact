@@ -10,6 +10,7 @@ import { useAuth } from "./contexts/Authentication";
 import Profile from "./components/User/Profile";
 import Login from "./components/User/Login";
 import EditMessage from "./components/Messages/EditMessage";
+import QuoteMessage from "./components/Messages/QuoteMessage";
 
 import AddThreadGroup from "./components/ThreadGroups/AddThreadGroup";
 import EditThreadGroup from "./components/ThreadGroups/EditThreadGroup";
@@ -169,6 +170,22 @@ export default function App() {
     return result.ok;
   }
 
+  async function quoteMessage(messageId, content, type, additional) {
+    if (type != 0){
+      return false;
+    }
+    let request = new Request(domain + "/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
+      body: `apiKey=${user.apiKey}&messageID=${messageId}&content=${content}&contentType=${type}&additional=${additional}`,
+    });
+    let result = await fetch(request);
+
+    return result.ok;
+  }
+
   return (
     <Router>
       <Navbar links={currentThreadGroups} />
@@ -210,6 +227,11 @@ export default function App() {
           <Route
             path="/:groupName/:threadName/editMessage/:messageId"
             element={<EditMessage editMessage={editMessage} />}
+          />
+
+          <Route
+            path="/:groupName/:threadName/quoteMessage/:messageId"
+            element={<QuoteMessage quoteMessage={quoteMessage} />}
           />
 
           <Route
