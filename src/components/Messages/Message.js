@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../../contexts/Authentication";
 import "./Messages.css";
 import "./Messages";
+import { domain } from "../../App";
+import { getAvatar } from "./Messages";
 
 export default function Message({
   message,
   currentPage,
   index,
   deleteMessage,
+  isQuoted,
 }) {
   const date = new Date(message.timeStamp);
   const { user, authenticated, isModerator, isUser } = useAuth();
+  const [quotedMessage, setQuotedMessage] = useState();
 
   const isSender =
     !authenticated || !isUser ? false : message.sender.id === user.id;
@@ -21,6 +25,26 @@ export default function Message({
     }
     await deleteMessage(message.id);
   }
+
+  async function loadMessage(messageId) {
+    let result = await fetch(
+      new Request(domain + "/messages?messageId=" + messageId)
+    );
+    if (result.ok) {
+      let tmp = await result.json();
+      tmp.sender.avatar = await getAvatar(tmp.sender.id);
+      return tmp;
+    }
+    return undefined;
+  }
+
+  useEffect(async () => {
+    if (message.additional) {
+      let id = parseInt(message.additional);
+      let result = await loadMessage(id);
+      setQuotedMessage(result);
+    }
+  }, []);
 
   const dateString = date.toLocaleString("de-DE");
 
@@ -47,13 +71,30 @@ export default function Message({
       {message.contentId === "Image" ? (
         <img className="image" alt="bild" src={message.content} />
       ) : null}
+      {message.contentId === "Quote" ? (
+        <div>
+          <div className="quoted">
+            {quotedMessage ? (
+              <Message
+                isQuoted={true}
+                message={quotedMessage}
+                currentPage={currentPage}
+                index={index}
+                deleteMessage={deleteMessage}
+              />
+            ) : null}
+          </div>
+          <p>{message.content}</p>
+        </div>
+      ) : null}
       {message.contentId === "Empty" ? <p>{message.content}</p> : null}
       {message.contentId === "DELETED" ? (
         <p>
           <i>(gelöscht)</i>
         </p>
       ) : null}
-      {authenticated &&
+      {!isQuoted &&
+      authenticated &&
       (isSender || isModerator) &&
       message.contentId !== "DELETED" ? (
         <ul className="actionList">

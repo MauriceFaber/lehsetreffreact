@@ -154,7 +154,7 @@ export default function App() {
   }
 
   async function editMessage(messageId, content, type) {
-    if (type != 0){
+    if (type != 0) {
       return false;
     }
     let request = new Request(domain + "/messages", {

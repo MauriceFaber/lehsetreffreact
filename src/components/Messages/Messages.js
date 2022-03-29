@@ -9,6 +9,20 @@ import "../Loader/Loader.css";
 import Breadcrumb from "../Breadcrumb/Breadcrumb";
 import Pagination from "../Pagination/Pagination";
 
+let userIdAvatarDic = {};
+
+export async function getAvatar(id) {
+  if (userIdAvatarDic[id]) {
+    return userIdAvatarDic[id];
+  } else {
+    let request = new Request(domain + `/users?id=${id}`);
+    let data = await fetch(request);
+    data = await data.json();
+    userIdAvatarDic[id] = data.avatar;
+    return data.avatar;
+  }
+}
+
 export default function Messages() {
   const { threadName, groupName } = useParams();
   const [thread, setThread] = useState(undefined);
@@ -22,20 +36,6 @@ export default function Messages() {
 
   function paginate(number) {
     setCurrentPage(number);
-  }
-
-  let userIdAvatarDic = {};
-
-  async function getAvatar(id) {
-    if (userIdAvatarDic[id]) {
-      return userIdAvatarDic[id];
-    } else {
-      let request = new Request(domain + `/users?id=${id}`);
-      let data = await fetch(request);
-      data = await data.json();
-      userIdAvatarDic[id] = data.avatar;
-      return data.avatar;
-    }
   }
 
   useEffect(async () => {
