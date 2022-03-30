@@ -3,12 +3,20 @@ import { useAuth } from "../../contexts/Authentication";
 import "./Login.css";
 import { useState } from "react";
 
+/**
+ * Ruft den Login ab.
+ * @returns 
+ * Die Login Ansicht.
+ */
 export default function Login() {
   const [username, setUserName] = useState(null);
   const [password, setPassword] = useState(null);
   const [message, setMessage] = useState("");
   const { authenticated, signIn, register } = useAuth();
 
+  /**
+   * Abfrage des Login.
+   */
   async function handleSubmit() {
     const loggedIn = await signIn(username, password);
     if (!loggedIn) {
@@ -16,6 +24,9 @@ export default function Login() {
     }
   }
 
+  /**
+   * Abfrage der Registrierung.
+   */
   async function handleRegister() {
     const loggedIn = await register(username, password);
     if (!loggedIn) {

@@ -4,6 +4,15 @@ import Breadcrumb from "../Breadcrumb/Breadcrumb";
 import ThreadGroup from "./ThreadGroup";
 import "./ThreadGroups.css";
 
+/**
+ * 
+ * @param groups
+ * Enthaelt die Thread Gruppen.
+ * @param {Function} deleteThreadGroup
+ * Loeschen der Thread Gruppe.
+ * @returns 
+ * 
+ */
 export default function ThreadGroups({ groups, deleteThreadGroup }) {
   const { user, authenticated, isModerator } = useAuth();
 

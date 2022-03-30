@@ -5,6 +5,13 @@ import { domain } from "../../App";
 
 import "./ThreadGroups.css";
 
+/**
+ * Editiert eine Thread Gruppe.
+ * @param {Function} editThreadGroup
+ * Editieren der Thread Gruppe. 
+ * @returns 
+ * Ansicht, um Thread Gruppe zu bearbeiten.
+ */
 export default function AddThreadGroup({ editThreadGroup }) {
   const { groupId } = useParams();
   const [message, setMessage] = useState("");
@@ -13,6 +20,9 @@ export default function AddThreadGroup({ editThreadGroup }) {
   const [caption, setCaption] = useState("");
   const [description, setDescription] = useState("");
 
+  /**
+   * Behandlung der Abfrage.
+   */
   async function handleSubmit() {
     let result = await editThreadGroup(groupId, caption, description);
     setMessage(result ? "" : "Konnte nicht bearbeitet werden.");
@@ -25,6 +35,13 @@ export default function AddThreadGroup({ editThreadGroup }) {
     window.location.href = "/";
   }
 
+  /**
+   * Laedt die Thread Gruppe.
+   * @param {index} id 
+   * Die ID der Thread Gruppe.
+   * @returns 
+   * Erfolg oder Misserfolg.
+   */
   async function loadGroup(id) {
     let result = await fetch(new Request(domain + "/threadGroups?id=" + id));
     if (result.ok) {

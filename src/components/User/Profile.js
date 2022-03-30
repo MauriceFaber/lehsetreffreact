@@ -9,6 +9,11 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { uploadImageFileSize } from "../Messages/Messages";
 import { domain } from "../../App";
 
+/**
+ * Ruft das Nutzer Profil ab.
+ * @returns
+ * Die Ansicht des Nutzer Profils.
+ */
 export default function Profile() {
   const { user, setAvatar } = useAuth();
   const [key, setKey] = useState("");
@@ -27,6 +32,9 @@ export default function Profile() {
     fileInput.click();
   }
 
+  /**
+   * Anzeige, falls ApiKey kopiert wird.
+   */
   function alertCopied() {
     toast.success("ApiKey kopiert.", {
       position: "bottom-center",

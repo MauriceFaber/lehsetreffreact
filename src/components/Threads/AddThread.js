@@ -1,12 +1,22 @@
 import React, { useState } from "react";
 import { useParams } from "react-router";
 
+/**
+ * Erstellt einen Thread.
+ * @param {Function} addThread
+ * Hinzufuegen des Threads. 
+ * @returns 
+ * Ansicht, um Thread zu erstellen.
+ */
 export default function AddThreadGroup({ addThread }) {
   const { groupName } = useParams();
   const [caption, setCaption] = useState("");
   const [description, setDescription] = useState("");
   const [message, setMessage] = useState("");
 
+  /**
+   * Behandlung der Abfrage.
+   */
   async function handleSubmit() {
     let result = await addThread(groupName, caption, description);
     setMessage(result ? "" : "Konnte nicht hinzugefügt werden.");

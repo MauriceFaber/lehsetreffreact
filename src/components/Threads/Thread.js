@@ -5,6 +5,16 @@ import "./Threads.css";
 import "../ThreadGroups/ThreadGroups.css";
 import { trimMax } from "../ThreadGroups/ThreadGroup";
 
+/**
+ * Ruft den Thread ab.
+ * @param {Function} thread
+ * Der Thread.
+ * @param {Function} deleteThread 
+ * Loeschen des Threads.
+ * @returns 
+ * Ansicht des Threads.
+ * Falls Besitzer oder Moderator, erzeuge Delete Button.
+ */
 export default function ThreadGroup({ thread, deleteThread }) {
   const { user, authenticated, isModerator } = useAuth();
   const [isOwner, setOwner] = useState(false);

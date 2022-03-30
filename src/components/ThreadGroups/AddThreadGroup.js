@@ -1,12 +1,22 @@
 import React, { useState } from "react";
 import { useAuth } from "../../contexts/Authentication";
 
+/**
+ * Erstellt eine Thread Gruppe.
+ * @param {Function} addThreadGroup 
+ * Hinzufuegen der Thread Gruppe.
+ * @returns 
+ * Ansicht, um Thread Gruppe zu erstellen.
+ */
 export default function AddThreadGroup({ addThreadGroup }) {
   const { user, authenticated } = useAuth();
   const [caption, setCaption] = useState("");
   const [description, setDescription] = useState("");
   const [message, setMessage] = useState("");
 
+  /**
+   * Behandlung der Abfrage.
+   */
   async function handleSubmit() {
     let result = await addThreadGroup(caption, description);
     setMessage(result ? "" : "Konnte nicht hinzugefügt werden.");
