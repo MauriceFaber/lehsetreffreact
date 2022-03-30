@@ -5,6 +5,20 @@ const STYLES = ["btn--primary", "btn-outline"];
 
 const SIZES = ["btn--medium", "btn--large"];
 
+/**
+ * Stellt unterschiedliche Buttons dar.
+ * @param children 
+ * @param {number} type
+ * Der Typ des Buttons.
+ * @param {Event} onClick
+ * Das Klick Event.
+ * @param {number} buttonStyle
+ * Der Style des Buttons
+ * @param {number} buttonSize
+ * Die Groesse des Buttons.
+ * @returns 
+ * Den benoetigten Button.
+ */
 export const Button = ({
   children,
   type,

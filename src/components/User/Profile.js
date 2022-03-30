@@ -6,6 +6,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
+/**
+ * Ruft das Nutzer Profil ab.
+ * @returns 
+ * Die Ansicht des Nutzer Profils.
+ */
 export default function Profile() {
   const { user } = useAuth();
   const [key, setKey] = useState("");
@@ -16,6 +21,9 @@ export default function Profile() {
     }
   }, [user]);
 
+  /**
+   * Anzeige, falls ApiKey kopiert wird.
+   */
   function alertCopied() {
     toast.success("ApiKey kopiert.", {
       position: "bottom-center",
