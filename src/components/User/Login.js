@@ -11,7 +11,6 @@ export default function Login() {
 
   async function handleSubmit() {
     const loggedIn = await signIn(username, password);
-    console.log(loggedIn);
     if (!loggedIn) {
       setMessage("Fehler bei der Anmeldung.");
     }
@@ -19,14 +18,12 @@ export default function Login() {
 
   async function handleRegister() {
     const loggedIn = await register(username, password);
-    console.log(loggedIn);
     if (!loggedIn) {
       setMessage("Fehler bei der Registrierung.");
     }
   }
 
   if (authenticated) {
-    console.log("authenticated");
     window.location.href = "/";
   }
 

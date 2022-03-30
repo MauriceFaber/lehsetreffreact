@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import { domain } from "../../App";
 
 import "../ThreadGroups/ThreadGroups.css";
+import "./Messages.css";
 
 /**
  * Ruft die Darstellung zum Zitieren einer anderen Nachricht ab
@@ -71,9 +72,18 @@ export default function QuoteMessage({ quoteMessage }) {
       <form onSubmit={handleSubmit}>
         <div>
           <p>Du zitierst {quotedMessage?.sender.userName}:</p>
-          <p>
-            <i>"{quotedMessage?.content}"</i>
-          </p>
+
+          {quotedMessage?.contentId === "Image" ? (
+            <img
+              className="quoteImage"
+              src={quotedMessage?.content}
+              alt="bild"
+            ></img>
+          ) : (
+            <p>
+              <i>"{quotedMessage?.content}"</i>
+            </p>
+          )}
         </div>
 
         <textarea

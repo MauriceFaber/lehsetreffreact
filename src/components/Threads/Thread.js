@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/Authentication";
 import "./Threads.css";
 import "../ThreadGroups/ThreadGroups.css";
+import { trimMax } from "../ThreadGroups/ThreadGroup";
 
 export default function ThreadGroup({ thread, deleteThread }) {
   const { user, authenticated, isModerator } = useAuth();
@@ -20,16 +21,18 @@ export default function ThreadGroup({ thread, deleteThread }) {
     }
   }, [authenticated]);
 
+  thread.description = trimMax(thread.description, 100);
+
   return (
     <div className="threadGroupContainer">
       <Link
         className="noLink"
         to={`/${thread.threadGroup.caption}/${thread.caption}`}
       >
-        <h2>{thread.caption}</h2>
+        <h3>{thread.caption}</h3>
       </Link>
       <h5>Besitzer: {thread.owner.userName}</h5>
-      <p>{thread.description}</p>
+      <p className="threadGroupDescription">{thread.description}</p>
       {isOwner || isModerator ? (
         <ul className="actionList">
           <li>

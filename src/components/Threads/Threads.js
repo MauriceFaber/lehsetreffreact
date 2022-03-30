@@ -24,7 +24,9 @@ export default function Threads({ deleteThread }) {
   }
 
   async function loadThreads(groupName) {
-    let request = new Request(domain + "/threads?threadGroupName=" + groupName);
+    let request = new Request(
+      domain + "/threads?threadGroupName=" + encodeURIComponent(groupName)
+    );
     let data = await fetch(request);
     data = await data.json();
     document.title = groupName;
@@ -42,7 +44,7 @@ export default function Threads({ deleteThread }) {
       <div className="headSection">
         <Breadcrumb groupName={groupName} />
         <h3>{threads.length > 0 ? threads[0].threadGroup.caption : ""}</h3>
-        <p>
+        <p className="block">
           <i>{threads.length > 0 ? threads[0].threadGroup.description : ""}</i>
         </p>
       </div>

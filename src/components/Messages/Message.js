@@ -4,7 +4,6 @@ import "./Messages.css";
 import "./Messages";
 import { domain } from "../../App";
 import { getAvatar } from "./Messages";
-import { replaceURLs } from "./Messages";
 
 /**
  * Ruft die einzelnen Nachrichten ab.
@@ -68,9 +67,6 @@ export default function Message({
     if (message.additional) {
       let id = parseInt(message.additional);
       let result = await loadMessage(id);
-      if (["Text", "Quote"].includes(result.contentId)) {
-        result.content = replaceURLs(result.content);
-      }
       setQuotedMessage(result);
     }
   }, []);
@@ -101,7 +97,8 @@ export default function Message({
         </div>
       ) : null}
       {message.contentId === "Text" ? (
-        <p dangerouslySetInnerHTML={{ __html: message.content }}>
+        <p>
+          {message.content}
           {message.wasModified ? <i>&nbsp;(bearbeitet)</i> : null}
         </p>
       ) : null}
@@ -121,7 +118,7 @@ export default function Message({
               />
             ) : null}
           </div>
-          <p dangerouslySetInnerHTML={{ __html: message.content }}></p>
+          <p>{message.content}</p>
         </div>
       ) : null}
       {message.contentId === "Empty" ? <p>{message.content}</p> : null}

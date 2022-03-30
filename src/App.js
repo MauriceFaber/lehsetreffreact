@@ -97,7 +97,9 @@ export default function App() {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
-      body: `apiKey=${user.apiKey}&caption=${caption}&description=${description}`,
+      body: `apiKey=${user.apiKey}&caption=${encodeURIComponent(
+        caption
+      )}&description=${encodeURIComponent(description)}`,
     });
 
     let result = await fetch(request);
@@ -107,10 +109,10 @@ export default function App() {
   async function editThreadGroup(id, caption, description) {
     let bodyArg = `apiKey=${user.apiKey}&id=${id}`;
     if (caption) {
-      bodyArg += `&caption=${caption}`;
+      bodyArg += `&caption=${encodeURIComponent(caption)}`;
     }
     if (description) {
-      bodyArg += `&description=${description}`;
+      bodyArg += `&description=${encodeURIComponent(description)}`;
     }
     let request = new Request(domain + "/threadGroups", {
       method: "PUT",
@@ -130,7 +132,11 @@ export default function App() {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
-      body: `apiKey=${user.apiKey}&groupName=${groupName}&caption=${caption}&description=${description}`,
+      body: `apiKey=${user.apiKey}&groupName=${encodeURIComponent(
+        groupName
+      )}&caption=${encodeURIComponent(
+        caption
+      )}&description=${encodeURIComponent(description)}`,
     });
 
     let result = await fetch(request);
@@ -140,10 +146,10 @@ export default function App() {
   async function editThread(id, caption, description) {
     let bodyArg = `apiKey=${user.apiKey}&threadId=${id}`;
     if (caption) {
-      bodyArg += `&caption=${caption}`;
+      bodyArg += `&caption=${encodeURIComponent(caption)}`;
     }
     if (description) {
-      bodyArg += `&description=${description}`;
+      bodyArg += `&description=${encodeURIComponent(description)}`;
     }
     let request = new Request(domain + "/threads", {
       method: "PUT",
@@ -163,7 +169,11 @@ export default function App() {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
-      body: `apiKey=${user.apiKey}&messageID=${messageId}&content=${content}&contentType=${type}`,
+      body: `apiKey=${
+        user.apiKey
+      }&messageID=${messageId}&content=${encodeURIComponent(
+        content
+      )}&contentType=${type}`,
     });
     let result = await fetch(request);
 
@@ -176,17 +186,17 @@ export default function App() {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
-      body: `apiKey=${user.apiKey}&content=${content}&contentType=2&threadId=${threadId}&additional=${quotedMessageId}`,
+      body: `apiKey=${user.apiKey}&content=${encodeURIComponent(
+        content
+      )}&contentType=2&threadId=${threadId}&additional=${quotedMessageId}`,
     });
     let result = await fetch(request);
-    console.log(result);
 
     if (!result.ok) {
       alert("Fehler beim Senden.");
     }
     return result.ok;
   }
-
 
   return (
     <Router>

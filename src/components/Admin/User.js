@@ -50,9 +50,6 @@ export default function User({ currentUser }) {
    * Rollenname der neuzugewiesenen Rolle
    */
   async function setRole(newRole) {
-    if (currentUser)
-      console.log("Role from", currentUser.userName, "changed to: ", newRole);
-
     let request = new Request(domain + "/userRole", {
       method: "POST",
       headers: {

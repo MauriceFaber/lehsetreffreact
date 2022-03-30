@@ -3,8 +3,6 @@ import { useParams } from "react-router";
 
 export default function AddThreadGroup({ addThread }) {
   const { groupName } = useParams();
-  console.log(groupName);
-
   const [caption, setCaption] = useState("");
   const [description, setDescription] = useState("");
   const [message, setMessage] = useState("");

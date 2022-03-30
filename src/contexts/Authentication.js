@@ -19,7 +19,6 @@ export default function AuthProvider(props) {
       setIsModerator(false);
       setIsAdmin(false);
     } else {
-      console.log(user.role);
       setIsUser(["User", "Mod", "Admin"].includes(user.role));
       setIsModerator(["Mod", "Admin"].includes(user.role));
       setIsAdmin(["Admin"].includes(user.role));
@@ -35,14 +34,15 @@ export default function AuthProvider(props) {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         },
-        body: `userName=${username}&passphrase=${password}`,
+        body: `userName=${encodeURIComponent(
+          username
+        )}&passphrase=${encodeURIComponent(password)}`,
       });
 
       let response = await fetch(request);
       if (response.ok) {
         let result = await response.json();
         localStorage.setItem("apiKey", result.apiKey);
-        console.log("logged in");
         setUser(result);
         setAuthenticated(true);
       }
@@ -63,14 +63,15 @@ export default function AuthProvider(props) {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         },
-        body: `userName=${username}&passphrase=${password}`,
+        body: `userName=${encodeURIComponent(
+          username
+        )}&passphrase=${encodeURIComponent(password)}`,
       });
 
       let result = await fetch(request);
       if (result.ok) {
         result = await result.json();
         localStorage.setItem("apiKey", result.apiKey);
-        console.log("registred in");
         setUser(result);
         setAuthenticated(true);
       }
@@ -112,7 +113,6 @@ export default function AuthProvider(props) {
 
   const signOut = () => {
     try {
-      console.log("signing out");
       setLoading(true);
       localStorage.removeItem("apiKey");
       setUser(null);
