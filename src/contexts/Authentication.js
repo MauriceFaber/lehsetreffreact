@@ -3,7 +3,13 @@ import createCtx from "./Ctx";
 import { domain } from "../App";
 
 export const [useAuth, CtxProvider] = createCtx();
-
+/**
+ * Funktion zum Setzen und Überprüfen der Rechte des Nutzers
+ * @param {*} props 
+ * Überprüfung der Nutzerrolle
+ * @returns 
+ * Liefert die Rolle des Nutzers zurück
+ */
 export default function AuthProvider(props) {
   const [loading, setLoading] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
@@ -19,12 +25,21 @@ export default function AuthProvider(props) {
       setIsModerator(false);
       setIsAdmin(false);
     } else {
+      console.log(user.role);
       setIsUser(["User", "Mod", "Admin"].includes(user.role));
       setIsModerator(["Mod", "Admin"].includes(user.role));
       setIsAdmin(["Admin"].includes(user.role));
     }
   }, [authenticated]);
-
+/**
+ * Funktion zum Einloggen
+ * @param {*} username 
+ * Überprüfung des Benutzernamens
+ * @param {*} password 
+ * Überprüfung des Passworts
+ * @returns 
+ * Liefert den erfolgreichen oder nicht erfolgreichen Login Versuch
+ */
   const signIn = async (username, password) => {
     try {
       setLoading(true);
@@ -34,15 +49,14 @@ export default function AuthProvider(props) {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         },
-        body: `userName=${encodeURIComponent(
-          username
-        )}&passphrase=${encodeURIComponent(password)}`,
+        body: `userName=${username}&passphrase=${password}`,
       });
 
       let response = await fetch(request);
       if (response.ok) {
         let result = await response.json();
         localStorage.setItem("apiKey", result.apiKey);
+        console.log("logged in");
         setUser(result);
         setAuthenticated(true);
       }
@@ -53,7 +67,17 @@ export default function AuthProvider(props) {
       setLoading(false);
     }
   };
-
+/**
+ * Funktion zum Anlegen eines Benutzers
+ * @param {*} username 
+ * Anlegen eines Benutzernamens
+ * @param {*} password 
+ * Vergabe eines Passworts
+ * @param {*} avatar 
+ * Avatar setzen
+ * @returns 
+ * Liefert den erfolgreichen oder nicht erfolgreichen Registrierungsversuch zurück
+ */
   const register = async (username, password, avatar) => {
     try {
       setLoading(true);
@@ -63,15 +87,14 @@ export default function AuthProvider(props) {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         },
-        body: `userName=${encodeURIComponent(
-          username
-        )}&passphrase=${encodeURIComponent(password)}`,
+        body: `userName=${username}&passphrase=${password}`,
       });
 
       let result = await fetch(request);
       if (result.ok) {
         result = await result.json();
         localStorage.setItem("apiKey", result.apiKey);
+        console.log("registred in");
         setUser(result);
         setAuthenticated(true);
       }
@@ -83,7 +106,11 @@ export default function AuthProvider(props) {
       setLoading(false);
     }
   };
-
+/**
+ * Funktion zum automatischen Login ohne manuelle authentifizierung
+ * @returns 
+ * Liefert den erfolgreichen oder nicht erfolgreichen Login Versuch
+ */
   const signInAutomatically = async () => {
     try {
       setLoading(true);
@@ -110,9 +137,12 @@ export default function AuthProvider(props) {
       setLoading(false);
     }
   };
-
+/**
+ * Funktion zum Ausloggen
+ */
   const signOut = () => {
     try {
+      console.log("signing out");
       setLoading(true);
       localStorage.removeItem("apiKey");
       setUser(null);
