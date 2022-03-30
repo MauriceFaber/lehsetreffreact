@@ -4,44 +4,45 @@ import { useParams } from "react-router";
 import { domain } from "../../App";
 
 import "../ThreadGroups/ThreadGroups.css";
+import "./Messages.css";
 
-export default function QuoteMessage({quoteMessage}) {
+export default function QuoteMessage({ quoteMessage }) {
+  const { messageId } = useParams();
+  const [warning, setWarning] = useState("");
+  const [text, setText] = useState("");
+  const [quotedMessage, setQuotedMessage] = useState(null);
 
-    const { messageId } = useParams();
-    const [warning, setWarning] = useState("");
-    const [text, setText] = useState("");
-    const [quotedMessage, setQuotedMessage] = useState(null);
+  function goBack() {
+    window.location.href = `/${quotedMessage.thread.threadGroup.caption}/${quotedMessage.thread.caption}`;
+  }
 
+  async function loadMessage(messageId) {
+    let result = await fetch(
+      new Request(domain + "/messages?messageId=" + messageId)
+    );
+    if (result.ok) {
+      let tmp = await result.json();
+      return tmp;
+    }
+    return undefined;
+  }
 
-    function goBack() {
-        window.location.href = `/${quotedMessage.thread.threadGroup.caption}/${quotedMessage.thread.caption}`;
-      }
-    
-      async function loadMessage(messageId) {
-        let result = await fetch(new Request(domain + "/messages?messageId=" + messageId));
-        if (result.ok) {
-        
-        let tmp = await result.json();
-        return tmp;
-    
-        }
-        return undefined;
-      }
-    
-      async function handleSubmit() {
-        let result = await quoteMessage(text, quotedMessage.id, quotedMessage.thread.id);
-        setWarning(result ? "" : "Kann nicht zitiert werden werden.");
-        if (result) {
-          window.location.href = `/${quotedMessage.thread.threadGroup.caption}/${quotedMessage.thread.caption}`;
-        }
-      }
+  async function handleSubmit() {
+    let result = await quoteMessage(
+      text,
+      quotedMessage.id,
+      quotedMessage.thread.id
+    );
+    setWarning(result ? "" : "Kann nicht zitiert werden werden.");
+    if (result) {
+      window.location.href = `/${quotedMessage.thread.threadGroup.caption}/${quotedMessage.thread.caption}`;
+    }
+  }
 
-      useEffect(async () => {
-        var loadedMessage = await loadMessage(messageId);
-        setQuotedMessage(loadedMessage);
-      }, []);
-
-      
+  useEffect(async () => {
+    var loadedMessage = await loadMessage(messageId);
+    setQuotedMessage(loadedMessage);
+  }, []);
 
   return (
     <div className="login-wrapper">
@@ -49,11 +50,21 @@ export default function QuoteMessage({quoteMessage}) {
 
       <form onSubmit={handleSubmit}>
         <div>
-             <p>Du zitierst {quotedMessage?.sender.userName}:</p>
-             <p><i>"{quotedMessage?.content}"</i></p>
-            
+          <p>Du zitierst {quotedMessage?.sender.userName}:</p>
+
+          {quotedMessage?.contentId === "Image" ? (
+            <img
+              className="quoteImage"
+              src={quotedMessage?.content}
+              alt="bild"
+            ></img>
+          ) : (
+            <p>
+              <i>"{quotedMessage?.content}"</i>
+            </p>
+          )}
         </div>
-        
+
         <textarea
           className="description-text"
           type="text"
@@ -78,5 +89,5 @@ export default function QuoteMessage({quoteMessage}) {
         </div>
       </form>
     </div>
-  )
+  );
 }

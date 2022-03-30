@@ -18,6 +18,10 @@
   border-left: 4px solid gray !important;
 }
 
+.quoteImage {
+  height: 200px;
+}
+
 .quotedMessage p {
   color: #666;
 }
