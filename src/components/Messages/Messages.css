@@ -133,8 +133,16 @@
   position: absolute;
   left: 70px;
   bottom: 10px;
+  min-height: 50px;
+  max-height: 400px;
 
-  width: calc(100% - 140px);
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  background-color: #f8f8f8;
+  resize: vertical;
+
+  min-width: calc(100% - 140px);
+  max-width: calc(100% - 140px);
   font-size: 20px;
 }
 

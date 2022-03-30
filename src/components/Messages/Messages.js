@@ -8,6 +8,7 @@ import { useAuth } from "../../contexts/Authentication";
 import "../Loader/Loader.css";
 import Breadcrumb from "../Breadcrumb/Breadcrumb";
 import Pagination from "../Pagination/Pagination";
+import TextareaAutosize from "react-textarea-autosize";
 
 let userIdAvatarDic = {};
 
@@ -131,6 +132,7 @@ export default function Messages() {
    */
   async function sendText() {
     let tmp = text;
+    setText("");
     let result = await send(tmp, 0);
     if (!result) {
       setText(tmp);
@@ -206,7 +208,7 @@ export default function Messages() {
    * Enter Taste gedrückt
    */
   async function handleKeyDown(e) {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && !e.shiftKey) {
       await sendText();
     }
   }
@@ -294,13 +296,13 @@ export default function Messages() {
             </a>
           </div>
 
-          <textarea
+          <TextareaAutosize
             onChange={(e) => setText(e.target.value)}
             className="messageInput"
-            // onKeyDown={handleKeyDown}
+            onKeyDown={handleKeyDown}
             type="text"
             value={text}
-          ></textarea>
+          ></TextareaAutosize>
 
           <input
             ref={(input) => setFileInput(input)}
