@@ -52,7 +52,6 @@ export default function Message({
   }, []);
 
   const dateString = date.toLocaleString("de-DE");
-
   return (
     <div
       className={`messageContainer ${

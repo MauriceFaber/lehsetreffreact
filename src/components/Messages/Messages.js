@@ -106,7 +106,7 @@ export default function Messages() {
   async function sendText() {
     let tmp = text;
     setText("");
-    let result = await send(text, 0);
+    let result = await send(tmp, 0);
     if (!result) {
       setText(tmp);
     }
@@ -118,10 +118,11 @@ export default function Messages() {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
-      body: `apiKey=${user.apiKey}&content=${content}&contentType=${type}&threadId=${thread.id}`,
+      body: `apiKey=${user.apiKey}&content=${encodeURIComponent(
+        content
+      )}&contentType=${type}&threadId=${thread.id}`,
     });
     let result = await fetch(request);
-    console.log(result);
 
     if (result.ok) {
       await loadMessages();

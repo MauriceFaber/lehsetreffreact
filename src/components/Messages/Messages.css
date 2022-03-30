@@ -8,11 +8,10 @@
   margin-bottom: 10px !important;
   position: relative;
   border: 1px solid darkgray;
-  zoom: 0.9;
+  zoom: 0.8;
 }
 
 .quotedMessage {
-  zoom: 0.8 !important;
   border: none;
   padding: 2px 10px 1px 10px;
   border-left: 4px solid gray !important;
