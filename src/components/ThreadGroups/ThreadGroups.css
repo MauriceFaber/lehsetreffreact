@@ -1,8 +1,11 @@
 .threadGroupContainer {
   border-radius: 8px;
   padding: 1px 10px;
-  margin: 15px 0px;
   position: relative;
+
+  margin: 15px 0px;
+  height: 120px;
+
   background-color: rgb(230, 230, 230);
   box-shadow: 4px 4px 4px rgb(214, 214, 214);
 }
@@ -19,7 +22,7 @@
 .actionList {
   position: absolute;
   right: 20px;
-  top: 20px;
+  top: 0px;
 
   list-style: none;
   display: grid;
@@ -28,10 +31,14 @@
   justify-content: center;
 }
 
+.block {
+  text-align: justify;
+}
+
 .deleteButton i {
   font-size: 15px;
   padding-left: 10px;
-  color: rgb(65,65,65);
+  color: rgb(14, 8, 8);
 }
 
 .deleteButton i:hover {
@@ -39,8 +46,18 @@
   color: black;
 }
 
+.threadGroupContainer h5 {
+  margin-bottom: 0px;
+}
+
+.threadGroupContainer h3 {
+  margin-top: 10px;
+  margin-bottom: -15px;
+}
+
 .threadGroupDescription {
   font-size: 12px;
+  /* margin-top: -10px; */
 }
 
 .addButton {
@@ -61,6 +78,13 @@
 @media screen and (min-width: 961px) {
   .addButton {
     right: 10%;
+  }
+
+  .threadGroupContainer {
+    float: left;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 48%;
   }
 }
 

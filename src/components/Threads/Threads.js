@@ -42,7 +42,7 @@ export default function Threads({ deleteThread }) {
       <div className="headSection">
         <Breadcrumb groupName={groupName} />
         <h3>{threads.length > 0 ? threads[0].threadGroup.caption : ""}</h3>
-        <p>
+        <p className="block">
           <i>{threads.length > 0 ? threads[0].threadGroup.description : ""}</i>
         </p>
       </div>

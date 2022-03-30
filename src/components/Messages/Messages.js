@@ -186,7 +186,7 @@ export default function Messages() {
     <div className="message-page-content">
       <Breadcrumb groupName={groupName} threadName={threadName} />
       <h3>{thread.caption}</h3>
-      <p>
+      <p className="block">
         <i>{thread.description}</i>
       </p>
       <br></br>
