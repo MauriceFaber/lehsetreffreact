@@ -40,7 +40,7 @@ export default function AddThreadGroup({ editThreadGroup }) {
    * @param {index} id 
    * Die ID der Thread Gruppe.
    * @returns 
-   * Erfolg oder Misserfolg
+   * Erfolg oder Misserfolg.
    */
   async function loadGroup(id) {
     let result = await fetch(new Request(domain + "/threadGroups?id=" + id));
@@ -50,9 +50,6 @@ export default function AddThreadGroup({ editThreadGroup }) {
     return undefined;
   }
 
-  /**
-   * Setzt Gruppen Titel und Beschreibung.
-   */
   useEffect(async () => {
     var group = await loadGroup(groupId);
     if (group) {

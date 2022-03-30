@@ -7,6 +7,13 @@ import { domain } from "../../App";
 import { useAuth } from "../../contexts/Authentication";
 import Breadcrumb from "../Breadcrumb/Breadcrumb";
 
+
+/**
+ * 
+ * @param {Function} deleteThread 
+ * Loeschen des Threads.
+ * @returns 
+ */
 export default function Threads({ deleteThread }) {
   const { groupName } = useParams();
   const [group, setGroup] = useState();
@@ -31,6 +38,11 @@ export default function Threads({ deleteThread }) {
     await loadThreadGroup(groupName);
   }
 
+  /**
+   * Laedt die Thread Gruppe.
+   * @param {string} groupName 
+   * Der Name der Thread Gruppe.
+   */
   async function loadThreadGroup(groupName) {
     let request = new Request(
       domain + "/threadGroups?groupName=" + encodeURIComponent(groupName)
@@ -41,6 +53,11 @@ export default function Threads({ deleteThread }) {
     setGroup(data);
   }
 
+  /**
+   * Ruft die Threads der Gruppe ab.
+   * @param {string} groupName 
+   * Der Name der Thread Gruppe.
+   */
   async function loadThreads(groupName) {
     let request = new Request(
       domain + "/threads?threadGroupName=" + encodeURIComponent(groupName)

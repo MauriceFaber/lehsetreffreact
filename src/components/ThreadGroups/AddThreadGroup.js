@@ -6,7 +6,7 @@ import { useAuth } from "../../contexts/Authentication";
  * @param {Function} addThreadGroup 
  * Hinzufuegen der Thread Gruppe.
  * @returns 
- * Ansicht der Thread Gruppen.
+ * Ansicht, um Thread Gruppe zu erstellen.
  */
 export default function AddThreadGroup({ addThreadGroup }) {
   const { user, authenticated } = useAuth();
