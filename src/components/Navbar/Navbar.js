@@ -4,11 +4,21 @@ import "./Navbar.css";
 import { Button } from "../Button";
 import { useAuth } from "../../contexts/Authentication";
 
-export default function Navbar({ links }) {
+
+/**
+ * Erstellt die Benutzeransicht entsprechend der Berechtigungen.
+ * @returns
+ * Ansicht nach Berechtigung.
+ * Falls Admin wird zusatzlich Rechteverwaltung erstellt.
+ */
+export default function Navbar() {
   const [clicked, setClicked] = useState(false);
   const { user, authenticated, signOut } = useAuth();
   const [isAdmin, setIsAdmin] = useState(false);
 
+  /**
+   * Setzt Admin Status entsprechend der Benutzer Rolle.
+   */
   useEffect(() => {
     if (!authenticated) {
       setIsAdmin(false);

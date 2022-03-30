@@ -1,6 +1,19 @@
 import React from "react";
 import "./Pagination.css";
 
+/**
+ * Legt die Seitenanzahl fest.
+ * @param {number} currentNumber
+ * Aktuelle Seitenzahl.
+ * @param {number} itemsPerPage 
+ * Anzahl der Items pro Seite.
+ * @param {number} totalItems 
+ * Anzahl der gesamten Items.
+ * @param {index} paginate
+ * Die Nummerierung.
+ * @returns 
+ * die Seitenanzahl.
+ */
 export default function Pagination({
   currentNumber,
   itemsPerPage,
