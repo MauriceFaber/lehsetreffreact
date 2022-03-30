@@ -179,14 +179,12 @@ export default function App() {
       body: `apiKey=${user.apiKey}&content=${content}&contentType=2&threadId=${threadId}&additional=${quotedMessageId}`,
     });
     let result = await fetch(request);
-    console.log(result);
 
     if (!result.ok) {
       alert("Fehler beim Senden.");
     }
     return result.ok;
   }
-
 
   return (
     <Router>

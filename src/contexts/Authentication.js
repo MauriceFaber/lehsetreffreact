@@ -19,7 +19,6 @@ export default function AuthProvider(props) {
       setIsModerator(false);
       setIsAdmin(false);
     } else {
-      console.log(user.role);
       setIsUser(["User", "Mod", "Admin"].includes(user.role));
       setIsModerator(["Mod", "Admin"].includes(user.role));
       setIsAdmin(["Admin"].includes(user.role));
@@ -42,7 +41,6 @@ export default function AuthProvider(props) {
       if (response.ok) {
         let result = await response.json();
         localStorage.setItem("apiKey", result.apiKey);
-        console.log("logged in");
         setUser(result);
         setAuthenticated(true);
       }
@@ -70,7 +68,6 @@ export default function AuthProvider(props) {
       if (result.ok) {
         result = await result.json();
         localStorage.setItem("apiKey", result.apiKey);
-        console.log("registred in");
         setUser(result);
         setAuthenticated(true);
       }
@@ -112,7 +109,6 @@ export default function AuthProvider(props) {
 
   const signOut = () => {
     try {
-      console.log("signing out");
       setLoading(true);
       localStorage.removeItem("apiKey");
       setUser(null);

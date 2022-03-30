@@ -5,55 +5,49 @@ import { domain } from "../../App";
 
 import "../ThreadGroups/ThreadGroups.css";
 
-export default function EditMessage({editMessage}) {
+export default function EditMessage({ editMessage }) {
+  const { messageId } = useParams();
+  const [warning, setWarning] = useState("");
+  const [text, setText] = useState("");
+  const [message, setMessage] = useState(null);
 
-    const { messageId } = useParams();
-    const [warning, setWarning] = useState("");
-    const [text, setText] = useState("");
-    const [message, setMessage] = useState(null);
+  function goBack() {
+    window.location.href = `/${message.thread.threadGroup.caption}/${message.thread.caption}`;
+  }
 
-    function goBack() {
-        window.location.href = `/${message.thread.threadGroup.caption}/${message.thread.caption}`;
-      }
+  async function loadMessage(messageId) {
+    let result = await fetch(
+      new Request(domain + "/messages?messageId=" + messageId)
+    );
+    if (result.ok) {
+      let tmp = await result.json();
+      return tmp;
+    }
+    return undefined;
+  }
 
-      async function loadMessage(messageId) {
-        let result = await fetch(new Request(domain + "/messages?messageId=" + messageId));
-        if (result.ok) {
-        
-        let tmp = await result.json();
-        console.log(tmp);
-        return tmp;
+  async function handleSubmit() {
+    let result = await editMessage(messageId, text, 0);
+    setWarning(result ? "" : "Konnte nicht bearbeitet werden.");
+    if (result) {
+      window.location.href = `/${message.thread.threadGroup.caption}/${message.thread.caption}`;
+    }
+  }
 
-        }
-        return undefined;
-      }
+  async function onEditMessage() {
+    const result = await editMessage(messageId);
+    if (!result) {
+      alert("Fehler beim Ändern der Nachricht.");
+    }
+  }
 
-      async function handleSubmit() {
-        let result = await editMessage(messageId, text, 0);
-        setWarning(result ? "" : "Konnte nicht bearbeitet werden.");
-        if (result) {
-          window.location.href = `/${message.thread.threadGroup.caption}/${message.thread.caption}`;
-        }
-      }
-
-    async function onEditMessage() {
-        
-        const result = await editMessage(messageId);
-        if (!result) {
-            alert("Fehler beim Ändern der Nachricht.");
-        }
-      }
-
-      useEffect(async () => {
-        var message = await loadMessage(messageId);
-        setMessage(message);
-        if (message) {
-          setText(message.content);
-        }
-      }, []);
-
-
-
+  useEffect(async () => {
+    var message = await loadMessage(messageId);
+    setMessage(message);
+    if (message) {
+      setText(message.content);
+    }
+  }, []);
 
   return (
     <div className="login-wrapper">
