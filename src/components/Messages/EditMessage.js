@@ -66,7 +66,7 @@ export default function EditMessage({ editMessage }) {
     <div className="login-wrapper">
       <h2 className="formHeadline">Nachricht bearbeiten</h2>
 
-      <form>
+      <div className="formContainer">
         <textarea
           className="description-text"
           type="text"
@@ -89,7 +89,7 @@ export default function EditMessage({ editMessage }) {
             value="Abbrechen"
           ></input>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

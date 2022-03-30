@@ -37,7 +37,7 @@ export default function Login() {
     <div className="login-wrapper">
       <h2 className="formHeadline">Anmelden</h2>
 
-      <form onKeyDown={handleKeyDown} onSubmit={handleSubmit}>
+      <div onKeyDown={handleKeyDown} className="formContainer">
         <h4>Benutzername</h4>
         <input
           onChange={(e) => setUserName(e.target.value)}
@@ -64,7 +64,7 @@ export default function Login() {
             value="Registrieren"
           ></input>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

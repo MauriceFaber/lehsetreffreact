@@ -44,9 +44,9 @@ export default function Threads({ deleteThread }) {
       <div className="headSection">
         <Breadcrumb groupName={groupName} />
         <h3>{threads.length > 0 ? threads[0].threadGroup.caption : ""}</h3>
-        <p className="block">
+        <pre className="block">
           <i>{threads.length > 0 ? threads[0].threadGroup.description : ""}</i>
-        </p>
+        </pre>
       </div>
       {isOwner ? <h3>Hi Besitzer!</h3> : null}
       {threads.map((thread, index) => {

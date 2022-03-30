@@ -45,7 +45,7 @@ export default function AddThreadGroup({ editThreadGroup }) {
     <div className="login-wrapper">
       <h2 className="formHeadline">Thread-Gruppe bearbeiten</h2>
 
-      <form onSubmit={handleSubmit}>
+      <div className="formContainer">
         <h4>Name</h4>
         <input
           type="text"
@@ -75,7 +75,7 @@ export default function AddThreadGroup({ editThreadGroup }) {
             value="Abbrechen"
           ></input>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

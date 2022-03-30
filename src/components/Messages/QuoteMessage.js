@@ -69,7 +69,7 @@ export default function QuoteMessage({ quoteMessage }) {
     <div className="login-wrapper">
       <h2 className="formHeadline">Zitat</h2>
 
-      <form onSubmit={handleSubmit}>
+      <div className="formContainer">
         <div>
           <p>Du zitierst {quotedMessage?.sender.userName}:</p>
 
@@ -80,9 +80,9 @@ export default function QuoteMessage({ quoteMessage }) {
               alt="bild"
             ></img>
           ) : (
-            <p>
+            <pre>
               <i>"{quotedMessage?.content}"</i>
-            </p>
+            </pre>
           )}
         </div>
 
@@ -108,7 +108,7 @@ export default function QuoteMessage({ quoteMessage }) {
             value="Abbrechen"
           ></input>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

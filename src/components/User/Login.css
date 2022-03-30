@@ -9,6 +9,10 @@
   box-shadow: 11px 12px 13px 12px rgb(224, 224, 224);
 }
 
+.login-wrapper .formContainer {
+  width: 100%;
+}
+
 @media screen and (min-width: 961px) {
   .login-wrapper {
     width: 60%;

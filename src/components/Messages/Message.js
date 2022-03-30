@@ -97,10 +97,10 @@ export default function Message({
         </div>
       ) : null}
       {message.contentId === "Text" ? (
-        <p>
+        <pre>
           {message.content}
           {message.wasModified ? <i>&nbsp;(bearbeitet)</i> : null}
-        </p>
+        </pre>
       ) : null}
       {message.contentId === "Image" ? (
         <img className="image" alt="bild" src={message.content} />
@@ -118,10 +118,9 @@ export default function Message({
               />
             ) : null}
           </div>
-          <p>{message.content}</p>
+          <pre>{message.content}</pre>
         </div>
       ) : null}
-      {message.contentId === "Empty" ? <p>{message.content}</p> : null}
       {message.contentId === "DELETED" ? (
         <p>
           <i>(gelöscht)</i>

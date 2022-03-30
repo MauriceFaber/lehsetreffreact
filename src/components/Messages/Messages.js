@@ -91,6 +91,7 @@ export default function Messages() {
     );
     let data = await fetch(request);
     data = await data.json();
+    console.log(data);
     for (let i = 0; i < data.length; i++) {
       data[i].sender.avatar = await getAvatar(data[i].sender.id);
 
@@ -131,7 +132,7 @@ export default function Messages() {
    */
   async function sendText() {
     let tmp = text;
-    setText("");
+    console.log(text);
     let result = await send(tmp, 0);
     if (!result) {
       setText(tmp);
@@ -150,14 +151,16 @@ export default function Messages() {
    * True, falls Erfolgreich gesendet, ansonsten false.
    */
   async function send(content, type) {
+    console.log(content);
+    content = encodeURIComponent(content);
+    console.log("encoded", content);
+
     let request = new Request(domain + "/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
-      body: `apiKey=${user.apiKey}&content=${encodeURIComponent(
-        content
-      )}&contentType=${type}&threadId=${thread.id}`,
+      body: `apiKey=${user.apiKey}&content=${content}&contentType=${type}&threadId=${thread.id}`,
     });
     let result = await fetch(request);
 
@@ -240,9 +243,9 @@ export default function Messages() {
     <div className="message-page-content">
       <Breadcrumb groupName={groupName} threadName={threadName} />
       <h3>{thread.caption}</h3>
-      <p className="block">
+      <pre className="block">
         <i>{thread.description}</i>
-      </p>
+      </pre>
       <br></br>
       {messages ? (
         <>
@@ -295,13 +298,13 @@ export default function Messages() {
             </a>
           </div>
 
-          <input
+          <textarea
             onChange={(e) => setText(e.target.value)}
             className="messageInput"
-            onKeyDown={handleKeyDown}
+            // onKeyDown={handleKeyDown}
             type="text"
             value={text}
-          ></input>
+          ></textarea>
 
           <input
             ref={(input) => setFileInput(input)}
