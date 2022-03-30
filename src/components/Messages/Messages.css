@@ -62,13 +62,17 @@
 }
 
 .messageContainer .image {
-  height: 120px;
+  width: 200px;
+  border-radius: 8px;
   transition: 0.5s all ease;
   margin-bottom: 8px;
 }
 
 .messageContainer .image:hover {
-  height: 500px;
+  border-radius: 0px;
+  width: 100%;
+  max-width: 100%;
+  object-fit: contain;
   transition: 1.5s all ease;
 }
 
