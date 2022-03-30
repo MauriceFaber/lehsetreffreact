@@ -6,6 +6,21 @@ import { domain } from "../../App";
 import { getAvatar } from "./Messages";
 import { replaceURLs } from "./Messages";
 
+/**
+ * Ruft die einzelnen Nachrichten ab.
+ * @param {Message} message
+ * Nachricht die angezeigt wird.
+ * @param {Index} currentPage
+ * Index der aktuellen Seite.
+ * @param {Index} index
+ * Index der Nachricht.
+ * @param {Function} deleteMessage
+ * Löschen der Nachricht.
+ * @param {Boolean} isQuoted
+ * Flag zum anzeigen ob es sich um ein Zitat handelt.
+ * @returns
+ * Ansicht der einzelnen Nachricht.
+ */
 export default function Message({
   message,
   currentPage,
@@ -20,6 +35,9 @@ export default function Message({
   const isSender =
     !authenticated || !isUser ? false : message.sender.id === user.id;
 
+  /**
+   * Abfrage ob die Nachricht wirklich gelöscht werden soll
+   */
   async function onDeleteMessage() {
     if (!window.confirm(`Nachricht wirklich löschen?`)) {
       return;
@@ -27,6 +45,13 @@ export default function Message({
     await deleteMessage(message.id);
   }
 
+  /**
+   * Lädt eine Nachricht.
+   * @param {Number} messageId
+   * Id der Nachricht.
+   * @returns
+   * Json der Nachricht.
+   */
   async function loadMessage(messageId) {
     let result = await fetch(
       new Request(domain + "/messages?messageId=" + messageId)
@@ -44,7 +69,6 @@ export default function Message({
       let id = parseInt(message.additional);
       let result = await loadMessage(id);
       if (["Text", "Quote"].includes(result.contentId)) {
-        console.log("replacing");
         result.content = replaceURLs(result.content);
       }
       setQuotedMessage(result);
@@ -53,6 +77,7 @@ export default function Message({
 
   const dateString = date.toLocaleString("de-DE");
 
+  //Gibt die einzelnen Nachrichten aus mitsamt Nutzerinformationen und Buttons
   return (
     <div
       className={`messageContainer ${

@@ -5,55 +5,77 @@ import { domain } from "../../App";
 
 import "../ThreadGroups/ThreadGroups.css";
 
-export default function QuoteMessage({quoteMessage}) {
+/**
+ * Ruft die Darstellung zum Zitieren einer anderen Nachricht ab
+ * @param {Message} quoteMessage
+ * Nachricht die Zitiert wird
+ * @returns
+ * Seite zum Zitieren einer Nachricht
+ */
+export default function QuoteMessage({ quoteMessage }) {
+  const { messageId } = useParams();
+  const [warning, setWarning] = useState("");
+  const [text, setText] = useState("");
+  const [quotedMessage, setQuotedMessage] = useState(null);
 
-    const { messageId } = useParams();
-    const [warning, setWarning] = useState("");
-    const [text, setText] = useState("");
-    const [quotedMessage, setQuotedMessage] = useState(null);
+  /**
+   * Springt zu der vorherigen Seite zurück nach Abbruch der Editierung.
+   */
+  function goBack() {
+    window.location.href = `/${quotedMessage.thread.threadGroup.caption}/${quotedMessage.thread.caption}`;
+  }
 
+  /**
+   * Lädt eine Nachricht.
+   * @param {Number} messageId
+   * Id der Nachricht.
+   * @returns
+   * Json der Nachricht.
+   */
+  async function loadMessage(messageId) {
+    let result = await fetch(
+      new Request(domain + "/messages?messageId=" + messageId)
+    );
+    if (result.ok) {
+      let tmp = await result.json();
+      return tmp;
+    }
+    return undefined;
+  }
 
-    function goBack() {
-        window.location.href = `/${quotedMessage.thread.threadGroup.caption}/${quotedMessage.thread.caption}`;
-      }
-    
-      async function loadMessage(messageId) {
-        let result = await fetch(new Request(domain + "/messages?messageId=" + messageId));
-        if (result.ok) {
-        
-        let tmp = await result.json();
-        return tmp;
-    
-        }
-        return undefined;
-      }
-    
-      async function handleSubmit() {
-        let result = await quoteMessage(text, quotedMessage.id, quotedMessage.thread.id);
-        setWarning(result ? "" : "Kann nicht zitiert werden werden.");
-        if (result) {
-          window.location.href = `/${quotedMessage.thread.threadGroup.caption}/${quotedMessage.thread.caption}`;
-        }
-      }
+  /**
+   * Sendet die neue Nachricht mitsamt der zitierten Nachricht und springt zur vorherigen Seite zurück
+   */
+  async function handleSubmit() {
+    let result = await quoteMessage(
+      text,
+      quotedMessage.id,
+      quotedMessage.thread.id
+    );
+    setWarning(result ? "" : "Kann nicht zitiert werden werden.");
+    if (result) {
+      window.location.href = `/${quotedMessage.thread.threadGroup.caption}/${quotedMessage.thread.caption}`;
+    }
+  }
 
-      useEffect(async () => {
-        var loadedMessage = await loadMessage(messageId);
-        setQuotedMessage(loadedMessage);
-      }, []);
+  useEffect(async () => {
+    var loadedMessage = await loadMessage(messageId);
+    setQuotedMessage(loadedMessage);
+  }, []);
 
-      
-
+  //Gibt eine Seite zum Zitieren von Nachrichten zurück.
   return (
     <div className="login-wrapper">
       <h2 className="formHeadline">Zitat</h2>
 
       <form onSubmit={handleSubmit}>
         <div>
-             <p>Du zitierst {quotedMessage?.sender.userName}:</p>
-             <p><i>"{quotedMessage?.content}"</i></p>
-            
+          <p>Du zitierst {quotedMessage?.sender.userName}:</p>
+          <p>
+            <i>"{quotedMessage?.content}"</i>
+          </p>
         </div>
-        
+
         <textarea
           className="description-text"
           type="text"
@@ -78,5 +100,5 @@ export default function QuoteMessage({quoteMessage}) {
         </div>
       </form>
     </div>
-  )
+  );
 }

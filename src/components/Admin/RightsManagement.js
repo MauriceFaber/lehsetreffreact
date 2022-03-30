@@ -7,10 +7,18 @@ import "./../Loader/Loader.css";
 
 import { domain } from "../../App";
 
+/**
+ * Ruft die Darstellung der Rechteverwaltung ab.
+ * @returns
+ * Darstellung der Rechteverwaltung.
+ */
 export default function RightsManagement() {
   const { user, authenticated } = useAuth();
   const [users, setUsers] = useState([]);
 
+  /**
+   * Lädt die ThreadGruppen und setzt die Benutzer.
+   */
   async function reloadThreadGroups() {
     let request = new Request(
       domain +
@@ -27,6 +35,7 @@ export default function RightsManagement() {
     }
   }, [authenticated]);
 
+  //Zeige einen Ladekreis bis die Nutzer geladen sind
   if (!users.length) {
     return (
       <>
@@ -43,6 +52,7 @@ export default function RightsManagement() {
     );
   }
 
+  //Listet alle Nutzer auf um die jeweiligen Rechte anzupassen
   return (
     <>
       <h1>Rechteverwaltung.</h1>

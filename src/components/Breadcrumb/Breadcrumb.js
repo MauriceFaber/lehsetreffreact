@@ -2,6 +2,15 @@ import React from "react";
 import "./Breadcrumb.css";
 import { Link } from "react-router-dom";
 
+/**
+ * Liefert eine Brotkrümmelnavigation zurück
+ * @param {String} groupName
+ * Name der Threadgruppe
+ * @param {String} threadName
+ * Name des Threads
+ * @returns
+ * Brotkrümmelnavigation
+ */
 export default function Breadcrumb({ groupName, threadName }) {
   return (
     <div className="breadcrumb-container">

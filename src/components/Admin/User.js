@@ -3,11 +3,16 @@ import { domain } from "../../App";
 import { useAuth } from "../../contexts/Authentication";
 import "./RightsManagement.css";
 
+/**
+ * Ruft die Darstellung für einen einzelnen Benutzer in der Rechteverwaltung ab.
+ * @param {User} param0
+ * Nutzer der geladen werden soll.
+ * @returns
+ * Darstellung der einzelnen Nutzer
+ */
 export default function User({ currentUser }) {
   const { user } = useAuth();
-
   const [roleId, setRoleId] = useState(-1);
-
   const [isGuest, setIsGuest] = useState(true);
   const [isUser, setIsUser] = useState(false);
   const [isModerator, setIsModerator] = useState(false);
@@ -20,6 +25,13 @@ export default function User({ currentUser }) {
     setIsAdmin(["Admin"].includes(currentUser.role));
   }, []);
 
+  /**
+   * Ruft anahnd des Rollennames die RollenId ab.
+   * @param {String} roleName
+   * Der Rollenname.
+   * @returns
+   * Die RollenId.
+   */
   function getRoleId(roleName) {
     return ["Guest", "User", "Mod", "Admin"].indexOf(roleName);
   }
@@ -32,6 +44,11 @@ export default function User({ currentUser }) {
     setRoleId(getRoleId(currentUser.role));
   }, []);
 
+  /**
+   * Zuweisung der neuen Rolle durch einen Admin.
+   * @param {String} newRole
+   * Rollenname der neuzugewiesenen Rolle
+   */
   async function setRole(newRole) {
     if (currentUser)
       console.log("Role from", currentUser.userName, "changed to: ", newRole);
@@ -51,6 +68,7 @@ export default function User({ currentUser }) {
     }
   }
 
+  //Gibt die Daten des Users aus sowie ein Dropdown-Menü zum selektieren der Userrolle
   return (
     <div className="roleContainer">
       <h4>{currentUser.userName}</h4>
