@@ -9,18 +9,36 @@ import Breadcrumb from "../Breadcrumb/Breadcrumb";
 
 export default function Threads({ deleteThread }) {
   const { groupName } = useParams();
+  const [group, setGroup] = useState();
   const [threads, setThreads] = useState([]);
-  const { username } = useAuth();
 
-  const { user, authenticated, isUser } = useAuth();
+  const { authenticated, isUser } = useAuth();
 
   useEffect(async () => {
-    await loadThreads(groupName);
+    await loadThreadGroup(groupName);
   }, []);
+
+  useEffect(async () => {
+    if (group) {
+      await loadThreads(groupName);
+    } else {
+      setThreads([]);
+    }
+  }, [group]);
 
   async function onDeleteThread(thread) {
     await deleteThread(thread);
-    await loadThreads(groupName);
+    await loadThreadGroup(groupName);
+  }
+
+  async function loadThreadGroup(groupName) {
+    let request = new Request(
+      domain + "/threadGroups?groupName=" + encodeURIComponent(groupName)
+    );
+    let data = await fetch(request);
+    data = await data.json();
+    document.title = groupName;
+    setGroup(data);
   }
 
   async function loadThreads(groupName) {
@@ -33,22 +51,16 @@ export default function Threads({ deleteThread }) {
     setThreads(data);
   }
 
-  let isOwner = false;
-
-  if (threads.length > 0) {
-    isOwner = threads[0].threadGroup.owner.userName == username;
-  }
-
   return (
     <>
       <div className="headSection">
         <Breadcrumb groupName={groupName} />
-        <h3>{threads.length > 0 ? threads[0].threadGroup.caption : ""}</h3>
+        <h3>{group?.caption}</h3>
         <pre className="block">
-          <i>{threads.length > 0 ? threads[0].threadGroup.description : ""}</i>
+          <i>{group?.description}</i>
         </pre>
       </div>
-      {isOwner ? <h3>Hi Besitzer!</h3> : null}
+
       {threads.map((thread, index) => {
         const key = `thread_${thread.id}`;
         return (

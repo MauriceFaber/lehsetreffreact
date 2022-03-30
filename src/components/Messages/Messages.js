@@ -246,7 +246,7 @@ export default function Messages() {
       {messages ? (
         <>
           {messages.length === 0 ? (
-            "Keine Nachrichten vorhanden."
+            <p className="noMessagesWarning">Keine Nachrichten vorhanden.</p>
           ) : (
             <>
               <Pagination

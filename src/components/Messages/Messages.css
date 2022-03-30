@@ -21,7 +21,7 @@
   height: 200px;
 }
 
-.quotedMessage p {
+.quotedMessage pre {
   color: #666;
 }
 
@@ -155,4 +155,11 @@
 .send-message-box .button-wrapper {
   height: 100%;
   cursor: pointer;
+}
+
+.noMessagesWarning {
+  font-weight: bold;
+  background-color: rgb(204, 204, 204);
+  border-radius: 8px;
+  padding: 5px;
 }
