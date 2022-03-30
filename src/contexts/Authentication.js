@@ -34,7 +34,9 @@ export default function AuthProvider(props) {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         },
-        body: `userName=${username}&passphrase=${password}`,
+        body: `userName=${encodeURIComponent(
+          username
+        )}&passphrase=${encodeURIComponent(password)}`,
       });
 
       let response = await fetch(request);
@@ -61,7 +63,9 @@ export default function AuthProvider(props) {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         },
-        body: `userName=${username}&passphrase=${password}`,
+        body: `userName=${encodeURIComponent(
+          username
+        )}&passphrase=${encodeURIComponent(password)}`,
       });
 
       let result = await fetch(request);

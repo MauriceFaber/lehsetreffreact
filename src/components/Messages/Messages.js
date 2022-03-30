@@ -46,7 +46,11 @@ export default function Messages() {
 
   async function loadThread() {
     let request = new Request(
-      domain + "/threads?threadName=" + threadName + "&groupName=" + groupName
+      domain +
+        "/threads?threadName=" +
+        encodeURIComponent(threadName) +
+        "&groupName=" +
+        encodeURIComponent(groupName)
     );
     let data = await fetch(request);
     data = await data.json();
@@ -56,7 +60,11 @@ export default function Messages() {
 
   async function loadMessages() {
     let request = new Request(
-      domain + "/messages?threadName=" + threadName + "&groupName=" + groupName
+      domain +
+        "/messages?threadName=" +
+        encodeURIComponent(threadName) +
+        "&groupName=" +
+        encodeURIComponent(groupName)
     );
     let data = await fetch(request);
     data = await data.json();

@@ -24,7 +24,9 @@ export default function Threads({ deleteThread }) {
   }
 
   async function loadThreads(groupName) {
-    let request = new Request(domain + "/threads?threadGroupName=" + groupName);
+    let request = new Request(
+      domain + "/threads?threadGroupName=" + encodeURIComponent(groupName)
+    );
     let data = await fetch(request);
     data = await data.json();
     document.title = groupName;
