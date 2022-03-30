@@ -109,6 +109,8 @@ export default function Messages() {
     let result = await send(tmp, 0);
     if (!result) {
       setText(tmp);
+    } else {
+      window.scrollTo(0, document.body.scrollHeight);
     }
   }
 
