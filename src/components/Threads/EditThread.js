@@ -11,7 +11,6 @@ export default function AddThreadGroup({ editThread }) {
 
   async function handleSubmit() {
     let result = await editThread(threadId, caption, description);
-    console.log(result);
     setMessage(result ? "" : "Konnte nicht bearbeitet werden.");
     if (result) {
       window.location.href = "/" + thread.threadGroup.caption;
