@@ -10,6 +10,8 @@ import Breadcrumb from "../Breadcrumb/Breadcrumb";
 import Pagination from "../Pagination/Pagination";
 import TextareaAutosize from "react-textarea-autosize";
 
+export const uploadImageFileSize = 800;
+
 let userIdAvatarDic = {};
 
 /**
@@ -41,11 +43,18 @@ export default function Messages() {
   const [thread, setThread] = useState(undefined);
   const [text, setText] = useState("");
   const { user, authenticated, isUser } = useAuth();
-  const [fileInput, setFileInput] = useState(undefined);
 
   const [messages, setMessages] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [messagesPerPage] = useState(30);
+
+  const [fileInput, setFileInput] = useState(undefined);
+  /**
+   * Handler zum Öffnen einer Datei
+   */
+  function handleOpen() {
+    fileInput.click();
+  }
 
   /**
    * Setzt die aktuelle Seite innerhalb des Threads
@@ -102,29 +111,43 @@ export default function Messages() {
   }
 
   /**
-   * Wandelt eine Datei in Base64 um.
-   * @param {File} file
-   * Zusendente Datei
-   * @returns
-   * Base64 der Datei
-   */
-  const toBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-
-  /**
    * Ruft das zusendente Bild ab und wandelt es in Base64 um
    * @param {Event} event
    * Auswahl der Datei
    */
   async function sendImage(event) {
     var file = event.target.files[0];
-    var dataUrl = await toBase64(file);
-    await send(dataUrl, 1);
+
+    if (file.type.match(/image.*/)) {
+      var reader = new FileReader();
+      reader.onload = function (readerEvent) {
+        var image = new Image();
+        image.onload = async function (imageEvent) {
+          var canvas = document.createElement("canvas"),
+            max_size = uploadImageFileSize,
+            width = image.width,
+            height = image.height;
+          if (width > height) {
+            if (width > max_size) {
+              height *= max_size / width;
+              width = max_size;
+            }
+          } else {
+            if (height > max_size) {
+              width *= max_size / height;
+              height = max_size;
+            }
+          }
+          canvas.width = width;
+          canvas.height = height;
+          canvas.getContext("2d").drawImage(image, 0, 0, width, height);
+          var dataUrl = canvas.toDataURL("image/png");
+          await send(dataUrl, 1);
+        };
+        image.src = readerEvent.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   /**
@@ -193,13 +216,6 @@ export default function Messages() {
       alert("Fehler beim Löschen.");
     }
     return result.ok;
-  }
-
-  /**
-   * Handler zum Öffnen einer Datei
-   */
-  function handleOpen() {
-    fileInput.click();
   }
 
   /**

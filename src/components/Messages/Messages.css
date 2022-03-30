@@ -58,18 +58,20 @@
   vertical-align: middle;
   border-radius: 10px;
   border: 1px solid lightgray;
-}
-
-.messageContainer .avatar:hover {
-  height: 200px;
-  width: 200px;
-  transition: 2s all ease;
+  transition: 0.5s all ease;
 }
 
 .messageContainer .image {
-  height: 150px;
+  height: 120px;
   transition: 0.5s all ease;
+  margin-bottom: 8px;
 }
+
+.messageContainer .image:hover {
+  height: 500px;
+  transition: 1.5s all ease;
+}
+
 .messageContainer .timeStamp {
   font-size: 12px;
   font-style: italic;

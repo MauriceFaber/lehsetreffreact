@@ -21,7 +21,7 @@ export default function AuthProvider(props) {
 
   useEffect(() => {
     if (!authenticated) {
-      setUser(false);
+      setIsUser(false);
       setIsModerator(false);
       setIsAdmin(false);
     } else {
@@ -30,6 +30,13 @@ export default function AuthProvider(props) {
       setIsAdmin(["Admin"].includes(user.role));
     }
   }, [authenticated]);
+
+  const setAvatar = (avatar) => {
+    let newUser = JSON.parse(JSON.stringify(user));
+    newUser.avatar = avatar;
+    setUser(newUser);
+  };
+
   /**
    * Funktion zum Einloggen
    * @param {*} username
@@ -160,6 +167,7 @@ export default function AuthProvider(props) {
     signOut,
     signInAutomatically,
     register,
+    setAvatar,
   };
   return <CtxProvider value={contextValue}>{props.children}</CtxProvider>;
 }
