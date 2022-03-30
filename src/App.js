@@ -109,16 +109,13 @@ export default function App() {
   async function editThreadGroup(id, caption, description) {
     let bodyArg = `apiKey=${user.apiKey}&id=${id}`;
     if (caption) {
-      bodyArg += `&caption=${encodeURIComponent(caption)}`;
+      bodyArg += `&caption=${caption}`;
     }
     if (description) {
-      bodyArg += `&description=${encodeURIComponent(description)}`;
+      bodyArg += `&description=${description}`;
     }
     let request = new Request(domain + "/threadGroups", {
       method: "PUT",
-      //   headers: {
-      //     "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-      //   },
       body: bodyArg,
     });
 
@@ -146,10 +143,10 @@ export default function App() {
   async function editThread(id, caption, description) {
     let bodyArg = `apiKey=${user.apiKey}&threadId=${id}`;
     if (caption) {
-      bodyArg += `&caption=${encodeURIComponent(caption)}`;
+      bodyArg += `&caption=${caption}`;
     }
     if (description) {
-      bodyArg += `&description=${encodeURIComponent(description)}`;
+      bodyArg += `&description=${description}`;
     }
     let request = new Request(domain + "/threads", {
       method: "PUT",
@@ -169,11 +166,7 @@ export default function App() {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
-      body: `apiKey=${
-        user.apiKey
-      }&messageID=${messageId}&content=${encodeURIComponent(
-        content
-      )}&contentType=${type}`,
+      body: `apiKey=${user.apiKey}&messageID=${messageId}&content=${content}&contentType=${type}`,
     });
     let result = await fetch(request);
 
