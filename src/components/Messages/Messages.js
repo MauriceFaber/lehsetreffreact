@@ -11,6 +11,13 @@ import Pagination from "../Pagination/Pagination";
 
 let userIdAvatarDic = {};
 
+/**
+ * Ruft den Avatar des Nutzers ab
+ * @param {Number} id
+ * Id der Nutzers
+ * @returns
+ * Den Avatar
+ */
 export async function getAvatar(id) {
   if (userIdAvatarDic[id]) {
     return userIdAvatarDic[id];
@@ -23,6 +30,11 @@ export async function getAvatar(id) {
   }
 }
 
+/**
+ * Ruft die Darstellung aller Nachrichten auf dieser Seite ab
+ * @returns
+ * Darstellung aller Nachrichten der Seite
+ */
 export default function Messages() {
   const { threadName, groupName } = useParams();
   const [thread, setThread] = useState(undefined);
@@ -34,6 +46,11 @@ export default function Messages() {
   const [currentPage, setCurrentPage] = useState(1);
   const [messagesPerPage] = useState(30);
 
+  /**
+   * Setzt die aktuelle Seite innerhalb des Threads
+   * @param {Number} number
+   * Aktuelle Seite
+   */
   function paginate(number) {
     setCurrentPage(number);
   }
@@ -44,6 +61,9 @@ export default function Messages() {
     window.scrollTo(0, document.body.scrollHeight);
   }, []);
 
+  /**
+   * Lädt den Thread.
+   */
   async function loadThread() {
     let request = new Request(
       domain +
@@ -58,6 +78,9 @@ export default function Messages() {
     setThread(data);
   }
 
+  /**
+   * Lädt die Nachrichten des Threads
+   */
   async function loadMessages() {
     let request = new Request(
       domain +
@@ -77,6 +100,13 @@ export default function Messages() {
     setMessages(data);
   }
 
+  /**
+   * Wandelt eine Datei in Base64 um.
+   * @param {File} file
+   * Zusendente Datei
+   * @returns
+   * Base64 der Datei
+   */
   const toBase64 = (file) =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -85,12 +115,20 @@ export default function Messages() {
       reader.onerror = (error) => reject(error);
     });
 
+  /**
+   * Ruft das zusendente Bild ab und wandelt es in Base64 um
+   * @param {Event} event
+   * Auswahl der Datei
+   */
   async function sendImage(event) {
     var file = event.target.files[0];
     var dataUrl = await toBase64(file);
     await send(dataUrl, 1);
   }
 
+  /**
+   * Sendet den Text
+   */
   async function sendText() {
     let tmp = text;
     setText("");
@@ -102,6 +140,15 @@ export default function Messages() {
     }
   }
 
+  /**
+   * Stellt den Request ans Servlet um eine Nachricht zu versenden.
+   * @param {String} content
+   * Inhalt der Nachricht
+   * @param {Number} type
+   * Typ der Nachricht
+   * @returns
+   * True, falls Erfolgreich gesendet, ansonsten false.
+   */
   async function send(content, type) {
     let request = new Request(domain + "/messages", {
       method: "POST",
@@ -122,6 +169,13 @@ export default function Messages() {
     return result.ok;
   }
 
+  /**
+   * Löscht die Nachricht
+   * @param {Number} messageId
+   * Id der zu löschenden Nachricht
+   * @returns
+   * True, wenn erfolgreich gelöscht wurde, ansonsten false
+   */
   async function deleteMessage(messageId) {
     let request = new Request(domain + "/messages", {
       method: "DELETE",
@@ -140,16 +194,25 @@ export default function Messages() {
     return result.ok;
   }
 
+  /**
+   * Handler zum Öffnen einer Datei
+   */
   function handleOpen() {
     fileInput.click();
   }
 
+  /**
+   * Handler dass die Nachricht auch beim Drücken von Enter abgesendet wird
+   * @param {Event} e
+   * Enter Taste gedrückt
+   */
   async function handleKeyDown(e) {
     if (e.key === "Enter") {
       await sendText();
     }
   }
 
+  //Gibt ein Ladesymbol aus bis der Thread geladen ist
   if (!thread) {
     return (
       <>
@@ -172,6 +235,7 @@ export default function Messages() {
     ? messages.slice(indexOfFirstMessage, indexOfLastMessage)
     : undefined;
 
+  //Gibt die Gesamtansicht des Threads mit allen Nachrichten, auf der Seite des Threads,zurück
   return (
     <div className="message-page-content">
       <Breadcrumb groupName={groupName} threadName={threadName} />

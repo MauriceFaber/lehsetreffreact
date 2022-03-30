@@ -6,16 +6,33 @@ import { domain } from "../../App";
 import "../ThreadGroups/ThreadGroups.css";
 import "./Messages.css";
 
+/**
+ * Ruft die Darstellung zum Zitieren einer anderen Nachricht ab
+ * @param {Message} quoteMessage
+ * Nachricht die Zitiert wird
+ * @returns
+ * Seite zum Zitieren einer Nachricht
+ */
 export default function QuoteMessage({ quoteMessage }) {
   const { messageId } = useParams();
   const [warning, setWarning] = useState("");
   const [text, setText] = useState("");
   const [quotedMessage, setQuotedMessage] = useState(null);
 
+  /**
+   * Springt zu der vorherigen Seite zurück nach Abbruch der Editierung.
+   */
   function goBack() {
     window.location.href = `/${quotedMessage.thread.threadGroup.caption}/${quotedMessage.thread.caption}`;
   }
 
+  /**
+   * Lädt eine Nachricht.
+   * @param {Number} messageId
+   * Id der Nachricht.
+   * @returns
+   * Json der Nachricht.
+   */
   async function loadMessage(messageId) {
     let result = await fetch(
       new Request(domain + "/messages?messageId=" + messageId)
@@ -27,6 +44,9 @@ export default function QuoteMessage({ quoteMessage }) {
     return undefined;
   }
 
+  /**
+   * Sendet die neue Nachricht mitsamt der zitierten Nachricht und springt zur vorherigen Seite zurück
+   */
   async function handleSubmit() {
     let result = await quoteMessage(
       text,
@@ -44,6 +64,7 @@ export default function QuoteMessage({ quoteMessage }) {
     setQuotedMessage(loadedMessage);
   }, []);
 
+  //Gibt eine Seite zum Zitieren von Nachrichten zurück.
   return (
     <div className="login-wrapper">
       <h2 className="formHeadline">Zitat</h2>
