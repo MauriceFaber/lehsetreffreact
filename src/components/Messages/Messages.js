@@ -91,7 +91,6 @@ export default function Messages() {
     );
     let data = await fetch(request);
     data = await data.json();
-    console.log(data);
     for (let i = 0; i < data.length; i++) {
       data[i].sender.avatar = await getAvatar(data[i].sender.id);
 
@@ -132,7 +131,6 @@ export default function Messages() {
    */
   async function sendText() {
     let tmp = text;
-    console.log(text);
     let result = await send(tmp, 0);
     if (!result) {
       setText(tmp);
@@ -151,9 +149,7 @@ export default function Messages() {
    * True, falls Erfolgreich gesendet, ansonsten false.
    */
   async function send(content, type) {
-    console.log(content);
     content = encodeURIComponent(content);
-    console.log("encoded", content);
 
     let request = new Request(domain + "/messages", {
       method: "POST",

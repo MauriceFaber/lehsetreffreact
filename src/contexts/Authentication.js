@@ -5,9 +5,9 @@ import { domain } from "../App";
 export const [useAuth, CtxProvider] = createCtx();
 /**
  * Funktion zum Setzen und Überprüfen der Rechte des Nutzers
- * @param {*} props 
+ * @param {*} props
  * Überprüfung der Nutzerrolle
- * @returns 
+ * @returns
  * Liefert die Rolle des Nutzers zurück
  */
 export default function AuthProvider(props) {
@@ -25,21 +25,20 @@ export default function AuthProvider(props) {
       setIsModerator(false);
       setIsAdmin(false);
     } else {
-      console.log(user.role);
       setIsUser(["User", "Mod", "Admin"].includes(user.role));
       setIsModerator(["Mod", "Admin"].includes(user.role));
       setIsAdmin(["Admin"].includes(user.role));
     }
   }, [authenticated]);
-/**
- * Funktion zum Einloggen
- * @param {*} username 
- * Überprüfung des Benutzernamens
- * @param {*} password 
- * Überprüfung des Passworts
- * @returns 
- * Liefert den erfolgreichen oder nicht erfolgreichen Login Versuch
- */
+  /**
+   * Funktion zum Einloggen
+   * @param {*} username
+   * Überprüfung des Benutzernamens
+   * @param {*} password
+   * Überprüfung des Passworts
+   * @returns
+   * Liefert den erfolgreichen oder nicht erfolgreichen Login Versuch
+   */
   const signIn = async (username, password) => {
     try {
       setLoading(true);
@@ -56,7 +55,6 @@ export default function AuthProvider(props) {
       if (response.ok) {
         let result = await response.json();
         localStorage.setItem("apiKey", result.apiKey);
-        console.log("logged in");
         setUser(result);
         setAuthenticated(true);
       }
@@ -67,17 +65,17 @@ export default function AuthProvider(props) {
       setLoading(false);
     }
   };
-/**
- * Funktion zum Anlegen eines Benutzers
- * @param {*} username 
- * Anlegen eines Benutzernamens
- * @param {*} password 
- * Vergabe eines Passworts
- * @param {*} avatar 
- * Avatar setzen
- * @returns 
- * Liefert den erfolgreichen oder nicht erfolgreichen Registrierungsversuch zurück
- */
+  /**
+   * Funktion zum Anlegen eines Benutzers
+   * @param {*} username
+   * Anlegen eines Benutzernamens
+   * @param {*} password
+   * Vergabe eines Passworts
+   * @param {*} avatar
+   * Avatar setzen
+   * @returns
+   * Liefert den erfolgreichen oder nicht erfolgreichen Registrierungsversuch zurück
+   */
   const register = async (username, password, avatar) => {
     try {
       setLoading(true);
@@ -94,7 +92,6 @@ export default function AuthProvider(props) {
       if (result.ok) {
         result = await result.json();
         localStorage.setItem("apiKey", result.apiKey);
-        console.log("registred in");
         setUser(result);
         setAuthenticated(true);
       }
@@ -106,11 +103,11 @@ export default function AuthProvider(props) {
       setLoading(false);
     }
   };
-/**
- * Funktion zum automatischen Login ohne manuelle authentifizierung
- * @returns 
- * Liefert den erfolgreichen oder nicht erfolgreichen Login Versuch
- */
+  /**
+   * Funktion zum automatischen Login ohne manuelle authentifizierung
+   * @returns
+   * Liefert den erfolgreichen oder nicht erfolgreichen Login Versuch
+   */
   const signInAutomatically = async () => {
     try {
       setLoading(true);
@@ -137,12 +134,11 @@ export default function AuthProvider(props) {
       setLoading(false);
     }
   };
-/**
- * Funktion zum Ausloggen
- */
+  /**
+   * Funktion zum Ausloggen
+   */
   const signOut = () => {
     try {
-      console.log("signing out");
       setLoading(true);
       localStorage.removeItem("apiKey");
       setUser(null);
