@@ -14,6 +14,10 @@
   padding: 10px 10px;
 }
 
+.profile-message {
+  font: 10px verdana;
+}
+
 .avatar {
   cursor: pointer;
 }

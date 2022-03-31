@@ -114,6 +114,7 @@ export default function Profile() {
           className="profileBigAvatar avatar"
           src={user.avatar}
         ></img>
+        <p className="profile-message">(Zum Ändern auf das Bild klicken!)</p>
         <h3 className="profile-name">{user.userName}</h3>
 
         <a href="#" onClick={alertCopied} className="noLink">
