@@ -24,9 +24,9 @@ export const domain = "https://octopi.mauricefaber.de";
 // export const domain = "https://api.lehsetreff.de";
 
 /**
- *
+ * Hauptdarstellung der Anwendung.
  * @returns
- * Liefert die einzelnen Pfade der benötigten Funktionen aus der App
+ * Liefert die einzelnen Pfade der benötigten Funktionen aus der App.
  */
 export default function App() {
   const [currentThreadGroups, setThreadGroups] = useState();
@@ -40,7 +40,7 @@ export default function App() {
   }, [signInAutomatically, authenticated]);
 
   /**
-   * Funktion zum Aktualisieren der Themengruppe
+   * Funktion zum Aktualisieren der Threadgruppe.
    */
   async function reloadThreadGroups() {
     const request = new Request(domain + "/threadGroups");
@@ -54,18 +54,10 @@ export default function App() {
   }, []);
 
   /**
-   * Funktion zum Ausloggen
-   */
-  function logoutClicked() {
-    singOut();
-  }
-
-  /**
-   * Funktion zum Löschen von Themengruppe mit vorheriger Abfrage
+   * Löschen von Threadgruppe mit vorheriger Abfrage.
    * @param {*} group
-   * Auswahl der richtigen Gruppe
+   * Gewählte Gruppe.
    * @returns
-   * Liefert löschen Abfrage zurück
    */
   async function deleteThreadGroup(group) {
     if (!window.confirm(`${group.caption} wirklich löschen?`)) {
@@ -88,11 +80,10 @@ export default function App() {
       });
   }
   /**
-   * Funktion zum Löschen von Themen
+   * Löschen von Thread.
    * @param {*} thread
-   * Auswahl des richtigen Themas
+   * Gewählter Themas.
    * @returns
-   * Liefert löschen Abfrage zurück
    */
   async function deleteThread(thread) {
     if (!window.confirm(`${thread.caption} wirklich löschen?`)) {
@@ -115,13 +106,13 @@ export default function App() {
       });
   }
   /**
-   * Funktion zum Hinzufügen einer Themengruppe
+   * Hinzufügen einer Threadgruppe.
    * @param {*} caption
-   * Setzen der Überschrift
+   * Überschrift.
    * @param {*} description
-   * Setzen der Überschrift
+   * Beschreibung.
    * @returns
-   * Liefert das Ergebnis der Erstellung der Themengruppe zurück
+   * True, falls erfolgreich, false ansonsten.
    */
   async function addThreadGroup(caption, description) {
     let request = new Request(domain + "/threadGroups", {
@@ -138,15 +129,15 @@ export default function App() {
     return result.ok;
   }
   /**
-   * Funktion zum Bearbeiten einer Themengruppe
+   * Bearbeiten einer Threadgruppe.
    * @param {*} id
-   * Überprüfung der ID mit ApiKey
+   * ID der Threadgruppe.
    * @param {*} caption
-   * Bearbeiten der Überschrift
+   * Überschrift.
    * @param {*} description
-   * Bearbeiten der Beschreibung
+   * Beschreibung.
    * @returns
-   * Liefert die überarbeitete Überschrift und Beschreibung der Themengruppe zurück
+   * True, falls erfolgreich, false ansonsten.
    */
   async function editThreadGroup(id, caption, description) {
     let bodyArg = `apiKey=${user.apiKey}&id=${id}`;
@@ -165,15 +156,15 @@ export default function App() {
     return result.ok;
   }
   /**
-   * Funktion zum Hinzufügen eines Themas
+   * Hinzufügen eines Threads
    * @param {*} groupName
-   * Gruppennamen setzen
+   * Name der Threadgruppe.
    * @param {*} caption
-   * berschrift setzen
+   * Überschrift des Threads.
    * @param {*} description
-   * Beschreibung setzen
+   * Beschreibung des Threads.
    * @returns
-   * Liefert das erstellte Thema zurück
+   * True, falls erfolgreich, false ansonsten.
    */
   async function addThread(groupName, caption, description) {
     let request = new Request(domain + "/threads", {
@@ -192,15 +183,15 @@ export default function App() {
     return result.ok;
   }
   /**
-   * Funktion zum Bearbeiten eines Themas
+   * Bearbeiten eines Threads
    * @param {*} id
-   * Überprüfung der ID mit ApiKey
+   * Id des Threads.
    * @param {*} caption
-   * Überschrift setzen
+   * Überschrift des Threads.
    * @param {*} description
-   * Beschreibung setzen
+   * Beschreibung des Threads.
    * @returns
-   * Liefert bearbeitetes Thema zurück
+   * True, falls erfolgreich, ansonsten false.
    */
   async function editThread(id, caption, description) {
     let bodyArg = `apiKey=${user.apiKey}&threadId=${id}`;
@@ -219,15 +210,15 @@ export default function App() {
     return result.ok;
   }
   /**
-   * Funktion zum Bearbeiten einer Nachricht
+   * Bearbeiten einer Nachricht.
    * @param {*} messageId
-   * Überprüfung der Nachricht ID
+   * NachrichtenID.
    * @param {*} content
-   * Inhalt der Nachricht mitgeben
+   * Inhalt der Nachricht.
    * @param {*} type
-   * Überprüfung des Datentyps
+   * Datentyp der Nachricht.
    * @returns
-   * Liefert die erfolgreich bearbeitete Nachricht zurück
+   * True, falls erfolgreich, ansonsten false.
    */
   async function editMessage(messageId, content, type) {
     if (type != 0) {
@@ -246,15 +237,15 @@ export default function App() {
     return result.ok;
   }
   /**
-   * Funktion zum Zitieren einer einer Nachricht
+   * Zitieren einer Nachricht.
    * @param {*} content
-   * Inhalt der Nachricht mitgeben
+   * Inhalt der Nachricht
    * @param {*} quotedMessageId
-   * Überprüfung der Zitatnachricht ID
+   * Id der zitierten Nachricht.
    * @param {*} threadId
-   * Überprüfung der Thema ID
+   * ThreadId.
    * @returns
-   * Liefert das erfolgreiche Zitat zurück
+   * True, falls erfolgreich, ansonsten false.
    */
   async function quoteMessage(content, quotedMessageId, threadId) {
     let request = new Request(domain + "/messages", {

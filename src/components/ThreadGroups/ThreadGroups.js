@@ -6,13 +6,13 @@ import "./ThreadGroups.css";
 import "../Loader/Loader.css";
 
 /**
- *
+ * Liefert die Darstellung der ThreadGruppen.
  * @param groups
  * Enthaelt die Thread Gruppen.
  * @param {Function} deleteThreadGroup
  * Loeschen der Thread Gruppe.
  * @returns
- *
+ * Darstellung der Threadgruppen.
  */
 export default function ThreadGroups({ groups, deleteThreadGroup }) {
   const { user, authenticated, isModerator } = useAuth();

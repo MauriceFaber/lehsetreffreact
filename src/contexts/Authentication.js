@@ -4,11 +4,11 @@ import { domain } from "../App";
 
 export const [useAuth, CtxProvider] = createCtx();
 /**
- * Funktion zum Setzen und Überprüfen der Rechte des Nutzers
+ * Liefert den Dialog zur Authentifizierung zurück.
  * @param {*} props
- * Überprüfung der Nutzerrolle
+ * Überprüfung der Nutzerrolle.
  * @returns
- * Liefert die Rolle des Nutzers zurück
+ * Liefert die Rolle des Nutzers zurück.
  */
 export default function AuthProvider(props) {
   const [loading, setLoading] = useState(false);
@@ -38,13 +38,13 @@ export default function AuthProvider(props) {
   };
 
   /**
-   * Funktion zum Einloggen
+   * Einloggen des Benutzers.
    * @param {*} username
-   * Überprüfung des Benutzernamens
+   * Überprüfung des Benutzernamens.
    * @param {*} password
-   * Überprüfung des Passworts
+   * Überprüfung des Passworts.
    * @returns
-   * Liefert den erfolgreichen oder nicht erfolgreichen Login Versuch
+   * True, falls erfolgreich eingeloggt, ansonsten false.
    */
   const signIn = async (username, password) => {
     try {
@@ -77,13 +77,13 @@ export default function AuthProvider(props) {
     }
   };
   /**
-   * Funktion zum Anlegen eines Benutzers
+   * Registrieren des Benutzers.
    * @param {*} username
-   * Anlegen eines Benutzernamens
+   * Anlegen eines Benutzernamens.
    * @param {*} password
-   * Vergabe eines Passworts
+   * Vergabe eines Passworts.
    * @returns
-   * Liefert den erfolgreichen oder nicht erfolgreichen Registrierungsversuch zurück
+   * True, falls Registrierung erfolgreich war, ansonsten false.
    */
   const register = async (username, password) => {
     try {
@@ -117,9 +117,9 @@ export default function AuthProvider(props) {
     }
   };
   /**
-   * Funktion zum automatischen Login ohne manuelle authentifizierung
+   * Automatisches Login ohne manuelle Authentifizierung.
    * @returns
-   * Liefert den erfolgreichen oder nicht erfolgreichen Login Versuch
+   * True, bei erfolg, ansonsten false.
    */
   const signInAutomatically = async () => {
     try {

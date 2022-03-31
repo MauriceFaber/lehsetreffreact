@@ -10,7 +10,7 @@ import { uploadImageFileSize } from "../Messages/Messages";
 import { domain } from "../../App";
 
 /**
- * Ruft das Nutzer Profil ab.
+ * Liefert die Darstellung des Nutzerprofils zurück.
  * @returns
  * Die Ansicht des Nutzer Profils.
  */

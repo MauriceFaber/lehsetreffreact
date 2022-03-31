@@ -4,9 +4,8 @@ import "./Navbar.css";
 import { Button } from "../Button";
 import { useAuth } from "../../contexts/Authentication";
 
-
 /**
- * Erstellt die Benutzeransicht entsprechend der Berechtigungen.
+ * Erstellt die Benutzeransicht/Menüleiste entsprechend der Berechtigungen.
  * @returns
  * Ansicht nach Berechtigung.
  * Falls Admin wird zusatzlich Rechteverwaltung erstellt.
@@ -31,6 +30,9 @@ export default function Navbar() {
     setClicked(!clicked);
   }
 
+  /**
+   * Loggt den Nutzer aus und springt zur Startseite zurück
+   */
   function onSignOut() {
     signOut();
     window.location.href = "/";
@@ -55,15 +57,6 @@ export default function Navbar() {
             </a>
           </li>
         ) : null}
-        {/* {links.map((item, index) => {
-          return (
-            <li key={index}>
-              <a className="nav-links" href={`/threadGroups/${item.caption}`}>
-                {item.caption}
-              </a>
-            </li>
-          );
-        })} */}
 
         {isAdmin ? (
           <li>

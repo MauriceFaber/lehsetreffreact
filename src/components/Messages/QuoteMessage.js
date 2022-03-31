@@ -7,11 +7,11 @@ import "../ThreadGroups/ThreadGroups.css";
 import "./Messages.css";
 
 /**
- * Ruft die Darstellung zum Zitieren einer anderen Nachricht ab
+ * Ruft die Darstellung zum Zitieren einer anderen Nachricht ab.
  * @param {Message} quoteMessage
- * Nachricht die Zitiert wird
+ * Nachricht die Zitiert wird.
  * @returns
- * Seite zum Zitieren einer Nachricht
+ * Seite zum Zitieren einer Nachricht.
  */
 export default function QuoteMessage({ quoteMessage }) {
   const { messageId } = useParams();

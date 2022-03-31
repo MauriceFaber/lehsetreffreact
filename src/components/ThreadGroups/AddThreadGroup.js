@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useAuth } from "../../contexts/Authentication";
 
 /**
- * Erstellt eine Thread Gruppe.
- * @param {Function} addThreadGroup 
- * Hinzufuegen der Thread Gruppe.
- * @returns 
+ * Darstellung eines Dialoges zum Erstellen einer ThreadGruppe
+ * @param {Function} addThreadGroup
+ * Methode zum Hinzufügen des Threads
+ * @returns
  * Ansicht, um Thread Gruppe zu erstellen.
  */
 export default function AddThreadGroup({ addThreadGroup }) {

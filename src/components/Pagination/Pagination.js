@@ -5,13 +5,13 @@ import "./Pagination.css";
  * Legt die Seitenanzahl fest.
  * @param {number} currentNumber
  * Aktuelle Seitenzahl.
- * @param {number} itemsPerPage 
+ * @param {number} itemsPerPage
  * Anzahl der Items pro Seite.
- * @param {number} totalItems 
+ * @param {number} totalItems
  * Anzahl der gesamten Items.
  * @param {index} paginate
  * Die Nummerierung.
- * @returns 
+ * @returns
  * die Seitenanzahl.
  */
 export default function Pagination({

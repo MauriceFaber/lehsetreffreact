@@ -8,10 +8,11 @@ import { useAuth } from "../../contexts/Authentication";
 import Breadcrumb from "../Breadcrumb/Breadcrumb";
 
 /**
- *
+ * Liefert die Darstellung aller Threads zurück.
  * @param {Function} deleteThread
  * Loeschen des Threads.
  * @returns
+ * Darstellung aller Threads.
  */
 export default function Threads({ deleteThread }) {
   const { groupName } = useParams();

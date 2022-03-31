@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useParams } from "react-router";
 
 /**
- * Erstellt einen Thread.
+ * Dialog zum Erstellen eines Threads.
  * @param {Function} addThread
- * Hinzufuegen des Threads. 
- * @returns 
+ * Hinzufuegen des Threads.
+ * @returns
  * Ansicht, um Thread zu erstellen.
  */
 export default function AddThreadGroup({ addThread }) {

@@ -26,7 +26,7 @@ export default function User({ currentUser }) {
   }, []);
 
   /**
-   * Ruft anahnd des Rollennames die RollenId ab.
+   * Ruft anhand des Rollennames die RollenId ab.
    * @param {String} roleName
    * Der Rollenname.
    * @returns

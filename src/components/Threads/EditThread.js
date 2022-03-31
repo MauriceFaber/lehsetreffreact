@@ -3,10 +3,10 @@ import { useParams } from "react-router";
 import { domain } from "../../App";
 
 /**
- * Bearbeitet einen Thread.
+ * Dialog zum bearbeiten eines Threads.
  * @param {Function} editThread
- * Bearbeiten des Threads. 
- * @returns 
+ * Bearbeiten des Threads.
+ * @returns
  * Ansicht, um Thread zu bearbeiten.
  */
 export default function AddThreadGroup({ editThread }) {
@@ -33,9 +33,9 @@ export default function AddThreadGroup({ editThread }) {
 
   /**
    * Laedt den Thread.
-   * @param {index} id 
+   * @param {index} id
    * Die ID des Threads.
-   * @returns 
+   * @returns
    * Erfolg oder Misserfolg.
    */
   async function loadThread(id) {

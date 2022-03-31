@@ -6,11 +6,11 @@ import { domain } from "../../App";
 import "../ThreadGroups/ThreadGroups.css";
 
 /**
- * Liefert ein Fenster zum editieren der Nachricht
+ * Liefert ein Fenster zum Editieren der Nachricht.
  * @param {Number} editMessage
- * Id der zu editierenden Nachricht
+ * Id der zu editierenden Nachricht.
  * @returns
- * Fenster zum editieren einer Nachricht
+ * Fenster zum Editieren einer Nachricht.
  */
 export default function EditMessage({ editMessage }) {
   const { messageId } = useParams();

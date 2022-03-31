@@ -6,7 +6,7 @@ import { domain } from "../../App";
 import { getAvatar } from "./Messages";
 
 /**
- * Ruft die einzelnen Nachrichten ab.
+ * Liefert die Darstellung einer Nachricht.
  * @param {Message} message
  * Nachricht die angezeigt wird.
  * @param {Index} currentPage

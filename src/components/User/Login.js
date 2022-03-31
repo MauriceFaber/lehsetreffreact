@@ -4,8 +4,8 @@ import "./Login.css";
 import { useState } from "react";
 
 /**
- * Ruft den Login ab.
- * @returns 
+ * Ruft den Dialog zum Login ab.
+ * @returns
  * Die Login Ansicht.
  */
 export default function Login() {

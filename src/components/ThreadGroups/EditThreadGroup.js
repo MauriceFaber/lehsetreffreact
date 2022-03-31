@@ -6,10 +6,10 @@ import { domain } from "../../App";
 import "./ThreadGroups.css";
 
 /**
- * Editiert eine Thread Gruppe.
+ * Darstellung eines Dialoges zum Editieren einer Threadgruppe.
  * @param {Function} editThreadGroup
- * Editieren der Thread Gruppe. 
- * @returns 
+ * Editieren der Thread Gruppe.
+ * @returns
  * Ansicht, um Thread Gruppe zu bearbeiten.
  */
 export default function AddThreadGroup({ editThreadGroup }) {
@@ -37,9 +37,9 @@ export default function AddThreadGroup({ editThreadGroup }) {
 
   /**
    * Laedt die Thread Gruppe.
-   * @param {index} id 
+   * @param {index} id
    * Die ID der Thread Gruppe.
-   * @returns 
+   * @returns
    * Erfolg oder Misserfolg.
    */
   async function loadGroup(id) {

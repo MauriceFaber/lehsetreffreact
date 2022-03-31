@@ -9,14 +9,14 @@ export function trimMax(string, length) {
 }
 
 /**
- * Ruft die Thread Gruppe ab.
+ * Liefert die Darstellung einer ThreadGruppe zurück.
  * @param {Function} threadGroup
  * Die Thread Gruppe.
  * @param {Function} deleteThreadGroup
  * Loeschen der Thread Gruppe.
  * @returns
  * Ansicht der Thread Gruppe.
- * Falls Besitzer oder Moderator, erzeuge Delete Button.
+ * Falls Besitzer oder Moderator, erzeuge Delete/Edit Button.
  */
 export default function ThreadGroup({ threadGroup, deleteThreadGroup }) {
   const { user, authenticated, isModerator, isUser } = useAuth();

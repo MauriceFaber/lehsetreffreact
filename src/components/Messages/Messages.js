@@ -34,9 +34,9 @@ export async function getAvatar(id) {
 }
 
 /**
- * Ruft die Darstellung aller Nachrichten auf dieser Seite ab
+ * Ruft die Darstellung aller Nachrichten auf dieser Seite ab.
  * @returns
- * Darstellung aller Nachrichten der Seite
+ * Darstellung aller Nachrichten der Seite.
  */
 export default function Messages() {
   const { threadName, groupName } = useParams();
