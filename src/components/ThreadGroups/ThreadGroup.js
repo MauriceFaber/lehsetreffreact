@@ -41,11 +41,11 @@ export default function ThreadGroup({ threadGroup, deleteThreadGroup }) {
     <div className="threadGroupContainer">
       <Link key={key} className="noLink" to={`/${threadGroup.caption}`}>
         <h3>{threadGroup.caption}</h3>
+        <h5>Besitzer: {threadGroup.owner.userName}</h5>
+        <p className="threadGroupDescription">
+          <i>{threadGroup.description}</i>
+        </p>
       </Link>
-      <h5>Besitzer: {threadGroup.owner.userName}</h5>
-      <p className="threadGroupDescription">
-        <i>{threadGroup.description}</i>
-      </p>
       {(isOwner || isModerator) && isUser ? (
         <ul className="actionList">
           <li>

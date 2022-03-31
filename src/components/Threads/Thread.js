@@ -40,9 +40,10 @@ export default function ThreadGroup({ thread, deleteThread }) {
         to={`/${thread.threadGroup.caption}/${thread.caption}`}
       >
         <h3>{thread.caption}</h3>
+
+        <h5>Besitzer: {thread.owner.userName}</h5>
+        <p className="threadGroupDescription">{thread.description}</p>
       </Link>
-      <h5>Besitzer: {thread.owner.userName}</h5>
-      <p className="threadGroupDescription">{thread.description}</p>
       {isUser && (isOwner || isModerator) ? (
         <ul className="actionList">
           <li>
