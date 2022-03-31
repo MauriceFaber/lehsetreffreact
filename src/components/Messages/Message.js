@@ -139,8 +139,8 @@ export default function Message({
         ) : null}
         {!isQuoted &&
         authenticated &&
-        (isSender || isModerator) &&
-        message.contentId !== "DELETED" ? (
+        (((isSender || isModerator) && message.contentId !== "DELETED") ||
+          (isModerator && message.contentId === "DELETED")) ? (
           <>
             {isSender && message.contentId === "Text" ? (
               <>
