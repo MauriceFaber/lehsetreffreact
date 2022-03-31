@@ -50,6 +50,10 @@ export default function AuthProvider(props) {
     try {
       setLoading(true);
 
+      if (!username || !password) {
+        return false;
+      }
+
       let request = new Request(domain + "/login", {
         method: "POST",
         headers: {
@@ -78,14 +82,16 @@ export default function AuthProvider(props) {
    * Anlegen eines Benutzernamens
    * @param {*} password
    * Vergabe eines Passworts
-   * @param {*} avatar
-   * Avatar setzen
    * @returns
    * Liefert den erfolgreichen oder nicht erfolgreichen Registrierungsversuch zurück
    */
-  const register = async (username, password, avatar) => {
+  const register = async (username, password) => {
     try {
       setLoading(true);
+
+      if (!username || !password) {
+        return false;
+      }
 
       let request = new Request(domain + "/users", {
         method: "POST",
