@@ -19,8 +19,8 @@ import RightsManagement from "./components/Admin/RightsManagement";
 import AddThread from "./components/Threads/AddThread";
 import EditThread from "./components/Threads/EditThread";
 
-export const domain = "http://localhost:8080/lehsetreff";
-// export const domain = "https://octopi.mauricefaber.de";
+// export const domain = "http://localhost:8080/lehsetreff";
+export const domain = "https://octopi.mauricefaber.de";
 // export const domain = "https://api.lehsetreff.de";
 
 /**
@@ -129,7 +129,9 @@ export default function App() {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
-      body: `apiKey=${user.apiKey}&caption=${caption}&description=${description}`,
+      body: `apiKey=${user.apiKey}&caption=${encodeURIComponent(
+        caption
+      )}&description=${encodeURIComponent(description)}`,
     });
 
     let result = await fetch(request);
@@ -149,7 +151,7 @@ export default function App() {
   async function editThreadGroup(id, caption, description) {
     let bodyArg = `apiKey=${user.apiKey}&id=${id}`;
     if (caption) {
-      bodyArg += `&caption=${caption}`;
+      bodyArg += `&caption=${encodeURIComponent(caption)}`;
     }
     if (description) {
       bodyArg += `&description=${encodeURIComponent(description)}`;
@@ -179,7 +181,11 @@ export default function App() {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
-      body: `apiKey=${user.apiKey}&groupName=${groupName}&caption=${caption}&description=${description}`,
+      body: `apiKey=${user.apiKey}&groupName=${encodeURIComponent(
+        groupName
+      )}&caption=${encodeURIComponent(
+        caption
+      )}&description=${encodeURIComponent(description)}`,
     });
 
     let result = await fetch(request);
@@ -199,7 +205,7 @@ export default function App() {
   async function editThread(id, caption, description) {
     let bodyArg = `apiKey=${user.apiKey}&threadId=${id}`;
     if (caption) {
-      bodyArg += `&caption=${caption}`;
+      bodyArg += `&caption=${encodeURIComponent(caption)}`;
     }
     if (description) {
       bodyArg += `&description=${encodeURIComponent(description)}`;
@@ -256,7 +262,9 @@ export default function App() {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
-      body: `apiKey=${user.apiKey}&content=${content}&contentType=2&threadId=${threadId}&additional=${quotedMessageId}`,
+      body: `apiKey=${user.apiKey}&content=${encodeURIComponent(
+        content
+      )}&contentType=2&threadId=${threadId}&additional=${quotedMessageId}`,
     });
     let result = await fetch(request);
 
