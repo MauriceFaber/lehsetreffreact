@@ -152,7 +152,7 @@ export default function App() {
       bodyArg += `&caption=${caption}`;
     }
     if (description) {
-      bodyArg += `&description=${description}`;
+      bodyArg += `&description=${encodeURIComponent(description)}`;
     }
     let request = new Request(domain + "/threadGroups", {
       method: "PUT",
@@ -202,7 +202,7 @@ export default function App() {
       bodyArg += `&caption=${caption}`;
     }
     if (description) {
-      bodyArg += `&description=${description}`;
+      bodyArg += `&description=${encodeURIComponent(description)}`;
     }
     let request = new Request(domain + "/threads", {
       method: "PUT",
@@ -229,10 +229,11 @@ export default function App() {
     }
     let request = new Request(domain + "/messages", {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-      },
-      body: `apiKey=${user.apiKey}&messageID=${messageId}&content=${content}&contentType=${type}`,
+      body: `apiKey=${
+        user.apiKey
+      }&messageID=${messageId}&content=${encodeURIComponent(
+        content
+      )}&contentType=${type}`,
     });
     let result = await fetch(request);
 
