@@ -106,7 +106,7 @@ export default function Message({
         </div>
       ) : null}
       {message.contentId === "Text" ? (
-        <pre>
+        <pre className="block">
           {message.content}
           {message.wasModified ? <i>&nbsp;(bearbeitet)</i> : null}
         </pre>
@@ -127,7 +127,7 @@ export default function Message({
               />
             ) : null}
           </div>
-          <pre>{message.content}</pre>
+          <pre className="block">{message.content}</pre>
         </div>
       ) : null}
       {message.contentId === "DELETED" ? (
