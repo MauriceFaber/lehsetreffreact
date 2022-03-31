@@ -7,12 +7,11 @@ import { domain } from "../../App";
 import { useAuth } from "../../contexts/Authentication";
 import Breadcrumb from "../Breadcrumb/Breadcrumb";
 
-
 /**
- * 
- * @param {Function} deleteThread 
+ *
+ * @param {Function} deleteThread
  * Loeschen des Threads.
- * @returns 
+ * @returns
  */
 export default function Threads({ deleteThread }) {
   const { groupName } = useParams();
@@ -40,7 +39,7 @@ export default function Threads({ deleteThread }) {
 
   /**
    * Laedt die Thread Gruppe.
-   * @param {string} groupName 
+   * @param {string} groupName
    * Der Name der Thread Gruppe.
    */
   async function loadThreadGroup(groupName) {
@@ -55,7 +54,7 @@ export default function Threads({ deleteThread }) {
 
   /**
    * Ruft die Threads der Gruppe ab.
-   * @param {string} groupName 
+   * @param {string} groupName
    * Der Name der Thread Gruppe.
    */
   async function loadThreads(groupName) {
@@ -77,14 +76,19 @@ export default function Threads({ deleteThread }) {
           <i>{group?.description}</i>
         </pre>
       </div>
-
-      {threads.map((thread, index) => {
-        const key = `thread_${thread.id}`;
-        return (
-          <Thread key={key} thread={thread} deleteThread={onDeleteThread} />
-        );
-      })}
-
+      <div className="flex-container wrap">
+        {threads.map((thread, index) => {
+          const key = `thread_${thread.id}`;
+          return (
+            <Thread
+              className="flex-item"
+              key={key}
+              thread={thread}
+              deleteThread={onDeleteThread}
+            />
+          );
+        })}
+      </div>
       {authenticated && isUser ? (
         <a href={`/${groupName}/addThread`} className="addButton">
           <i className="fa fa-plus"></i>

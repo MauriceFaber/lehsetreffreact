@@ -5,30 +5,33 @@ import ThreadGroup from "./ThreadGroup";
 import "./ThreadGroups.css";
 
 /**
- * 
+ *
  * @param groups
  * Enthaelt die Thread Gruppen.
  * @param {Function} deleteThreadGroup
  * Loeschen der Thread Gruppe.
- * @returns 
- * 
+ * @returns
+ *
  */
 export default function ThreadGroups({ groups, deleteThreadGroup }) {
   const { user, authenticated, isModerator } = useAuth();
 
   return (
-    <div className="mainDiv">
+    <div>
       <Breadcrumb />
-      {groups.map((group) => {
-        const key = `threadGroup_${group.id}`;
-        return (
-          <ThreadGroup
-            key={key}
-            threadGroup={group}
-            deleteThreadGroup={deleteThreadGroup}
-          />
-        );
-      })}
+      <div className="flex-container wrap">
+        {groups.map((group) => {
+          const key = `threadGroup_${group.id}`;
+          return (
+            <ThreadGroup
+              className="flex-item"
+              key={key}
+              threadGroup={group}
+              deleteThreadGroup={deleteThreadGroup}
+            />
+          );
+        })}
+      </div>
       {authenticated && isModerator ? (
         <a href="/addThreadGroup" className="addButton">
           <i className="fa fa-plus"></i>
