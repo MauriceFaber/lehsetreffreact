@@ -27,7 +27,7 @@ export default function Message({
   deleteMessage,
   isQuoted,
 }) {
-  const date = new Date(message.timeStamp);
+  const date = new Date(message?.timeStamp);
   const { user, authenticated, isModerator, isUser } = useAuth();
   const [quotedMessage, setQuotedMessage] = useState();
 
@@ -67,11 +67,20 @@ export default function Message({
     if (message.additional) {
       let id = parseInt(message.additional);
       let result = await loadMessage(id);
+      if (!result) {
+        result = {
+          sender: {
+            name: "",
+            avatar: "",
+          },
+          contentId: "DELETED",
+        };
+      }
       setQuotedMessage(result);
     }
   }, []);
 
-  const dateString = date.toLocaleString("de-DE");
+  const dateString = message.timeStamp ? date.toLocaleString("de-DE") : "";
 
   //Gibt die einzelnen Nachrichten aus mitsamt Nutzerinformationen und Buttons
   return (
