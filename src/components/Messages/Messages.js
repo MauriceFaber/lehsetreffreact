@@ -171,8 +171,6 @@ export default function Messages() {
    * True, falls Erfolgreich gesendet, ansonsten false.
    */
   async function send(content, type) {
-    content = encodeURIComponent(content);
-
     let request = new Request(domain + "/messages", {
       method: "POST",
       headers: {
