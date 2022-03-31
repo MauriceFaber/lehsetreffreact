@@ -4,6 +4,7 @@ import User from "./User";
 
 import "./RightsManagement.css";
 import "./../Loader/Loader.css";
+import "./../ThreadGroups/ThreadGroups.css";
 
 import { domain } from "../../App";
 
@@ -56,11 +57,15 @@ export default function RightsManagement() {
   return (
     <>
       <h1>Rechteverwaltung.</h1>
-      {users.length > 0
-        ? users.map((user) => {
-            return <User key={user.id} currentUser={user} />;
-          })
-        : null}
+      <div className="flex-container wrap">
+        {users.length > 0
+          ? users.map((user) => {
+              return (
+                <User className="flex-item" key={user.id} currentUser={user} />
+              );
+            })
+          : null}
+      </div>
     </>
   );
 }
