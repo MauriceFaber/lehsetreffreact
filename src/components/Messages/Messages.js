@@ -153,11 +153,13 @@ export default function Messages() {
    * Sendet den Text
    */
   async function sendText() {
-    let tmp = text;
-    setText("");
+    let tmp = text.trim();
+    if (tmp === "") {
+      return;
+    }
     let result = await send(tmp, 0);
     if (!result) {
-      setText(tmp);
+      setText(text);
     }
   }
 
@@ -222,6 +224,8 @@ export default function Messages() {
    */
   async function handleKeyDown(e) {
     if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      setText("");
       await sendText();
     }
   }
@@ -249,7 +253,6 @@ export default function Messages() {
     ? messages.slice(indexOfFirstMessage, indexOfLastMessage)
     : undefined;
 
-  //Gibt die Gesamtansicht des Threads mit allen Nachrichten, auf der Seite des Threads,zurück
   return (
     <div className="message-page-content">
       <Breadcrumb groupName={groupName} threadName={threadName} />

@@ -1,11 +1,16 @@
 .roleContainer {
   border-radius: 10px;
-  margin: 10px;
-  padding: 0px 10px;
-  margin-bottom: 20px;
-  float: left;
+  margin: 10px 0px;
+  padding: 2px 20px;
+  width: calc(50% - 20px);
   background-color: rgb(241, 241, 241);
   box-shadow: 10px 10px 10px 2px rgb(189, 189, 189);
+}
+
+@media screen and (max-width: 960px) {
+  .roleContainer {
+    width: 100%;
+  }
 }
 
 .roleContainer .avatar {
