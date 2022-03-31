@@ -80,7 +80,7 @@ export default function QuoteMessage({ quoteMessage }) {
               alt="bild"
             ></img>
           ) : (
-            <pre>
+            <pre className="block">
               <i>"{quotedMessage?.content}"</i>
             </pre>
           )}
