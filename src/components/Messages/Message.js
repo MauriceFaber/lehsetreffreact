@@ -136,7 +136,10 @@ export default function Message({
         </p>
       ) : null}
       <ul className="actionList">
-        {authenticated && !isQuoted && message.contentId != "DELETED" ? (
+        {isUser &&
+        authenticated &&
+        !isQuoted &&
+        message.contentId != "DELETED" ? (
           <li>
             <a
               className="deleteButton"

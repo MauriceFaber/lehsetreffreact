@@ -4,7 +4,6 @@ import "./ThreadGroups.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/Authentication";
 
-
 export function trimMax(string, length) {
   return string.length > length ? string.substring(0, length) + "..." : string;
 }
@@ -14,13 +13,13 @@ export function trimMax(string, length) {
  * @param {Function} threadGroup
  * Die Thread Gruppe.
  * @param {Function} deleteThreadGroup
- * Loeschen der Thread Gruppe. 
- * @returns 
+ * Loeschen der Thread Gruppe.
+ * @returns
  * Ansicht der Thread Gruppe.
  * Falls Besitzer oder Moderator, erzeuge Delete Button.
  */
 export default function ThreadGroup({ threadGroup, deleteThreadGroup }) {
-  const { user, authenticated, isModerator } = useAuth();
+  const { user, authenticated, isModerator, isUser } = useAuth();
   const [isOwner, setOwner] = useState(false);
 
   async function onDeleteThreadGroup() {
@@ -47,7 +46,7 @@ export default function ThreadGroup({ threadGroup, deleteThreadGroup }) {
       <p className="threadGroupDescription">
         <i>{threadGroup.description}</i>
       </p>
-      {isOwner || isModerator ? (
+      {(isOwner || isModerator) && isUser ? (
         <ul className="actionList">
           <li>
             <a

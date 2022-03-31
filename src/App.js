@@ -29,7 +29,7 @@ export const domain = "https://octopi.mauricefaber.de";
  * Liefert die einzelnen Pfade der benötigten Funktionen aus der App
  */
 export default function App() {
-  const [currentThreadGroups, setThreadGroups] = useState([]);
+  const [currentThreadGroups, setThreadGroups] = useState();
   const { user, authenticated, signInAutomatically, signIn, singOut } =
     useAuth();
 
@@ -276,7 +276,7 @@ export default function App() {
 
   return (
     <Router>
-      <Navbar links={currentThreadGroups} />
+      <Navbar />
       <div className="mainDiv page-content">
         <Routes>
           <Route

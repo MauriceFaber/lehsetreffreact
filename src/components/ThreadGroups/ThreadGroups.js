@@ -3,6 +3,7 @@ import { useAuth } from "../../contexts/Authentication";
 import Breadcrumb from "../Breadcrumb/Breadcrumb";
 import ThreadGroup from "./ThreadGroup";
 import "./ThreadGroups.css";
+import "../Loader/Loader.css";
 
 /**
  *
@@ -19,18 +20,32 @@ export default function ThreadGroups({ groups, deleteThreadGroup }) {
   return (
     <div>
       <Breadcrumb />
+      {groups && groups.length === 0 ? (
+        <p className="noMessagesWarning">Noch keine Threads vorhanden.</p>
+      ) : null}
       <div className="flex-container wrap">
-        {groups.map((group) => {
-          const key = `threadGroup_${group.id}`;
-          return (
-            <ThreadGroup
-              className="flex-item"
-              key={key}
-              threadGroup={group}
-              deleteThreadGroup={deleteThreadGroup}
-            />
-          );
-        })}
+        {groups ? (
+          groups.map((group) => {
+            const key = `threadGroup_${group.id}`;
+            return (
+              <ThreadGroup
+                className="flex-item"
+                key={key}
+                threadGroup={group}
+                deleteThreadGroup={deleteThreadGroup}
+              />
+            );
+          })
+        ) : (
+          <div className="centered-loader">
+            <div className="lds-ellipsis">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        )}
       </div>
       {authenticated && isModerator ? (
         <a href="/addThreadGroup" className="addButton">

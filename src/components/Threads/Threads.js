@@ -16,7 +16,7 @@ import Breadcrumb from "../Breadcrumb/Breadcrumb";
 export default function Threads({ deleteThread }) {
   const { groupName } = useParams();
   const [group, setGroup] = useState();
-  const [threads, setThreads] = useState([]);
+  const [threads, setThreads] = useState();
 
   const { authenticated, isUser } = useAuth();
 
@@ -27,8 +27,6 @@ export default function Threads({ deleteThread }) {
   useEffect(async () => {
     if (group) {
       await loadThreads(groupName);
-    } else {
-      setThreads([]);
     }
   }, [group]);
 
@@ -75,19 +73,35 @@ export default function Threads({ deleteThread }) {
         <pre className="block">
           <i>{group?.description}</i>
         </pre>
+        {threads && threads.length === 0 ? (
+          <p className="noMessagesWarning">Noch keine Threads vorhanden.</p>
+        ) : null}
+        {!threads ? (
+          <div className="centered-loader">
+            <div className="lds-ellipsis">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        ) : null}
       </div>
+
       <div className="flex-container wrap">
-        {threads.map((thread, index) => {
-          const key = `thread_${thread.id}`;
-          return (
-            <Thread
-              className="flex-item"
-              key={key}
-              thread={thread}
-              deleteThread={onDeleteThread}
-            />
-          );
-        })}
+        {threads
+          ? threads.map((thread, index) => {
+              const key = `thread_${thread.id}`;
+              return (
+                <Thread
+                  className="flex-item"
+                  key={key}
+                  thread={thread}
+                  deleteThread={onDeleteThread}
+                />
+              );
+            })
+          : null}
       </div>
       {authenticated && isUser ? (
         <a href={`/${groupName}/addThread`} className="addButton">

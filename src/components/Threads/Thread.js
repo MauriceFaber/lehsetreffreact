@@ -9,14 +9,14 @@ import { trimMax } from "../ThreadGroups/ThreadGroup";
  * Ruft den Thread ab.
  * @param {Function} thread
  * Der Thread.
- * @param {Function} deleteThread 
+ * @param {Function} deleteThread
  * Loeschen des Threads.
- * @returns 
+ * @returns
  * Ansicht des Threads.
  * Falls Besitzer oder Moderator, erzeuge Delete Button.
  */
 export default function ThreadGroup({ thread, deleteThread }) {
-  const { user, authenticated, isModerator } = useAuth();
+  const { user, authenticated, isModerator, isUser } = useAuth();
   const [isOwner, setOwner] = useState(false);
 
   async function onDeleteThread() {
@@ -43,7 +43,7 @@ export default function ThreadGroup({ thread, deleteThread }) {
       </Link>
       <h5>Besitzer: {thread.owner.userName}</h5>
       <p className="threadGroupDescription">{thread.description}</p>
-      {isOwner || isModerator ? (
+      {isUser && (isOwner || isModerator) ? (
         <ul className="actionList">
           <li>
             <a
