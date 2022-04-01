@@ -21,7 +21,7 @@ export default function ThreadGroups({ groups, deleteThreadGroup }) {
     <div>
       <Breadcrumb />
       {groups && groups.length === 0 ? (
-        <p className="noMessagesWarning">Noch keine Threads vorhanden.</p>
+        <p className="noMessagesWarning">Noch keine Threadgruppen vorhanden.</p>
       ) : null}
       <div className="flex-container wrap">
         {groups ? (
